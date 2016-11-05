@@ -1,4 +1,4 @@
-Feature: RF001 - CadastroUsuario
+Feature: CadastroUsuario
 
   Scenario: User Registration
     Given I am not registered yet and my username "gustavo" and password "12345"
