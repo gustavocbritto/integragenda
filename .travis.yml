@@ -11,4 +11,4 @@ before_script:
  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 
 script:
-  - mvn clean install sonar:sonar
+  - mvn clean install sonar:sonar -Dmaven.test.skip=false
