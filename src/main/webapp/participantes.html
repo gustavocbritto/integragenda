@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Participantes</title>
+		<link rel="stylesheet" type="text/css" href="css/estilo.css"/>
+		<link rel="stylesheet" type="text/css" href="css/integragendaCSS.css"/>
+		<script type="text/javascript" src="js/validador.js"></script>
+		
+	</head>
+	<body>
+	<div class= "background">
+		<div class="cabecalho">
+			<form>
+			<button class="buttonCabecalhoLogo vermelho" formaction="selecaoSala.html"><img class="selecaoSalasLogo" src="img/menu-options.png" alt="Logo"></button>
+			<div class="dropdown floatRight">
+				<button class="buttonCabecalho vermelho floatRight"><i class="avatar"></i>Usuário</button>
+				<div class="dropdown-content floatRight">
+					<a href="Login.html">Entrar</a>
+					<a href="Cadastro.html">Cadastrar</a>
+					<a href="meuPerfil.html">Perfil</a>
+				</div>
+			</div>
+			<button class="buttonCabecalho vermelho" formaction="minhaAgenda.html"><i class="agenda"></i>Minha Agenda</button>
+			<button class="buttonCabecalho vermelho" formaction="minhasSalas.html"><i class="minhasSalas"></i>Minhas Salas</button>
+        </form>		
+		</div>
+		<h1 class="titulotxt">Agenda Pessoal</h1>
+		<table class="table">
+			<tr class="tr">
+				<th class="th">Horário Inicio</th>
+				<th class="th">Horário Fim</th> 
+				<th class="th">Sala</th>
+				<th class="th">Local</th>
+			</tr>
+			<tr class="tr">
+				<td class="td">12/12/212 12:00</td>
+				<td class="td">12/12/212 14:00</td> 
+				<td class="td">5</td>
+				<td class="td">Vitoria-ES</td>
+			</tr>
+		</table><br>
+		<table class="table email" id="tabela">
+			<tr class="tr">
+				<th class="th">Email</th>
+				<th class="th">Remover</th>
+			</tr>
+			<tr class="tr" >
+				<td class="td">mergh.bruno@gmail.com</td>
+				<td class="td"><input type="button" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" name="menos1" id="menos1" value="-" /></td>
+			</tr>
+			<tr class="tr">
+				<td class="td">bruno@gmail.com</td>
+				<td class="td"><input type="button" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" name="menos1" id="menos2" value="-" /></td>
+			</tr>
+			<tr class="tr">
+				<td class="td">gustavo.britto@gmail.com</td>
+				<td class="td"><input type="button" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" name="menos1" id="menos3" value="-" /></td>
+			</tr>
+			<tr class="tr" id="linhaParaClonar">
+				<td class="td" ><input type="text"  class="noBorder" /></td>
+				<td class="td"><input type="button" onclick="deleteRow(this.parentNode.parentNode.rowIndex)"  name="menos1" id="menos4" value="-" /></td>
+			</tr>
+		</table><br>
+		<div class="participantesSub">
+			<input  type="submit" value="Adicionar novo" onclick="clonarLinha()">
+		</div>
+	</div>
+		<br>
+		<br>
+		<a href="javascript:window.history.go(-1)">Voltar</a>
+	<footer class= "rodape">
+		<p>&copy;2016 Dell'Britto Soluções</p>
+	</footer>
+	</body>
+</html>
