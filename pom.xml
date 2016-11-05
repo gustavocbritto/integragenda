@@ -16,15 +16,19 @@
 
         <!-- Codificacao -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>    
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
+        <cucumber.version>1.2.4</cucumber.version>
+        <junit.version>4.11</junit.version>
+            
     </properties>
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
     
     <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
 <dependency>
@@ -32,7 +36,22 @@
     <artifactId>primefaces</artifactId>
     <version>5.3</version>
 </dependency>
-    
+
+<dependency>
+    <groupId>info.cukes</groupId>
+    <artifactId>cucumber-java</artifactId>
+    <version>1.2.4</version>
+    <scope>test</scope>
+</dependency>
+
+<dependency>
+    <groupId>info.cukes</groupId>
+    <artifactId>cucumber-junit</artifactId>
+    <version>1.2.4</version>
+    <scope>test</scope>
+</dependency>
+
+
   </dependencies>
   <build>
     <finalName>integragenda</finalName>

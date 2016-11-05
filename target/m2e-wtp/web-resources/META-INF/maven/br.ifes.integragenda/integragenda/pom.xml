@@ -7,13 +7,28 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>integragenda Maven Webapp</name>
   <url>http://maven.apache.org</url>
+   <properties>
+	<maven.test.skip>true</maven.test.skip>	    
+        <!--- Configuracao do Sonar-->
+
+        <sonar.host.url>https://sonarqube.com</sonar.host.url>
+	<sonar.login>e0e48b5f5381921e52c601da37bfabe42095e273</sonar.login>    
+
+        <!-- Codificacao -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
+        <cucumber.version>1.2.4</cucumber.version>
+        <junit.version>4.11</junit.version>
+            
+    </properties>
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
     
     <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
 <dependency>
@@ -21,7 +36,22 @@
     <artifactId>primefaces</artifactId>
     <version>5.3</version>
 </dependency>
-    
+
+<dependency>
+    <groupId>info.cukes</groupId>
+    <artifactId>cucumber-java</artifactId>
+    <version>1.2.4</version>
+    <scope>test</scope>
+</dependency>
+
+<dependency>
+    <groupId>info.cukes</groupId>
+    <artifactId>cucumber-junit</artifactId>
+    <version>1.2.4</version>
+    <scope>test</scope>
+</dependency>
+
+
   </dependencies>
   <build>
     <finalName>integragenda</finalName>
