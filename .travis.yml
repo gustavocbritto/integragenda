@@ -12,3 +12,6 @@ before_script:
 
 script:
   - mvn clean install sonar:sonar -Dmaven.test.skip=false
+  
+notifications:
+  slack: integragenda:D6kydUY1wzAKAbdLPmre18wr
