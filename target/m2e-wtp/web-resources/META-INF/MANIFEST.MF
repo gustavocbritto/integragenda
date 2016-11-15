@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: gusta
-Build-Jdk: 1.8.0_101
+Built-By: Bruno
+Build-Jdk: 1.8.0_60
 Created-By: Maven Integration for Eclipse
 
