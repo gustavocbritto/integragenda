@@ -48,7 +48,7 @@ public class SalaDAO extends DAO {
 
 		open();
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT categoria, idSalaUtensilio, tamanhoMin, tamanhoMax, preco, localizacao, descricao, idAdministrador, idPessoa, estrela, status, idSalaImagem FROM sala");
+		rs = st.executeQuery("SELECT categoria, idSalaUtensilio, tamanhoMin, tamanhoMax, preco, descricao, idAdministrador, idPessoa, estrela, status, idSalaImagem FROM sala");
 
 		while (rs.next()) {
 			salaUtensilio = salaUtensilioDAO.consulta(rs
