@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Usuario cadastrado</title>
+</head>
+<h:body>
+	<h1>Usuário Cadastrado</h1>
+	<hr></hr>
+	Nome: <h:outputText value="#{usuario.pessoa.nome}"/> <br/>
+	Email: <h:outputLink value="#{usuario.pessoa.email}" >
+	<h:outputText value="#{usuario.pessoa.email}"/>
+		</h:outputLink> <br/>
+		Senha: <h:outputText value="#{usuario.pessoa.senha}"/><br/>
+	<hr/>
+	<h:form>
+		<h:commandLink action="index" value="Inicio"/>
+	</h:form>	
+</h:body>
+</html>
