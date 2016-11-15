@@ -8,8 +8,8 @@ public class Sala {
 	SalaUtensilio salaUtensilio;
 	int tamanhoMin, tamanhoMax;
 	SalaImagem salaImagem;
-	Double preço;
-	String localização;
+	Double preco;
+	String localizacao;
 	String descricao;
 	Administrador administrador;
 	Pessoa pessoa;
@@ -19,7 +19,7 @@ public class Sala {
 
 	public Sala(String categoria, SalaUtensilio salaUtensilio,
 			int tamanhoMin, int tamanhoMax, SalaImagem salaImagem,
-			Double preço, String localização, String descricao,
+			Double preco, String localizacao, String descricao,
 			Administrador administrador, Pessoa pessoa, int estrela,
 			Boolean status) {
 		super();
@@ -28,8 +28,8 @@ public class Sala {
 		this.tamanhoMin = tamanhoMin;
 		this.tamanhoMax = tamanhoMax;
 		this.salaImagem = salaImagem;
-		this.preço = preço;
-		this.localização = localização;
+		this.preco = preco;
+		this.localizacao = localizacao;
 		this.descricao = descricao;
 		this.administrador = administrador;
 		this.pessoa = pessoa;
@@ -85,20 +85,20 @@ public class Sala {
 		this.tamanhoMax = tamanhoMax;
 	}
 
-	public Double getPreço() {
-		return preço;
+	public Double getPreco() {
+		return preco;
 	}
 
-	public void setPreço(Double preço) {
-		this.preço = preço;
+	public void setPreco(Double preco) {
+		this.preco = preco;
 	}
 
-	public String getLocalização() {
-		return localização;
+	public String getLocalizacao() {
+		return localizacao;
 	}
 
-	public void setLocalização(String localização) {
-		this.localização = localização;
+	public void setLocalizacao(String localizacao) {
+		this.localizacao = localizacao;
 	}
 
 	public String getDescricao() {
