@@ -3,53 +3,47 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core">
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
 	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
 	<script type="text/javascript" src="resources/js/validador.js"></script>
-	<title>Usuario</title>
+	<ui:define name="titulo">
+    	<title>Usuario</title>
+    </ui:define>
+	
 </head>
 <h:body class="background">
-	<div class="cabecalho">
-		<form>
-			<button class="buttonCabecalhoLogo vermelho" formaction="selecaoSala.html"><img class="selecaoSalasLogo" src="resources/img/menu-options.png" alt="Logo"></img></button>
-			<div class="dropdown floatRight">
-				<button class="buttonCabecalho vermelho floatRight"><i class="avatar"></i>Usuário</button>
-				<div class="dropdown-content floatRight">
-					<a href="Login.html">Entrar</a>
-					<a href="Cadastro.html">Cadastrar</a>
-					<a href="meuPerfil.html">Perfil</a>
-				</div>
-			</div>
-			<button class="buttonCabecalho vermelho" formaction="minhaAgenda.html"><i class="agenda"></i>Minha Agenda</button>
-			<button class="buttonCabecalho vermelho" formaction="minhasSalas.html"><i class="minhasSalas"></i>Minhas Salas</button>
-	     </form>		
-	</div>
-	<h1 class="nomes nomelogin">Cadastro de usuário</h1>
-	<h:form>
-	<h:messages/>
-	<h:panelGrid class= "fieldset" columns="2">
-	<h:outputLabel value="Nome:" for="nome"/>
-		<h:inputText id="nome" label="Nome" value="#{usuario.pessoa.nome}" required="true"/>
 	
-	<h:outputLabel value="Sobrenome:" for="sobrenome"/>
-		<h:inputText id="sobrenome" label="Sobrenome" value="#{usuario.pessoa.sobrenome}" required="true"/>
-	
-	 <h:outputLabel value="e-Mail" for="email" />
-		 <h:inputText id="email" label="e-mail" value="#{usuario.pessoa.email}"/>
-	 
-	 <h:outputLabel value="Senha:" for="senha" />
-	 	<h:inputText id="senha" label="Senha" value="#{usuario.pessoa.senha}" required="true"/>
-	 
-	 <h:outputLabel value="Confirmar Senha:" for="confirmarsenha" />
-	 	<h:inputSecret id="confirmarsenha" label="Confirmar Senha" value="#{usuario.pessoa.confirmarsenha}" required="true"/>
-	 <h:outputText/>
-	 
-	 <h:commandButton class="buttoncenter" action="#{usuario.salvar}" value="Salvar"/>
-	
-	</h:panelGrid>
-	</h:form>
+	<ui:composition template="/template.xhtml">
+		<ui:define name="conteudo">
+			<h1 class="nomes nomelogin">Cadastro de usuário</h1>
+			<h:form>
+			<h:messages/>
+			<h:panelGrid class= "fieldset" columns="2">
+			<h:outputLabel value="Nome:" for="nome"/>
+				<h:inputText id="nome" label="Nome" value="#{usuario.pessoa.nome}" required="true"/>
+			
+			<h:outputLabel value="Sobrenome:" for="sobrenome"/>
+				<h:inputText id="sobrenome" label="Sobrenome" value="#{usuario.pessoa.sobrenome}" required="true"/>
+			
+			 <h:outputLabel value="Email" for="email" />
+				 <h:inputText id="email" label="e-mail" value="#{usuario.pessoa.email}"/>
+			 
+			 <h:outputLabel value="Senha:" for="senha" />
+			 	<h:inputText id="senha" label="Senha" value="#{usuario.pessoa.senha}" required="true"/>
+			 
+			 <h:outputLabel value="Confirmar Senha:" for="confirmarsenha" />
+			 	<h:inputSecret id="confirmarsenha" label="Confirmar Senha" value="#{usuario.pessoa.confirmarsenha}" required="true"/>
+			 <h:outputText/>
+			 
+			 <h:commandButton class="buttonEntrar vermelho" action="#{usuario.salvar}" value="Cadastrar"/>
+			
+			</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
 </h:body>
 </html>
