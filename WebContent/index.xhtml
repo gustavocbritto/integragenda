@@ -3,14 +3,39 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core">
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Sistema</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
+	<script type="text/javascript" src="resources/js/validador.js"></script>
+	<ui:define name="titulo">
+    	<title>Início</title>
+    </ui:define>
+	
 </head>
-<h:body>
-	<h:form>
-		<h:commandLink action="#{usuarioBean.novo}" value="Novo Usuário"/>
-	</h:form>
-</h:body>
+	<h:body >
+		<div class="background full entrada">
+		
+			<ui:insert name="cabecalho" >
+	            <ui:include src="cabecalho.xhtml" />
+	        </ui:insert> 
+					
+			<div class="centraliza">
+				<h1 class="titulo">As melhores salas, com os melhores preços</h1>
+				<h2 class="subtitulo">Escolha sua cidade:</h2>
+				<form>
+					<div>
+						<label for="cidade"></label>
+						<input class ="searchCidade" type="text" placeholder="Ex: Vitória" id="cidade"></input>
+					</div>
+					<div>
+						<button class="buttonEntrada vermelho" formaction="selecaoSala.html">Buscar!</button>
+					</div>
+				</form>
+			
+			</div>
+		</div>
+	</h:body>
 </html>
