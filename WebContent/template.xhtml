@@ -10,31 +10,30 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
 	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
 	<script type="text/javascript" src="resources/js/validador.js"></script>
-	<ui:define name="conteudo">
-	<title>Template</title>
-	</ui:define>
+	<ui:insert name="titulo">
+		
+	</ui:insert>
 </head>
 <body class = "background">
-	
-	<ui:insert>
- 
-		<div class="cabecalho">
-			<form>
-			<button class="buttonCabecalhoLogo vermelho" formaction="selecaoSala.html"><img class="selecaoSalasLogo" src="img/menu-options.png" alt="Logo"/></button>
-			<div class="dropdown floatRight">
-				<button class="buttonCabecalho vermelho floatRight"><i class="avatar"></i>Usuário</button>
-				<div class="dropdown-content floatRight">
-					<a href="Login.html">Entrar</a>
-					<a href="Cadastro.html">Cadastrar</a>
-					<a href="meuPerfil.html">Perfil</a>
-				</div>
+
+
+	<div class="cabecalho">
+		<form>
+		<button class="buttonCabecalhoLogo vermelho" formaction="selecaoSala.html"><img class="selecaoSalasLogo" src="resources/img/menu-options.png" alt="Logo"/></button>
+		<div class="dropdown floatRight">
+			<button class="buttonCabecalho vermelho floatRight"><i class="avatar"></i>Usuário</button>
+			<div class="dropdown-content floatRight">
+				<a href="Login.html">Entrar</a>
+				<a href="Cadastro.html">Cadastrar</a>
+				<a href="meuPerfil.html">Perfil</a>
 			</div>
-			<button class="buttonCabecalho vermelho" formaction="minhaAgenda.html"><i class="agenda"></i>Minha Agenda</button>
-			<button class="buttonCabecalho vermelho" formaction="minhasSalas.html"><i class="minhasSalas"></i>Minhas Salas</button>
-        </form>		
 		</div>
-	
-	</ui:insert>
-	
+		<button class="buttonCabecalho vermelho" formaction="minhaAgenda.html"><i class="agenda"></i>Minha Agenda</button>
+		<button class="buttonCabecalho vermelho" formaction="minhasSalas.html"><i class="minhasSalas"></i>Minhas Salas</button>
+       </form>		
+	</div>
+	<ui:insert name="conteudo">
+              
+    </ui:insert>
 </body>
 </html>
