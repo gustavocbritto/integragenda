@@ -18,26 +18,7 @@ public class Sala {
 	int numeroSala;
 
 
-	public Sala(String categoria, SalaUtensilio salaUtensilio,
-			int tamanhoMin, int tamanhoMax, SalaImagem salaImagem,
-			Double preco, String localizacao, String descricao,
-			Administrador administrador, Pessoa pessoa, int estrela,
-			Boolean status, int numeroSala) {
-		super();
-		this.categoria = categoria;
-		this.salaUtensilio = salaUtensilio;
-		this.tamanhoMin = tamanhoMin;
-		this.tamanhoMax = tamanhoMax;
-		this.salaImagem = salaImagem;
-		this.preco = preco;
-		this.localizacao = localizacao;
-		this.descricao = descricao;
-		this.administrador = administrador;
-		this.pessoa = pessoa;
-		this.estrela = estrela;
-		this.status = status;
-		this.numeroSala = numeroSala;
-	}
+
 	
 	public Sala(String localizacao, int numeroSala){
 		super();
