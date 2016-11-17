@@ -14,7 +14,7 @@ public class SalaDAO extends DAO {
 	public void inserir(Sala sala) throws Exception {
 		open();
 		stmt = con
-				.prepareStatement("INSERT INTO sala(categoria, idSalaUtensilio, tamanhoMin, tamanhoMax, preço, localizacao, descricao, idAdministrador, idPessoa, estrela, status, idSalaImagem) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+				.prepareStatement("INSERT INTO sala(categoria, idSalaUtensilio, tamanhoMin, tamanhoMax, preï¿½o, localizacao, descricao, idAdministrador, idPessoa, estrela, status, idSalaImagem) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
 		stmt.setString(1, sala.getCategoria());
 		stmt.setInt(2, sala.getSalaUtensilio().getIdSalaUtensilio());
 		stmt.setInt(3, sala.getTamanhoMin());
@@ -57,17 +57,17 @@ public class SalaDAO extends DAO {
 			administrador = administradorDAO.consulta(rs
 					.getInt("idAdministrador"));
 			pessoa = pessoaDAO.consulta(rs.getInt("idPessoa"));
-			sala = new Sala(rs.getString("categoria"), salaUtensilio,
+			/*sala = new Sala(rs.getString("categoria"), salaUtensilio,
 					rs.getInt("tamanhoMin"), rs.getInt("tamanhoMax"),
 					salaImagem, rs.getDouble("preco"),
 					rs.getString("localizacao"), rs.getString("descricao"),
 					administrador, pessoa, rs.getInt("estrela"),
-					rs.getBoolean("status"));
-			sala.setSalaUtensilio(salaUtensilio);
+					rs.getBoolean("status"));*/
+			/*sala.setSalaUtensilio(salaUtensilio);
 			sala.setSalaImagem(salaImagem);
 			sala.setAdministrador(administrador);
 			sala.setPessoa(pessoa);
-			salas.add(sala);
+			salas.add(sala);*/
 		}
 
 		close();
