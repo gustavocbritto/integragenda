@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
+	<script type="text/javascript" src="resources/js/validador.js"></script>
+	<ui:define name="titulo">
+    	<title>Minha Agenda</title>
+    </ui:define>
+	
+</h:head>
+
+<h:body class="background">
+	
+	<ui:composition template="/template.xhtml">
+		<ui:define name="conteudo">
+		
+			<p:dataTable var="agenda" value="#{dtBasicView.agendas}">
+				<p:column headerText="Horário Início">
+					<h:outputText value="#{agenda.horaInicio}" />
+				</p:column>
+				 
+				<p:column headerText="Horário Fim">
+					<h:outputText value="#{agenda.horaFim}" />
+				</p:column>
+				 
+				<p:column headerText="Sala">
+					<h:outputText value="#{agenda.sala.numeroSala}" />
+				</p:column>
+				 
+				<p:column headerText="Local">
+					<h:outputText value="#{agenda.sala.localizacao}" />
+				</p:column>
+				
+				<p:column headerText="Quantidade de Participantes">
+					<h:outputText value="#{agenda.getNumeroParticipantes()}" />
+				</p:column>
+				
+				<p:column headerText="Confirmado">
+					<div class="checkboxConfirmar"><input  type="checkbox" name="confirmado" value="true"></input></div>
+				</p:column>
+				
+				<p:column headerText="Cancelar">
+					<input type="button" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" name="menos1" id="menos1" value="-" ></input>
+				</p:column>
+					
+			</p:dataTable>
+
+
+			<a href="javascript:window.history.go(-1)">Voltar</a>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

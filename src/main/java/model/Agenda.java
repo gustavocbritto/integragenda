@@ -1,8 +1,11 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Agenda {
 	
-	int idAgenda;
+	int id;
 	String horaInicio;
 	String horaFim;
 	int numeroSala;
@@ -10,31 +13,28 @@ public class Agenda {
 	int qtdParticipantes;
 	Boolean status;
 	Sala sala;
+	List<Participante> participantes = new ArrayList<Participante>();
 
-	public Agenda(int idAgenda, String horaInicio, String horaFim,
-			int numeroSala, String local, int qtdParticipantes, Boolean status,
+	public Agenda(int idAgenda, String horaInicio, String horaFim, Boolean status,
 			Sala sala) {
 		super();
-		this.idAgenda = idAgenda;
+		this.id = idAgenda;
 		this.horaInicio = horaInicio;
 		this.horaFim = horaFim;
-		this.numeroSala = numeroSala;
-		this.local = local;
-		this.qtdParticipantes = qtdParticipantes;
 		this.status = status;
 		this.sala = sala;
 	}
 
-	public int getIdAgenda() {
-		return idAgenda;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdAgenda(int idAgenda) {
-		this.idAgenda = idAgenda;
+	public void setId(int idAgenda) {
+		this.id = idAgenda;
 	}
 
 	public String getHoraInicio() {
-		return horaInicio;
+		return this.horaInicio;
 	}
 
 	public void setHoraInicio(String horaInicio) {
@@ -88,7 +88,34 @@ public class Agenda {
 	public void setSala(Sala sala) {
 		this.sala = sala;
 	}
+
+	public List<Participante> getParticipantes() {
+		return participantes;
+	}
+
+	public void setParticipantes(List<Participante> participantes) {
+		this.participantes = participantes;
+	}
+
+	public void addParticipante(Participante participante)
+	{
+		this.participantes.add(participante);
+	}
 	
+	public void removerParticipante(Participante participante)
+	{
+		this.participantes.remove(participante);
+	}
+	
+	public int getNumeroParticipantes()
+	{
+		if(participantes == null){
+			return 0;
+		}else{
+			return this.participantes.size();
+		}
+	}
+
 	
 	
 }
