@@ -19,41 +19,58 @@ xmlns:p="http://primefaces.org/ui">
 </h:head>
 
 <h:body class="background">
-	
+	 
 	<ui:composition template="/template.xhtml">
 		<ui:define name="conteudo">
 		
-			<p:dataTable var="agenda" value="#{dtBasicView.agendas}">
-				<p:column headerText="Horário Início">
-					<h:outputText value="#{agenda.horaInicio}" />
-				</p:column>
-				 
-				<p:column headerText="Horário Fim">
-					<h:outputText value="#{agenda.horaFim}" />
-				</p:column>
-				 
-				<p:column headerText="Sala">
-					<h:outputText value="#{agenda.sala.numeroSala}" />
-				</p:column>
-				 
-				<p:column headerText="Local">
-					<h:outputText value="#{agenda.sala.localizacao}" />
-				</p:column>
-				
-				<p:column headerText="Quantidade de Participantes">
-					<h:outputText value="#{agenda.getNumeroParticipantes()}" />
-				</p:column>
-				
-				<p:column headerText="Confirmado">
-					<div class="checkboxConfirmar"><input  type="checkbox" name="confirmado" value="true"></input></div>
-				</p:column>
-				
-				<p:column headerText="Cancelar">
-					<input type="button" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" name="menos1" id="menos1" value="-" ></input>
-				</p:column>
+			<h:form>
+				<p:dataTable var="agenda" value="#{angendaBean.agendas}">
+					<p:column headerText="Horário Início">
+						<h:outputText value="#{agenda.horaInicio}" />
+					</p:column>
+					 
+					<p:column headerText="Horário Fim">
+						<h:outputText value="#{agenda.horaFim}" />
+					</p:column>
+					 
+					<p:column headerText="Sala">
+						<h:outputText value="#{agenda.sala.numeroSala}" />
+					</p:column>
+					 
+					<p:column headerText="Local">
+						<h:outputText value="#{agenda.sala.localizacao}" />
+					</p:column>
 					
-			</p:dataTable>
-
+					<p:column headerText="Quantidade de Participantes">
+						<h:outputText value="#{agenda.getNumeroParticipantes()}" />
+					</p:column>
+					
+					<p:column headerText="Confirmado">
+						<p:growl id="messageConfirmar" showDetail="true"/> 
+						
+				        <p:selectBooleanCheckbox value="#{agenda.status}">
+				            <p:ajax update="messageConfirmar" listener="#{angendaBean.confirmar}" />
+				        </p:selectBooleanCheckbox>
+			
+					</p:column>
+					
+					<p:column headerText="Cancelar">
+					  
+						<p:growl id="messageCancelar" showDetail="true" />
+	   					<p:commandButton value="-" actionListener="#{agendaBean.cancelar}" update="messageCancelar">
+	       					<p:confirm header="Confirmation" message="Tem Certeza?" icon="ui-icon-alert" />
+	   					</p:commandButton>
+	
+					    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					    </p:confirmDialog>
+					    
+					    
+					</p:column>
+					
+				</p:dataTable>
+			</h:form>
 
 			<a href="javascript:window.history.go(-1)">Voltar</a>
 		</ui:define>

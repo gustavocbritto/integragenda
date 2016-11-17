@@ -46,7 +46,7 @@ public class agendaService {
     public List<Agenda> createAgendas(int size) {
         List<Agenda> list = new ArrayList<Agenda>();
         for(int i = 0 ; i < size ; i++) {
-            list.add(new Agenda(1, getRandonDataInicio(), getRandonDataFim(), true, new Sala("Ed.Castro Alves", 115)));
+            list.add(new Agenda(1, getRandonDataInicio(), getRandonDataFim(), getRandomStatus(), new Sala("Ed.Castro Alves", 115)));
         }
          
         return list;
@@ -76,8 +76,16 @@ public class agendaService {
         return email[(int) (Math.random() * 10)];
     }
      
-    public int getRandomPrice() {
-        return (int) (Math.random() * 100000);
+    public boolean getRandomStatus() {
+       if (Math.random() * 1000 > 500)
+       {
+    	   return false;
+       }
+       else
+       {
+    	   return true;  
+       }
+
     }
      
     public boolean getRandomSoldState() {
