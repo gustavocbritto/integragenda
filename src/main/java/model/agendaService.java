@@ -46,7 +46,7 @@ public class agendaService {
     public List<Agenda> createAgendas(int size) {
         List<Agenda> list = new ArrayList<Agenda>();
         for(int i = 0 ; i < size ; i++) {
-            list.add(new Agenda(1, getRandonDataInicio(), getRandonDataFim(), getRandomStatus(), new Sala("Ed.Castro Alves", 115)));
+            list.add(new Agenda(i+1, getRandonDataInicio(), getRandonDataFim(), getRandomStatus(), new Sala("Ed.Castro Alves", 115)));
         }
          
         return list;

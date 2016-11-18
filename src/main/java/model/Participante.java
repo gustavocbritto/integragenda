@@ -6,9 +6,9 @@ public class Participante {
 	String email;
 	Sala Sala;
 	
-	public Participante(int idParticipantes, String email, model.Sala sala) {
+	public Participante(String email, model.Sala sala) {
 		super();
-		this.idParticipantes = idParticipantes;
+		//this.idParticipantes = idParticipantes;
 		this.email = email;
 		Sala = sala;
 	}
