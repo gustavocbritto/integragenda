@@ -24,7 +24,7 @@ xmlns:p="http://primefaces.org/ui">
 		<ui:define name="conteudo">
 		
 			<h:form>
-				<p:dataTable var="agenda" value="#{angendaBean.agendas}">
+				<p:dataTable id="tabelaAgenda" var="agenda" value="#{agendaBean.agendas}">
 					<p:column headerText="Horário Início">
 						<h:outputText value="#{agenda.horaInicio}" />
 					</p:column>
@@ -42,14 +42,16 @@ xmlns:p="http://primefaces.org/ui">
 					</p:column>
 					
 					<p:column headerText="Quantidade de Participantes">
-						<h:outputText value="#{agenda.getNumeroParticipantes()}" />
+						<p:commandLink value="#{agenda.getNumeroParticipantes()}" actionListener="#{agendaBean.guardaAgenda(agenda)}" ajax="false"/>
+						
+					
 					</p:column>
 					
 					<p:column headerText="Confirmado">
 						<p:growl id="messageConfirmar" showDetail="true"/> 
 						
 				        <p:selectBooleanCheckbox value="#{agenda.status}">
-				            <p:ajax update="messageConfirmar" listener="#{angendaBean.confirmar}" />
+				            <p:ajax update="messageConfirmar" listener="#{agendaBean.confirmar(agenda)}" />
 				        </p:selectBooleanCheckbox>
 			
 					</p:column>
@@ -57,8 +59,8 @@ xmlns:p="http://primefaces.org/ui">
 					<p:column headerText="Cancelar">
 					  
 						<p:growl id="messageCancelar" showDetail="true" />
-	   					<p:commandButton value="-" actionListener="#{agendaBean.cancelar}" update="messageCancelar">
-	       					<p:confirm header="Confirmation" message="Tem Certeza?" icon="ui-icon-alert" />
+	   					<p:commandButton value="-" actionListener="#{agendaBean.cancelar(agenda)}" update="messageCancelar tabelaAgenda">
+	       					<p:confirm header="Confirmação" message="Tem Certeza?" icon="ui-icon-alert" />
 	   					</p:commandButton>
 	
 					    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

@@ -97,11 +97,33 @@ public class Agenda {
 		this.participantes = participantes;
 	}
 
-	public void addParticipante(Participante participante)
+	public void adicionarParticipante(Participante participante)
 	{
 		this.participantes.add(participante);
 	}
 	
+	public void adicionarNovoParticipante(String email)
+	{
+		if(!temEmailRepetido(email))
+		{
+			Participante participante = new Participante(email, this.sala);
+			this.participantes.add(participante);
+		}
+	}
+	
+	public boolean temEmailRepetido(String email)
+	{
+		boolean achou = false;
+		for(Participante p: participantes)
+		{
+			if(p.getEmail().equals(email))
+			{
+				achou = true;
+				break;
+			}
+		}
+		return achou;		
+	}
 	public void removerParticipante(Participante participante)
 	{
 		this.participantes.remove(participante);

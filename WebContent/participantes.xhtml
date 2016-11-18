@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
+	<script type="text/javascript" src="resources/js/validador.js"></script>
+	<ui:define name="titulo">
+    	<title>Participantes</title>
+    </ui:define>
+	
+</h:head>
+
+<h:body class="background">
+	 
+	<ui:composition template="/template.xhtml">
+		<ui:define name="conteudo">
+			<h1 class="titulotxt">Agenda Pessoal</h1>
+				<h:form>
+
+					
+					<p:dataTable id="tabelaAgenda" var="agendaAtual" value="#{agendaBean.agendaAtual}">
+						<p:column headerText="Horário Início">
+							<h:outputText value="#{agendaAtual.horaInicio}" />
+						</p:column>
+						 
+						<p:column headerText="Horário Fim">
+							<h:outputText value="#{agendaAtual.horaFim}" />
+						</p:column>
+						 
+						<p:column headerText="Sala">
+							<h:outputText value="#{agendaAtual.sala.numeroSala}" />
+						</p:column>
+						 
+						<p:column headerText="Local">
+							<h:outputText value="#{agendaAtual.sala.localizacao}" />
+						</p:column>
+											
+					</p:dataTable>
+				</h:form>
+				
+				<h:form>
+					
+					<p:dataTable id="tabelaParticipantes" var="participante" value="#{agendaBean.agendaAtual.participantes}">
+						<p:column headerText="Email">
+							<h:outputText value="#{participante.email}" />
+						</p:column>
+						 
+						<p:column headerText="Remover">
+							<p:growl id="messageCancelar" showDetail="true" />
+		   					<p:commandButton value="-" actionListener="#{agendaBean.agendaAtual.removerParticipante(participante)}" update="messageCancelar tabelaParticipantes">
+		       					<p:confirm header="Confirmação" message="Tem Certeza?" icon="ui-icon-alert" />
+		   					</p:commandButton>
+		
+						    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						    </p:confirmDialog>
+						</p:column>
+						
+					</p:dataTable>
+					<div class="centraliza" >
+						<p:inputText id="email" placeholder="Email..." value="#{agendaBean.email}"/>
+						<p:commandButton value="Adicionar" id="addParticipante"  update="tabelaParticipantes"/>
+							
+					</div>
+				</h:form>
+		
+
+			<a href="javascript:window.history.go(-1)">Voltar</a>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
