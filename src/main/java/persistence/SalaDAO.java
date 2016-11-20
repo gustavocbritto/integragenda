@@ -16,13 +16,13 @@ public class SalaDAO extends DAO {
 	public void inserir(Sala sala) throws Exception {
 		open();
 		stmt = con
-				.prepareStatement("INSERT INTO sala(categoria, idSalaUtensilio, tamanhoMin, tamanhoMax, pre�o, localizacao, descricao, idAdministrador, idPessoa, estrela, status, idSalaImagem) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
-		stmt.setString(1, sala.getCategoria());
+				.prepareStatement("INSERT INTO sala(idCategoria, idSalaUtensilio, tamanhoMin, tamanhoMax, pre�o, localizacao, descricao, idAdministrador, idPessoa, estrela, status, idSalaImagem) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+		stmt.setInt(1, sala.getCategoria().getId());
 		stmt.setInt(2, sala.getSalaUtensilio().getIdSalaUtensilio());
 		stmt.setInt(3, sala.getTamanhoMin());
 		stmt.setInt(4, sala.getTamanhoMax());
 		stmt.setDouble(5, sala.getPreco());
-		stmt.setString(6, sala.getLocalizacao());
+		stmt.setInt(6, sala.getLocalizacao().getId());
 		stmt.setString(7, sala.getDescricao());
 		stmt.setInt(8, sala.getAdministrador().getIdAdministrador());
 		stmt.setInt(9, sala.getPessoa().getId());

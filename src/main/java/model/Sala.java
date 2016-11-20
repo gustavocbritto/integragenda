@@ -65,11 +65,11 @@ public class Sala {
 		this.salaImagem = salaImagem;
 	}
 
-	public String getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
@@ -105,11 +105,11 @@ public class Sala {
 		this.preco = preco;
 	}
 
-	public String getLocalizacao() {
+	public Localizacao getLocalizacao() {
 		return localizacao;
 	}
 
-	public void setLocalizacao(String localizacao) {
+	public void setLocalizacao(Localizacao localizacao) {
 		this.localizacao = localizacao;
 	}
 

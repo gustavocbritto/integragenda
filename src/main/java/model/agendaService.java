@@ -46,7 +46,8 @@ public class agendaService {
     public List<Agenda> createAgendas(int size) {
         List<Agenda> list = new ArrayList<Agenda>();
         for(int i = 0 ; i < size ; i++) {
-            list.add(new Agenda(i+1, getRandonDataInicio(), getRandonDataFim(), getRandomStatus(), new Sala("Ed.Castro Alves", 115)));
+        	Localizacao localizacao = new Localizacao("Rua Pereira Pinto", 115, 902, "Vitoria", "ES", "Brasil");
+            list.add(new Agenda(i+1, getRandonDataInicio(), getRandonDataFim(), getRandomStatus(), new Sala(localizacao, 115)));
         }
          
         return list;
