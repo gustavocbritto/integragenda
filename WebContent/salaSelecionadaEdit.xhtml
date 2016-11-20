@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
+	<script type="text/javascript" src="resources/js/validador.js"></script>
+	<ui:define name="titulo">
+    	<title>Minha Agenda</title>
+    </ui:define>
+	
+</h:head>
+
+<h:body class="background">
+	 
+	<ui:composition template="/template.xhtml">
+		<ui:define name="conteudo">
+		
+			<h1 class="centraliza">Edição de Sala</h1>
+			<div class="Filtro_edit">
+
+				<div class="cabecalhoFiltro">
+					Inventário
+				</div>
+				<h:form>
+				    <p:accordionPanel multiple="true" class="listaInventario">
+				        <p:tab title="Categoria">
+				            <h:panelGrid columns="1" cellpadding="10">
+				            	<h:outputLabel for="name" value="Executivo" />				
+				            </h:panelGrid>
+				        </p:tab>
+				        
+				        <p:tab title="Utensílios">
+				            <h:panelGrid columns="1" cellpadding="10" style=" margin-right: 700px; width: 200px">
+								<h:outputLabel value="Datashow"  />
+								<h:outputLabel value="Televisão" />
+								<h:outputLabel value="Computador" />
+								
+				            </h:panelGrid>
+				        </p:tab>
+				        
+				        <p:tab title="Tamanho">
+				            <h:panelGrid columns="1" cellpadding="10" style=" margin-right: 700px; width: 200px">
+								<h:outputLabel value="2-10 Pessoas"  />
+								
+				            </h:panelGrid>
+				        </p:tab>
+				        
+				    </p:accordionPanel>
+			    </h:form>
+			    <div class="adicionarInventario">
+				    <h:form>
+					<p:growl id="msgs" showDetail="true" />
+					
+						<p:panel header="Selecione um Item">
+							<h:panelGrid columns="1" cellpadding="0">
+							    <p:outputLabel for="country" value="Categoria: " />
+							    <p:selectOneMenu id="country" value="#{dropdownView.country}">
+								    <p:ajax listener="#{dropdownView.onCountryChange}" update="city" />
+								    <f:selectItem itemLabel="Categoria" itemValue="" noSelectionOption="true" />
+								    <f:selectItems value="#{dropdownView.countries}" />
+								</p:selectOneMenu>
+							
+								<p:outputLabel for="city" value="Utensilio: " />
+								<p:selectOneMenu id="city" value="#{dropdownView.city}" >
+					                <f:selectItem itemLabel="Utensilio" itemValue="" noSelectionOption="true" />
+					                <f:selectItems value="#{dropdownView.cities}" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+						 
+				        	<p:separator />
+						 
+				        	<p:commandButton value="Submit" update="msgs" actionListener="#{dropdownView.displayLocation}" icon="ui-icon-check" class="verde alugarBtn"/>
+					    </p:panel>
+					</h:form>
+					</div>
+				</div>
+				<div class="salaSelecionada_edit containerSalaSelecionada left">
+					<h:form >
+						<p:growl id="msgs" showDetail="true" />
+						<p:panel id="toggleable" header="Sala" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" >
+						
+							<p:ajax event="close" listener="#{panelView.onClose}" update="msgs" />
+							<p:ajax event="toggle" listener="#{panelView.onToggle}" update="msgs" />
+							
+							 <h:panelGrid columns="1" cellpadding="4">
+							    <p:graphicImage class="imgSalaSelecionada" id="imgsala22" value="resources/img/sala1.jpg" />
+							    <br/>
+							    <h:outputLabel value="Link para localização GoogleMaps:" /><p:inputText />
+							    <h:outputLabel value="Preço(R$):" /><p:inputText />
+							    <h:outputLabel for="name" value="Localização:" />
+										<p:growl id="msgLocalizacao" showDetail="true" />
+								
+									    <p:outputLabel for="country" value="Pais: " />
+									    <p:selectOneMenu id="country" value="#{dropdownView.country}">
+										    <p:ajax listener="#{dropdownView.onCountryChange}" update="estado" />
+										    <f:selectItem itemLabel="pais" itemValue="" noSelectionOption="true" />
+										    <f:selectItems value="#{dropdownView.countries}" />
+										</p:selectOneMenu>
+										
+										<p:outputLabel for="estado" value="Estado: " />
+										<p:selectOneMenu id="estado" value="#{dropdownView.city}" >
+							                <f:selectItem itemLabel="Estado" itemValue="" noSelectionOption="true" />
+							                <f:selectItems value="#{dropdownView.cities}" />
+										</p:selectOneMenu>
+											
+										<p:outputLabel for="cidade" value="Cidade: " />
+										<p:selectOneMenu id="cidade" value="#{dropdownView.city}" >
+							                <f:selectItem itemLabel="Cidade" itemValue="" noSelectionOption="true" />
+							                <f:selectItems value="#{dropdownView.cities}" />
+										</p:selectOneMenu>
+										
+										<h:outputLabel value="Rua:" /><p:inputText />
+										
+										<h:outputLabel value="Numero:" /><p:inputText />
+										
+										<h:outputLabel value="Complemento:" /><p:inputText />	
+	
+							    <h:outputLabel for="name" value="Descrição:" />
+    							<p:inputTextarea rows="5" cols="30" counter="display" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" />
+    							<h:outputText id="display" />
+    							<div class="btnAlugarContainer">
+									<h:form>
+										<p:commandButton value="Salvar" class="verde alugarBtn" onclick="alert('Salvo com sucesso')"/>
+										<p:commandButton value="Cancelar" class="vermelho trocaCidadeBtn" formaction="minhasSalas.html"/>
+									</h:form>
+								</div>
+							</h:panelGrid>
+							
+							<f:facet name="options">
+							    <p:menu>
+							        <p:submenu label="Settings">
+							            <p:menuitem value="Toggle" url="#" icon="ui-icon-newwin" onclick="PF('panel').toggle()" />
+											<p:menuitem value="Remove" url="#" icon="ui-icon-close" onclick="PF('panel').close()" />
+							            </p:submenu>
+							        </p:menu>
+							    </f:facet>
+						</p:panel>
+					</h:form>
+				</div>
+			
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

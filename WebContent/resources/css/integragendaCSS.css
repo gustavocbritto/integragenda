@@ -279,7 +279,7 @@ div.desc {
 .containerSalaSelecionada {
     border: 1px solid #ccc;
     display: inline-block;
-    width: 400px;
+    width: 50%;
 }
 
 .Filtro{
@@ -633,14 +633,14 @@ button > a{
 
 .listaInventario
 {
-   border:1px solid #ccc;
-    border-bottom:none;
+   	border:1px solid #ccc;
+    /*border-bottom:none;*/
     background:#eee;
     color: black;
 }
 
 .listaInventario span {
-    padding:10px;
+    /*padding:10px;*/
     display:block;
 }
 
