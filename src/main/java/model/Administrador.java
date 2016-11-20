@@ -14,6 +14,11 @@ public class Administrador {
 		this.pessoa = pessoa;
 	}
 
+	public Administrador(String tipo, Pessoa pessoa) {
+		this.tipo = tipo;
+		this.pessoa = pessoa;
+	}
+
 	public int getIdAdministrador() {
 		return idAdministrador;
 	}

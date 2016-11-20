@@ -19,29 +19,23 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 	
 	<ui:composition template="/template.xhtml">
 		<ui:define name="conteudo">
-		
-		<h:panelGrid  class ="fieldset">
-			<h:panelGrid  class="nomes nomelogin"  style="padding-left: 100px">Login</h:panelGrid>
-			<h:form name="form1">
-			<h:panelGrid class= "fieldset" columns="2">
-						
-				<h:outputLabel value="Login" for="login"/>
-				<h:inputText id="login" label="Login" value="#{usuario.pessoa.nome}" required="true"/>
 			
 			
-				<h:outputLabel value="Senha" for="senha"/>
-				<h:inputSecret id="senha" label="Senha" value="#{usuario.pessoa.senha}" required="true"/>
-	
-			
-				 <h:commandButton class="buttonEntrar vermelho" action="#{usuario.verifica}" value="Entrar"/>
-		
-			</h:panelGrid>
-			</h:form>
-			</h:panelGrid>
-		<a href="javascript:window.history.go(-1)">Voltar</a>	
+				<h:form class="selecao_cidade" action="demo_form.asp" method="get">
+					<input class="selecao_cidade_size" list="browsers" name="browser" placeholder="Cidade"/>
+						<h:dataTable id="browsers">
+							<option value="Vitória"/>
+						</h:dataTable>
+					<input class="vermelho trocaCidadeBtn" type="submit" value="Trocar"/>
+				</h:form>
+				<h:form>
+					<button type="submit" class="vermelho trocaCidadeBtn" >Ir</button>
+				</h:form>
+				
+			</ui:define>
+			</ui:composition>
+			<a href="javascript:window.history.go(-1)">Voltar</a>	
 
-		</ui:define>
-	</ui:composition>
+	
 	</h:body>
 </html>
-

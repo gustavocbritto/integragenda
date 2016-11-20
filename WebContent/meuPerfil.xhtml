@@ -27,16 +27,16 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 				<h:inputText id="nomeP" label="Nome" value="#{usuario.pessoa.nome}" required="true"/>
 			
 				<h:outputLabel value="Sobrenome" for="sobrenome"/>
-				<h:inputText id="sobrenomeP" label="Sobrenome" value="#{usuario.pessoa.nome}" required="true"/>
+				<h:inputText id="sobrenomeP" label="Sobrenome" value="#{usuario.pessoa.sobrenome}" required="true"/>
 			
 				<h:outputLabel value="Email" for="email"/>
-				<h:inputText id="email" label="Email" value="#{usuario.pessoa.nome}" required="true"/>
+				<h:inputText id="email" label="Email" value="#{usuario.pessoa.email}" required="true"/>
 			
 				<h:outputLabel value="Telefone" for="telefone"/>
-				<h:inputText id="telefone" label="Telefone" value="#{usuario.pessoa.nome}" required="true"/>
+				<h:inputText id="telefone" label="Telefone" value="#{usuario.pessoa.telefone}" required="true"/>
 				
 				<h:outputLabel value="Sexo"/>
-				<h:selectOneRadio id="sexoRadio" value="#{usuario.pessoa.sexo}">  
+				<h:selectOneRadio id="sexoRadio" value="#{usuario.pessoa.sexo}">
 			        <f:selectItem itemLabel="Masculino" itemValue="M"  />  
 			        <f:selectItem itemLabel="Feminino" itemValue="F"/>  
 				</h:selectOneRadio> 

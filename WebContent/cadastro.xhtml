@@ -30,16 +30,25 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 				<h:inputText id="sobrenome" label="Sobrenome" value="#{usuario.pessoa.sobrenome}" required="true"/>
 			
 			 <h:outputLabel value="Email" for="email" />
-				 <h:inputText id="email" label="e-mail" value="#{usuario.pessoa.email}"/>
+				 <h:inputText id="email" label="Email" value="#{usuario.pessoa.email}"/>
+				 
+			<h:outputLabel value="Telefone" for="telefone" />
+				 <h:inputText id="telefone" label="Telefone" value="#{usuario.pessoa.telefone}"/>
+				 
+			<h:outputLabel value="Sexo"/>
+				<h:selectOneRadio id="sexoRadio" value="#{usuario.pessoa.sexo}">  
+			        <f:selectItem itemLabel="Masculino" itemValue="M"  />  
+			        <f:selectItem itemLabel="Feminino" itemValue="F"/>  
+			</h:selectOneRadio> 
 			 
-			 <h:outputLabel value="Senha:" for="senha" />
-			 	<h:inputText id="senha" label="Senha" value="#{usuario.pessoa.senha}" required="true"/>
+			<h:outputLabel value="Senha:" for="senha" />
+				<h:inputText id="senha" label="Senha" value="#{usuario.pessoa.senha}" required="true"/>
 			 
-			 <h:outputLabel value="Confirmar Senha:" for="confirmarsenha" />
+			<h:outputLabel value="Confirmar Senha:" for="confirmarsenha" />
 			 	<h:inputSecret id="confirmarsenha" label="Confirmar Senha" value="#{usuario.pessoa.confirmarsenha}" required="true"/>
-			 <h:outputText/>
+			<h:outputText/>
 			 
-			 <h:commandButton class="buttonEntrar vermelho" action="#{usuario.salvar}" value="Cadastrar"/>
+			<h:commandButton class="buttonEntrar vermelho" action="#{usuario.salvar}" value="Cadastrar"/>
 			
 			</h:panelGrid>
 			</h:form>

@@ -236,8 +236,13 @@
 }
 
 .imgSala {
-    width: 100%;
-    height: 180px;
+    width: 50%;
+    height: 100px;
+}
+
+#imgSala1 {
+    width: 50%;
+    height: 100px;
 }
 
 div.desc {
@@ -248,7 +253,7 @@ div.desc {
 .salas{
 	position: relative;
 	margin-left: 30%;
-	margin-top:	10%;
+	margin-top:0%;
 	margin-right: 10%;
 	height: auto;
 }

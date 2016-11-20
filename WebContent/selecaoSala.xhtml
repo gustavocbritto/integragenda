@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
+	<script type="text/javascript" src="resources/js/validador.js"></script>
+	<ui:define name="titulo">
+    	<title>Perfil</title>
+    </ui:define>
+	
+</head>
+<h:body class="background">
+	
+	<ui:composition template="/template.xhtml">
+		<ui:define name="conteudo">
+		<h1 class="titulotxt">Selecao Sala</h1>
+			<h:form>
+			<h:panelGrid columns="7" style="padding-left: 100px">
+					<p:outputLabel for="di" value="Data Inicial " />
+					<p:calendar id="di" value="#{d.dt_inicial}" locale="pt_BR" navigator="true" 
+					pattern="dd/MM/yyyy" />
+					
+					<p:outputLabel for="df" value="Data Final " />
+					<p:calendar id="df" value="#{d.dt_final}" locale="pt_BR" navigator="true" 
+					pattern="dd/MM/yyyy" />
+					
+					<p:outputLabel for="cidade" value="Cidade " />
+					<p:inputText id="cidade" label="Cidade" value="#{cidade}"></p:inputText>
+					
+					<h:commandButton class="buttonEntrar vermelho" action="#{usuario.verifica}" value="Consultar"/>	
+			</h:panelGrid>	
+		
+		
+		<h3>Filtros</h3>
+	    <p:accordionPanel multiple="true" style="position: absolute; width: 244px; font-size: 99%">
+	        <p:tab title="Categoria" titleStyle="margin-right: 700px; width: 200px">
+	            <h:panelGrid columns="1" cellpadding="10">
+					<p:selectBooleanCheckbox itemLabel="Executivo"/>
+					<p:selectBooleanCheckbox itemLabel="Casual" />
+					<p:selectBooleanCheckbox itemLabel="Auditorio"/>
+					
+	            </h:panelGrid>
+	        </p:tab>
+	        
+	        <p:tab title="Utensílios" titleStyle="margin-right: 700px; width: 200px">
+	            <h:panelGrid columns="1" cellpadding="10" style=" margin-right: 700px; width: 200px">
+					<p:selectBooleanCheckbox itemLabel="Datashow"  />
+					<p:selectBooleanCheckbox itemLabel="Televisão" />
+					<p:selectBooleanCheckbox itemLabel="Computador" />
+					
+	            </h:panelGrid>
+	        </p:tab>
+	        
+	        <p:tab title="Tamanho" titleStyle="margin-right: 700px; width: 200px">
+	            <h:panelGrid columns="1" cellpadding="10" style=" margin-right: 700px; width: 200px">
+					<p:selectBooleanCheckbox itemLabel="2-10 Pessoas"  />
+					<p:selectBooleanCheckbox itemLabel="11-20 Pessoas" />
+					<p:selectBooleanCheckbox itemLabel="Auditorio" />
+					
+	            </h:panelGrid>
+	        </p:tab>
+	        
+	    </p:accordionPanel>
+		
+			
+		
+		<h:form id="form" >
+			<p:dataGrid var="sala" value="#{usuario.data.salas}" columns="3" layout="grid"
+			    rows="12" paginator="true" id="salas"
+			    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			    rowsPerPageTemplate="6,12,16" style="padding-left: 243px">
+			
+			    <f:facet name="header">
+			        Salas para alugar
+			    </f:facet>
+			
+			    <p:panel header="#{sala.descricao}" style="text-align:center">
+			       <h:panelGrid columns="1" style="width:100%">
+					<p:graphicImage id="imgsala22" value="resources/img/sala1.jpg" style="height: 180px; width: 300px;" />
+			
+			           <h:outputText value="50,00" />
+			           
+			           <p:commandLink title="Detalhes">
+		                   <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+		                   <f:setPropertyActionListener value="#{sala}" target="#{usuario.data.salaSelecionada}" />
+		               </p:commandLink>
+			
+			           
+			        </h:panelGrid>
+			    </p:panel>
+			
+			</p:dataGrid>
+		
+		
+		</h:form>
+		
+		
+		
+	</h:form>
+	</ui:define>
+	</ui:composition>
+	</h:body>
+</html>

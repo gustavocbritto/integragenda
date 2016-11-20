@@ -4,12 +4,12 @@ package model;
 public class Sala {
 
 	int idSala;
-	String categoria;
+	Categoria categoria;
 	SalaUtensilio salaUtensilio;
 	int tamanhoMin, tamanhoMax;
 	SalaImagem salaImagem;
 	Double preco;
-	String localizacao;
+	Localizacao localizacao;
 	String descricao;
 	Administrador administrador;
 	Pessoa pessoa;
@@ -17,10 +17,24 @@ public class Sala {
 	Boolean status;
 	int numeroSala;
 
-
+	
 
 	
-	public Sala(String localizacao, int numeroSala){
+	public Sala(Categoria categoria, int tamanhoMin, int tamanhoMax, Double preco, Localizacao localizacao, String descricao, Administrador administrador, int estrela,
+			Boolean status) {
+		super();
+		this.categoria = categoria;
+		this.tamanhoMin = tamanhoMin;
+		this.tamanhoMax = tamanhoMax;
+		this.preco = preco;
+		this.localizacao = localizacao;
+		this.descricao = descricao;
+		this.administrador = administrador;
+		this.estrela = estrela;
+		this.status = status;
+	}
+
+	public Sala(Localizacao localizacao, int numeroSala){
 		super();
 		this.localizacao = localizacao;
 		this.numeroSala = numeroSala;

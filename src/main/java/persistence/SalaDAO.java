@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Administrador;
+import model.Categoria;
+import model.Localizacao;
 import model.Pessoa;
 import model.Sala;
 import model.SalaImagem;
@@ -35,39 +37,33 @@ public class SalaDAO extends DAO {
 	public List<Sala> consultar() throws Exception {
 
 		List<Sala> salas = new ArrayList<Sala>();
-		SalaUtensilioDAO salaUtensilioDAO = new SalaUtensilioDAO();
 		SalaImagemDAO salaImagemDAO = new SalaImagemDAO();
 		AdministradorDAO administradorDAO = new AdministradorDAO();
-		PessoaDAO pessoaDAO = new PessoaDAO();
-
-		Sala sala;
-		SalaUtensilio salaUtensilio;
-		SalaImagem salaImagem;
+		CategoriaDAO categoriaDAO = new CategoriaDAO();
+		LocalizacaoDAO localizacaoDAO = new LocalizacaoDAO();
+		
+		Sala sala = null;
 		Administrador administrador;
-		Pessoa pessoa;
+		Categoria categoria;
+		Localizacao localizacao;
 
 		open();
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT categoria, idSalaUtensilio, tamanhoMin, tamanhoMax, preco, localizacao, descricao, idAdministrador, idPessoa, estrela, status, idSalaImagem FROM sala");
+		rs = st.executeQuery("SELECT idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, idAdministrador, estrela, status FROM sala");
 
 		while (rs.next()) {
-			salaUtensilio = salaUtensilioDAO.consulta(rs
-					.getInt("idSalaUtensilio"));
-			salaImagem = salaImagemDAO.consulta(rs.getInt("idSalaImagem"));
+			categoria = categoriaDAO.consulta(rs
+					.getInt("idcategoria"));
 			administrador = administradorDAO.consulta(rs
 					.getInt("idAdministrador"));
-			pessoa = pessoaDAO.consulta(rs.getInt("idPessoa"));
-			/*sala = new Sala(rs.getString("categoria"), salaUtensilio,
-					rs.getInt("tamanhoMin"), rs.getInt("tamanhoMax"),
-					salaImagem, rs.getDouble("preco"),
-					rs.getString("localizacao"), rs.getString("descricao"),
-					administrador, pessoa, rs.getInt("estrela"),
-					rs.getBoolean("status"));*/
-			/*sala.setSalaUtensilio(salaUtensilio);
-			sala.setSalaImagem(salaImagem);
-			sala.setAdministrador(administrador);
-			sala.setPessoa(pessoa);
-			salas.add(sala);*/
+			localizacao = localizacaoDAO.consulta(rs.getInt("idLocalizacao"));
+			sala = new Sala(categoria, rs.getInt("tamanhomin"),
+					rs.getInt("tamanhomax"), rs.getDouble("preco"),
+					localizacao, rs.getString("descricao"),
+					administrador,rs.getInt("estrela"),
+					rs.getBoolean("status"));
+			salas.add(sala);
+
 		}
 
 		close();

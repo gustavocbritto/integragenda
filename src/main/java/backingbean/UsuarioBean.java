@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class UsuarioBean {
 	private String nome;
-	private String email;
+	private String email; //comentario pro git
 	private String senha;
 	private String confirmaSenha;
 
@@ -57,7 +57,7 @@ public class UsuarioBean {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Senha confirmada incorretamente",""));
 			return "usuario";
 		}
-		//salva o usuário
+		//salva o usuï¿½rio
 		return "mostraUsuario";
 	}
 

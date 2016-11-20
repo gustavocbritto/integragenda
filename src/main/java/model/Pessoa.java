@@ -15,8 +15,21 @@ public class Pessoa implements Serializable{
 	public int id;
 	public String nome, sobrenome, email, telefone, sexo, senha, confirmarsenha;
 	
-
+	public Pessoa(){
+		
+	}
 	
+	public Pessoa(String nome, String sobrenome, String email, String telefone, String sexo, String senha,
+			String confirmarsenha) {
+		super();
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.email = email;
+		this.telefone = telefone;
+		this.sexo = sexo;
+		this.senha = senha;
+		this.confirmarsenha = confirmarsenha;
+	}
 	public String getConfirmarsenha() {
 		return confirmarsenha;
 	}
