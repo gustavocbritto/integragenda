@@ -15,9 +15,9 @@ public class DAO {
 	protected ResultSet rs;
 	protected Statement st;
 	
-	String url="jdbc:postgresql://localhost:5432/Integragenda";
+	String url="jdbc:postgresql://localhost:5432/integragenda";
 	String usuario="postgres";
-	String senha= "2734";
+	String senha= "123456";
 	
 	protected void open()throws Exception{
 

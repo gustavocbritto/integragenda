@@ -22,10 +22,12 @@ import org.primefaces.event.CloseEvent;
 //ViewScoped
 public class AgendaBean implements Serializable {
  
-    /**
+
+	
+	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7793338733478542233L;
 	
 	private List<Agenda> agendas;
 	private Agenda agendaAtual;

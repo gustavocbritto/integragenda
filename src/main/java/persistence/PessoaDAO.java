@@ -18,12 +18,12 @@ public class PessoaDAO extends DAO{
 		
 		open();
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT id, nome, sobrenome, email, sexo, senha, confirmarsenha, telefone FROM Pessoa where id= "+idPessoa+"");
+		rs = st.executeQuery("SELECT id, nome, sobrenome, email, sexo, senha, confirmarsenha, teelfone FROM Pessoa where id= "+idPessoa+"");
 		
 		
 		if(rs.next())
 		{
-			pessoa = new Pessoa(rs.getString("nome"), rs.getString("sobrenome"), rs.getString("email"), rs.getString("sexo"),rs.getString("senha"),rs.getString("confirmarsenha"),rs.getString("telefone"));
+			pessoa = new Pessoa(rs.getString("nome"), rs.getString("sobrenome"), rs.getString("email"), rs.getString("sexo"),rs.getString("senha"),rs.getString("confirmarsenha"),rs.getString("teelfone"));
 		}
 		
 		close();

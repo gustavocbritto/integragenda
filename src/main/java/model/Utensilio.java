@@ -13,6 +13,12 @@ public class Utensilio {
 		this.quantidade = quantidade;
 	}
 	
+	public Utensilio(int idUtensilio, String nome) {
+		super();
+		this.idUtensilio = idUtensilio;
+		this.nome = nome;
+	}
+	
 	public int getIdUtensilio() {
 		return idUtensilio;
 	}

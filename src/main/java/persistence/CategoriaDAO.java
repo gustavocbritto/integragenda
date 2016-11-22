@@ -2,7 +2,6 @@ package persistence;
 
 import model.Categoria;
 import model.Sala;
-import model.SalaUtensilio;
 import model.Utensilio;
 
 public class CategoriaDAO extends DAO {

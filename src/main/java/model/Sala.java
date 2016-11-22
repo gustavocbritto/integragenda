@@ -1,11 +1,12 @@
 package model;
 
+import java.util.ArrayList;
 
 public class Sala {
 
 	int idSala;
 	Categoria categoria;
-	SalaUtensilio salaUtensilio;
+	ArrayList<Utensilio> utensilios;
 	int tamanhoMin, tamanhoMax;
 	SalaImagem salaImagem;
 	Double preco;
@@ -73,12 +74,12 @@ public class Sala {
 		this.categoria = categoria;
 	}
 
-	public SalaUtensilio getSalaUtensilio() {
-		return salaUtensilio;
+	public ArrayList<Utensilio> getUtensilios() {
+		return utensilios;
 	}
 
-	public void setSalaUtensilio(SalaUtensilio salaUtensilio) {
-		this.salaUtensilio = salaUtensilio;
+	public void setUtensilios(ArrayList<Utensilio> utensilios) {
+		this.utensilios = utensilios;
 	}
 
 	public int getTamanhoMin() {

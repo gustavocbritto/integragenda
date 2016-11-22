@@ -19,13 +19,14 @@ xmlns:p="http://primefaces.org/ui">
 </h:head>
 
 <h:body class="background">
-	 
+	
 	<ui:composition template="/template.xhtml">
 		<ui:define name="conteudo">
 		
 			<h1 class="centraliza">Edição de Sala</h1>
+			<h:messages id="msgs"/>
 			<div class="Filtro_edit">
-
+					
 				<div class="cabecalhoFiltro">
 					Inventário
 				</div>
@@ -33,21 +34,30 @@ xmlns:p="http://primefaces.org/ui">
 				    <p:accordionPanel multiple="true" class="listaInventario">
 				        <p:tab title="Categoria">
 				            <h:panelGrid columns="1" cellpadding="10">
-				            	<h:outputLabel for="name" value="Executivo" />				
+				            	<h:outputLabel for="name" value="#{editSalaBean.sala.categoria.descricao}" />				
 				            </h:panelGrid>
 				        </p:tab>
 				        
 				        <p:tab title="Utensílios">
-				            <h:panelGrid columns="1" cellpadding="10" style=" margin-right: 700px; width: 200px">
+						    <p:dataList value="#{editSalaBean.sala.utensilios}" var="utensilio">
+						         <p:commandLink title="View Detail" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px">
+						            <f:setPropertyActionListener value="#{car}" target="#{dataListView.selectedCar}" />
+						            <h:outputText value="#{car.brand}, #{car.year}" />
+						        </p:commandLink>
+						        <h:outputText value="#{utensilio.nome}, #{utensilio.quantidade}"/>
+						    </p:dataList>
+				        <!-- 
+				            <h:panelGrid columns="1" cellpadding="10">
 								<h:outputLabel value="Datashow"  />
 								<h:outputLabel value="Televisão" />
 								<h:outputLabel value="Computador" />
 								
 				            </h:panelGrid>
+				            -->
 				        </p:tab>
 				        
 				        <p:tab title="Tamanho">
-				            <h:panelGrid columns="1" cellpadding="10" style=" margin-right: 700px; width: 200px">
+				            <h:panelGrid columns="1" cellpadding="10">
 								<h:outputLabel value="2-10 Pessoas"  />
 								
 				            </h:panelGrid>
@@ -60,19 +70,22 @@ xmlns:p="http://primefaces.org/ui">
 					<p:growl id="msgs" showDetail="true" />
 					
 						<p:panel header="Selecione um Item">
-							<h:panelGrid columns="1" cellpadding="0">
+							<h:panelGrid columns="1" cellpadding="5">
 							    <p:outputLabel for="country" value="Categoria: " />
 							    <p:selectOneMenu id="country" value="#{dropdownView.country}">
-								    <p:ajax listener="#{dropdownView.onCountryChange}" update="city" />
+								    <!-- <p:ajax listener="#{dropdownView.onCountryChange}" update="utensilio" /> -->
 								    <f:selectItem itemLabel="Categoria" itemValue="" noSelectionOption="true" />
 								    <f:selectItems value="#{dropdownView.countries}" />
 								</p:selectOneMenu>
 							
-								<p:outputLabel for="city" value="Utensilio: " />
-								<p:selectOneMenu id="city" value="#{dropdownView.city}" >
-					                <f:selectItem itemLabel="Utensilio" itemValue="" noSelectionOption="true" />
-					                <f:selectItems value="#{dropdownView.cities}" />
+								<p:outputLabel value="Utensilio: " />
+	
+								<p:selectOneMenu value="#{editSalaBean.nomeU}">
+   									<f:selectItem itemLabel="Utensilio" itemValue="" />
+    								<f:selectItems value="#{editSalaBean.utensilios}" var="u" itemLabel="#{u.nome}" itemValue="#{u.idUtensilio}"  />
 								</p:selectOneMenu>
+
+            
 							</h:panelGrid>
 						 
 				        	<p:separator />
@@ -85,12 +98,16 @@ xmlns:p="http://primefaces.org/ui">
 				<div class="salaSelecionada_edit containerSalaSelecionada left">
 					<h:form >
 						<p:growl id="msgs" showDetail="true" />
-						<p:panel id="toggleable" header="Sala" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" >
+						<p:panel id="toggleable" header="Sala" toggleable="false" closable="false" toggleSpeed="500" closeSpeed="500" widgetVar="panel" >
 						
 							<p:ajax event="close" listener="#{panelView.onClose}" update="msgs" />
-							<p:ajax event="toggle" listener="#{panelView.onToggle}" update="msgs" />
 							
 							 <h:panelGrid columns="1" cellpadding="4">
+					        	<h:form enctype="multipart/form-data">
+									<p:growl id="messages" showDetail="true" />
+ 									<p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="false"/>
+ 									<p:commandButton value="Submit" ajax="true" actionListener="#{fileUploadView.upload}" disabled="false" />
+								</h:form>
 							    <p:graphicImage class="imgSalaSelecionada" id="imgsala22" value="resources/img/sala1.jpg" />
 							    <br/>
 							    <h:outputLabel value="Link para localização GoogleMaps:" /><p:inputText />
@@ -98,23 +115,22 @@ xmlns:p="http://primefaces.org/ui">
 							    <h:outputLabel for="name" value="Localização:" />
 										<p:growl id="msgLocalizacao" showDetail="true" />
 								
-									    <p:outputLabel for="country" value="Pais: " />
-									    <p:selectOneMenu id="country" value="#{dropdownView.country}">
-										    <p:ajax listener="#{dropdownView.onCountryChange}" update="estado" />
-										    <f:selectItem itemLabel="pais" itemValue="" noSelectionOption="true" />
-										    <f:selectItems value="#{dropdownView.countries}" />
+									    <p:outputLabel for="pais" value="Pais: " />
+									    <p:selectOneMenu id="pais">
+											<f:selectItem itemLabel="Brasil" itemValue="Brasil" />
 										</p:selectOneMenu>
 										
 										<p:outputLabel for="estado" value="Estado: " />
-										<p:selectOneMenu id="estado" value="#{dropdownView.city}" >
-							                <f:selectItem itemLabel="Estado" itemValue="" noSelectionOption="true" />
-							                <f:selectItems value="#{dropdownView.cities}" />
+										<p:selectOneMenu id="estado">
+								           <f:selectItem itemLabel="Espirito Santo" itemValue="ES" />
 										</p:selectOneMenu>
 											
 										<p:outputLabel for="cidade" value="Cidade: " />
 										<p:selectOneMenu id="cidade" value="#{dropdownView.city}" >
-							                <f:selectItem itemLabel="Cidade" itemValue="" noSelectionOption="true" />
-							                <f:selectItems value="#{dropdownView.cities}" />
+								           <f:selectItem itemLabel="Vitoria" itemValue="Vitoria" />
+								           <f:selectItem itemLabel="Vila-velha" itemValue="Vila-velha" />
+								           <f:selectItem itemLabel="Serra" itemValue="Serra" />
+								           <f:selectItem itemLabel="Cariacica" itemValue="Cariacica" />
 										</p:selectOneMenu>
 										
 										<h:outputLabel value="Rua:" /><p:inputText />
@@ -137,11 +153,11 @@ xmlns:p="http://primefaces.org/ui">
 							<f:facet name="options">
 							    <p:menu>
 							        <p:submenu label="Settings">
-							            <p:menuitem value="Toggle" url="#" icon="ui-icon-newwin" onclick="PF('panel').toggle()" />
-											<p:menuitem value="Remove" url="#" icon="ui-icon-close" onclick="PF('panel').close()" />
-							            </p:submenu>
-							        </p:menu>
-							    </f:facet>
+
+							            <p:menuitem value="Deletar" url="#" icon="ui-icon-newwin" onclick="PF('panel').toggle()" />
+						            </p:submenu>
+						        </p:menu>
+						    </f:facet>
 						</p:panel>
 					</h:form>
 				</div>
