@@ -26,22 +26,23 @@ import persistence.UtensilioDAO;
 //ViewScoped
 public class editSalaBean implements Serializable {
 
-
-	
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5290109662371105450L;
+	private static final long serialVersionUID = 4006378077934144057L;
+	
 	private Sala sala;
     private List<Utensilio> utensilios;
     private Utensilio utensilioSelecionado;
     private List<String> paises, estados, cidades, nomeUtensilios;
     private String nomeU;
-
+    private Utensilio utensilioSelecionadoRemover;
+    
 	//@ManagedProperty("#{utensilioService}")
    // private utensilioService service;
-	
+
+
 	@PostConstruct
     public void init() {
 		//O id da sala que vou testar, vai ser a do ID 1. Depois tem que mudar pra pegar o ID dinamicamente
@@ -68,6 +69,19 @@ public class editSalaBean implements Serializable {
 			System.out.println(e.getMessage());
 		}
     }
+	
+	public Utensilio getUtensilioSelecionadoRemover() {
+		return utensilioSelecionadoRemover;
+	}
+
+	public void setUtensilioSelecionadoRemover(Utensilio utensilioSelecionadoRemover) {
+		this.utensilioSelecionadoRemover = utensilioSelecionadoRemover;
+	}
+	
+	public void removerUtensilio()
+	{
+		addMessage(utensilioSelecionadoRemover.getNome(), "");
+	}
 	
 	public List<String> getNomeUtensilios() {
 		return nomeUtensilios;

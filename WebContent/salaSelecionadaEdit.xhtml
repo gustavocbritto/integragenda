@@ -40,9 +40,8 @@ xmlns:p="http://primefaces.org/ui">
 				        
 				        <p:tab title="Utensílios">
 						    <p:dataList value="#{editSalaBean.sala.utensilios}" var="utensilio">
-						         <p:commandLink title="View Detail" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px">
-						            <f:setPropertyActionListener value="#{car}" target="#{dataListView.selectedCar}" />
-						            <h:outputText value="#{car.brand}, #{car.year}" />
+						         <p:commandLink title="Remover Utensilio" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px">
+						            <f:setPropertyActionListener target="#{editSalaBean.utensilioSelecionadoRemover}" action="#{editSalaBean.removerUtensilio}" />
 						        </p:commandLink>
 						        <h:outputText value="#{utensilio.nome}, #{utensilio.quantidade}"/>
 						    </p:dataList>
