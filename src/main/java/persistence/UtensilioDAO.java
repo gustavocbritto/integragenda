@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import model.Utensilio;
 
-public class UtensilioDAO extends DAO{
+public class UtensilioDAO extends DAO {
 
 
 	public ArrayList<Utensilio> consultaSalaUtensilio(int idSala) throws Exception 
@@ -55,6 +55,32 @@ public class UtensilioDAO extends DAO{
 		close();
 		
 		return utensilios;
+	}
+
+	public void associarUtensilio(int idSala, Utensilio u) throws Exception
+	{
+		
+		open();
+		stmt = con.prepareStatement("INSERT INTO sala_utensilio (idsala, idutensilio, qtd) values (?,?,?);");
+		stmt.setInt(1, idSala);
+		stmt.setInt(2, u.getIdUtensilio());
+		stmt.setInt(3, u.getQuantidade());
+		stmt.execute();
+
+		close();
+	
+		
+	}
+
+	public void desassociarUtensilio(int idSala, Utensilio utensilio) throws Exception{
+		open();
+		stmt = con.prepareStatement("DELETE FROM SALA_UTENSILIO WHERE SALA_UTENSILIO.IDSALA = ? AND SALA_UTENSILIO.IDUTENSILIO = ?;");
+		stmt.setInt(1, idSala);
+		stmt.setInt(2, utensilio.getIdUtensilio());
+		stmt.execute();
+
+		close();
+		
 	}
 
 }

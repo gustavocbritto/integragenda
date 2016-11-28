@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Administrador;
 import model.Categoria;
+import model.Imagem;
 import model.Localizacao;
 import model.Pessoa;
 import model.Sala;
@@ -14,8 +15,8 @@ public class SalaDAO extends DAO {
 
 	public void inserir(Sala sala) throws Exception {
 		open();
-		stmt = con
-				.prepareStatement("INSERT INTO sala(idCategoria, tamanhoMin, tamanhoMax, preco, localizacao, descricao, idAdministrador, idPessoa, estrela, status) VALUES(?,?,?,?,?,?,?,?,?,?)");
+		stmt = con.prepareStatement("INSERT INTO sala(idCategoria, tamanhoMin, tamanhoMax, preco, localizacao, descricao, idAdministrador, idPessoa, estrela, status) VALUES(?,?,?,?,?,?,?,?,?,?)");
+		
 		stmt.setInt(1, sala.getCategoria().getId());
 		stmt.setInt(2, sala.getTamanhoMin());
 		stmt.setInt(3, sala.getTamanhoMax());
@@ -97,10 +98,56 @@ public class SalaDAO extends DAO {
 			utensilios = utensilioDAO.consultaSalaUtensilio(idSala);
 			sala.setUtensilios(utensilios);
 			sala.setNumeroSala(115);
+			sala.setIdSala(idSala);
 			sala.setImagens(imagemDAO.getImagensSala(idSala));
 		}
 
 		close();
 		return sala;
+	}
+
+	public void updateCategoria(int idSala, Categoria categoria) throws Exception {
+		open();
+		stmt = con.prepareStatement("update sala set idcategoria = "+ categoria.getId() +" where sala.id = "+ idSala);
+		stmt.executeUpdate();
+		close();
+	}
+
+	public void updateTamanhoMax(int idSala, int tamanhoMax) throws Exception {
+		open();
+		stmt = con.prepareStatement("update sala set tamanhomax = "+ tamanhoMax +" where sala.id = "+ idSala +";");
+		stmt.execute();
+		
+		close();
+		
+	}
+
+	public void salvar(Sala sala) throws Exception {
+		
+		open();
+		
+		stmt = con.prepareStatement("UPDATE SALA SET preco = ?, descricao = ?, estrela = ? where sala.id = ?");
+		
+		stmt.setDouble(1, sala.getPreco());
+		stmt.setString(2, sala.getDescricao());
+		stmt.setInt(3, sala.getEstrela());
+		stmt.setInt(4, sala.getIdSala());
+		sala.getLocalizacao().salvar();
+		stmt.executeUpdate();
+		close();
+		
+	}
+
+	public void associarImagem(int idSala, Imagem imagem) throws Exception {
+		open();
+		
+		stmt = con.prepareStatement("INSERT INTO SALA_IMAGEM (IDSALA, IDIMAGEM) VALUES(?,?)");
+		
+		stmt.setInt(1, idSala);
+		stmt.setInt(2, imagem.getIdImagem());
+		
+		stmt.executeUpdate();
+		close();
+		
 	}
 }

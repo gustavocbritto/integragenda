@@ -36,7 +36,7 @@ public class PessoaDAO extends DAO{
 		
 		open();
 		stmt = con.prepareStatement("INSERT INTO pessoa(\r\n" + 
-				"	nome, sobrenome, email, telefone, sexo, senha, confirmarsenha)\r\n" + 
+				"	nome, sobrenome, email, teelfone, sexo, senha, confirmarsenha)\r\n" + 
 				"	VALUES (?, ?, ?, ?, ?, ?, ?);");
 		stmt.setString(1, usuario.getPessoa().getNome());
 		stmt.setString(2, usuario.getPessoa().getSobrenome());
@@ -48,7 +48,7 @@ public class PessoaDAO extends DAO{
 		stmt.execute();
 		
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT id, nome, sobrenome, email, telefone, sexo, senha, confirmarsenha FROM Pessoa where email = '"+ usuario.getPessoa().getEmail() +"'");
+		rs = st.executeQuery("SELECT id, nome, sobrenome, email, teelfone, sexo, senha, confirmarsenha FROM Pessoa where email = '"+ usuario.getPessoa().getEmail() +"'");
 		int idPessoa = -1;
 		if (rs.next()) {
 			idPessoa = rs.getInt("id");
@@ -71,13 +71,13 @@ public class PessoaDAO extends DAO{
 		
 		open();
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT id, nome, sobrenome, email, telefone, sexo, senha, confirmarsenha \r\n"
+		rs = st.executeQuery("SELECT id, nome, sobrenome, email, teelfone, sexo, senha, confirmarsenha \r\n"
 				+ "FROM Pessoa where nome = '"+ usuario.getPessoa().getNome() +"' \r\n"+
 				"and senha = '"+ usuario.getPessoa().getSenha()  +"'");
 		if (rs.next()) {
 			usuario.getPessoa().setSobrenome(rs.getString("sobrenome"));
 			usuario.getPessoa().setEmail(rs.getString("email"));
-			usuario.getPessoa().setTelefone(rs.getString("telefone"));
+			usuario.getPessoa().setTelefone(rs.getString("teelfone"));
 			usuario.getPessoa().setSexo(rs.getString("sexo"));
 			usuario.getPessoa().setSenha(rs.getString("senha"));
 			usuario.getPessoa().setConfirmarsenha(rs.getString("confirmarsenha"));
