@@ -1,7 +1,13 @@
 package model;
 
-public class Localizacao {
+import java.io.Serializable;
+
+public class Localizacao implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1758740998354552631L;
 	int id, numero,complemento;
 	String rua, cidade, estado, pais;
 	public Localizacao(String rua, int numero, int complemento,  String cidade, String estado, String pais) {

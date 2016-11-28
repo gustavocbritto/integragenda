@@ -1,7 +1,13 @@
 package model;
 
-public class Utensilio {
+import java.io.Serializable;
+
+public class Utensilio implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5993153920494152336L;
 	int idUtensilio;
 	String nome;
 	int quantidade;

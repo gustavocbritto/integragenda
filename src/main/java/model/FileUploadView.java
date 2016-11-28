@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -8,9 +10,13 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
  
 @ManagedBean
-public class FileUploadView {
+public class FileUploadView implements Serializable{
      
-    private UploadedFile file;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4676708453685243523L;
+	private UploadedFile file;
  
     public UploadedFile getFile() {
         return file;
