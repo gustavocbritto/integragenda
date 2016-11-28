@@ -30,7 +30,7 @@ xmlns:p="http://primefaces.org/ui">
 				<div class="cabecalhoFiltro">
 					Inventário
 				</div>
-				<h:form>
+				<h:form id="formInventario">
 				    <p:accordionPanel multiple="true" class="listaInventario" id="itens">
 				        <p:tab title="Categoria">
 				            <h:panelGrid columns="1" cellpadding="10">
@@ -73,12 +73,12 @@ xmlns:p="http://primefaces.org/ui">
 								<p:outputLabel value="Inventario: " />
 								<p:selectOneMenu id="listaUtensilio" value="#{editSalaBean.nomeU}" rendered="#{editSalaBean.itemSelecionado == 'Utensilio'}">
    									<f:selectItem itemLabel="Utensilio" itemValue="" />
-    								<f:selectItems value="#{editSalaBean.utensilios}" var="u" itemLabel="#{u.nome}" itemValue="#{u.idUtensilio}"  />
+    								<f:selectItems value="#{editSalaBean.utensilios}" var="u" itemLabel="#{u.nome}" itemValue="#{u.nome}"  />
 								</p:selectOneMenu>
 								
 								<p:selectOneMenu id="listaCategoria" value="#{editSalaBean.nomeC}" rendered="#{editSalaBean.itemSelecionado == 'Categoria'}">
    									<f:selectItem itemLabel="Categoria" itemValue="" />
-    								<f:selectItems value="#{editSalaBean.categorias}" var="c" itemLabel="#{c.descricao}" itemValue="#{u.id}"  />
+    								<f:selectItems value="#{editSalaBean.categorias}" var="c" itemLabel="#{c.descricao}" itemValue="#{c.descricao}"  />
 								</p:selectOneMenu>
 								
 								<p:spinner id="tamMinMax" value="#{editSalaBean.tamanhoInserido}" min="0" max="100" rendered="#{editSalaBean.itemSelecionado == 'Tamanho'}"/>
@@ -88,7 +88,7 @@ xmlns:p="http://primefaces.org/ui">
 						 
 				        	<p:separator />
 						 
-				        	<p:commandButton value="Submit" update="msgs" actionListener="#{dropdownView.displayLocation}" icon="ui-icon-check" class="verde alugarBtn"/>
+				        	<p:commandButton value="Submit" update="msgs formInventario" actionListener="#{editSalaBean.salvarInventario}" icon="ui-icon-check" class="verde alugarBtn"/>
 					    </p:panel>
 					</h:form>
 					</div>
@@ -100,22 +100,25 @@ xmlns:p="http://primefaces.org/ui">
 						
 							<p:ajax event="close" listener="#{panelView.onClose}" update="msgs" />
 							
-							 <h:panelGrid columns="1" cellpadding="4">
-					        	<h:form enctype="multipart/form-data">
+						 	<h:panelGrid columns="1" cellpadding="4">
+				        		<h:form enctype="multipart/form-data">
 									<p:growl id="messages" showDetail="true" />
 									
- 									<p:fileUpload fileUploadListener="#{editSalaBean.upload}" mode="advanced" update="messages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+									<p:fileUpload fileUploadListener="#{editSalaBean.upload}" mode="advanced" update="messages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
  									  
 								</h:form>
 								
 							    <p:graphicImage class="imgSalaSelecionada" id="imgsala22" value="#{editSalaBean.sala.getImagemPrincipal()}" />
 							    <br/>
-							    
+						  	</h:panelGrid>
+							
+							<h:panelGrid columns="1" cellpadding="2">
 							    <h:outputLabel value="Link para localização GoogleMaps:" /><p:inputText />
-							    
 							    <h:outputLabel value="Preço(R$):" /><p:inputText value ="#{editSalaBean.sala.preco}"/>
-							    
-							    <h:outputLabel for="name" value="Localização:" />
+						     
+							     
+						    <h:outputLabel for="name" value="Localização:" />
+						    
 								<p:growl id="msgLocalizacao" showDetail="true" />
 						
 							    <p:outputLabel for="pais" value="Pais: " />
@@ -141,16 +144,15 @@ xmlns:p="http://primefaces.org/ui">
 								<h:outputLabel value="Numero:" /><p:inputText value="#{editSalaBean.sala.localizacao.numero}"/>
 								
 								<h:outputLabel value="Complemento:" /><p:inputText value="#{editSalaBean.sala.localizacao.complemento}"/>	
-	
+	 						
 							    <h:outputLabel for="name" value="Descrição:" />
     							<p:inputTextarea value="#{editSalaBean.sala.descricao}" rows="5" cols="30" counter="display" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" />
-    							
+    						</h:panelGrid>
+    						<h:panelGrid columns="2" cellpadding="4">	
     							<h:outputText id="display" />
     							<div class="btnAlugarContainer">
-									<h:form>
-										<p:commandButton value="Salvar" class="verde alugarBtn" onclick="alert('Salvo com sucesso')"/>
-										<p:commandButton value="Cancelar" class="vermelho trocaCidadeBtn" formaction="minhasSalas.html"/>
-									</h:form>
+									<p:commandButton value="Salvar" class="verde alugarBtn" actionListener="#{editSalaBean.salvarSala}" update="msgs"/>
+									<p:commandButton value="Cancelar" class="vermelho trocaCidadeBtn" formaction="minhasSalas.jsf"/>
 								</div>
 							</h:panelGrid>
 							

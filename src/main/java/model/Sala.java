@@ -3,6 +3,10 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import persistence.CategoriaDAO;
+import persistence.SalaDAO;
+import persistence.UtensilioDAO;
+
 public class Sala implements Serializable{
 
 
@@ -25,7 +29,8 @@ public class Sala implements Serializable{
 	int estrela;
 	Boolean status;
 	int numeroSala;
-
+	SalaDAO salaDAO = new SalaDAO();
+	UtensilioDAO utensilioDAO = new UtensilioDAO();
 	
 	public Sala(Categoria categoria, int tamanhoMin, int tamanhoMax, Double preco, Localizacao localizacao, String descricao, Administrador administrador, int estrela,
 			Boolean status) {
@@ -62,7 +67,7 @@ public class Sala implements Serializable{
 		this.numeroSala = numeroSala;
 	}
 	
-	public boolean removerUtensilio(Utensilio utensilio)
+	public boolean removerUtensilio(Utensilio utensilio) throws Exception
 	{
 		boolean retorno = false;
 		for(Utensilio u : utensilios)
@@ -72,7 +77,10 @@ public class Sala implements Serializable{
 				retorno = true;
 			}
 		}
-		if(retorno) {utensilios.remove(utensilio);}
+		if(retorno) {
+			utensilioDAO.desassociarUtensilio(idSala, utensilio);
+			utensilios.remove(utensilio);
+		}
 		return retorno;
 	}
 	public int getNumeroSala()
@@ -115,7 +123,8 @@ public class Sala implements Serializable{
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(Categoria categoria) throws Exception {
+		salaDAO.updateCategoria(idSala, categoria);
 		this.categoria = categoria;
 	}
 
@@ -139,7 +148,8 @@ public class Sala implements Serializable{
 		return tamanhoMax;
 	}
 
-	public void setTamanhoMax(int tamanhoMax) {
+	public void setTamanhoMax(int tamanhoMax) throws Exception{
+		salaDAO.updateTamanhoMax(idSala, tamanhoMax);
 		this.tamanhoMax = tamanhoMax;
 	}
 
@@ -197,6 +207,34 @@ public class Sala implements Serializable{
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public boolean addUtensilio(Utensilio novoU) throws Exception {
+		boolean retorno =  true;
+		for(Utensilio u: utensilios)
+		{
+			if(u.getNome().equals(novoU.getNome()))
+			{
+				retorno = false;
+			}
+		}
+		if(retorno)
+		{
+			utensilioDAO.associarUtensilio(idSala, novoU);
+			utensilios.add(novoU);
+		}
+		return retorno;
+	}
+
+	public boolean salvar() throws Exception{
+		boolean retorno = false;
+		
+		if(idSala > 0)
+			salaDAO.salvar(this);
+		else
+			salaDAO.inserir(this);
+		
+		return retorno;
 	}
 
 }

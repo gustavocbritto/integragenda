@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 
+import persistence.LocalizacaoDAO;
+
 public class Localizacao implements Serializable {
 	
 	/**
@@ -10,6 +12,7 @@ public class Localizacao implements Serializable {
 	private static final long serialVersionUID = -1758740998354552631L;
 	int id, numero,complemento;
 	String rua, cidade, estado, pais;
+	LocalizacaoDAO localizacaoDAO = new LocalizacaoDAO();
 	public Localizacao(String rua, int numero, int complemento,  String cidade, String estado, String pais) {
 		super();
 		this.numero = numero;
@@ -60,6 +63,9 @@ public class Localizacao implements Serializable {
 	}
 	public void setPais(String pais) {
 		this.pais = pais;
+	}
+	public void salvar() throws Exception{
+		localizacaoDAO.salvar(this);
 	}
 	
 	
