@@ -1,7 +1,13 @@
 package model;
 
-public class Participante {
+import java.io.Serializable;
+
+public class Participante implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7179751320118979931L;
 	int idParticipantes;
 	String email;
 	Sala Sala;

@@ -1,8 +1,14 @@
 package model;
 
-public class Administrador {
+import java.io.Serializable;
+
+public class Administrador implements Serializable{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5592210858454794266L;
 	int idAdministrador;
 	String tipo;
 	Pessoa pessoa;

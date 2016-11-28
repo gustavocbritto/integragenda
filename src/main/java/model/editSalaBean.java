@@ -1,5 +1,7 @@
 package model;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,10 +15,14 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CloseEvent;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
+import persistence.CategoriaDAO;
 import persistence.SalaDAO;
 import persistence.UtensilioDAO;
 
@@ -27,41 +33,88 @@ import persistence.UtensilioDAO;
 public class editSalaBean implements Serializable {
 
 	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4006378077934144057L;
-	
+	private static final long serialVersionUID = -4058681982352100311L;
 	private Sala sala;
     private List<Utensilio> utensilios;
-    private Utensilio utensilioSelecionado;
-    private List<String> paises, estados, cidades, nomeUtensilios;
-    private String nomeU;
+    private List<Categoria> categorias;
+	private Utensilio utensilioSelecionado;
+    private List<String> paises, estados, cidades;
+    private String nomeU, nomeC, nomeT;
     private Utensilio utensilioSelecionadoRemover;
+    private String itemSelecionado;
+    private List<String> listaItens;
+    private String tamanhoInserido;
+    private UploadedFile file;
     
 	//@ManagedProperty("#{utensilioService}")
    // private utensilioService service;
+    
+    public UploadedFile getFile(){
+        return file;
+    }
+ 
+    public void setFile(UploadedFile file){
+        this.file = file;
+    }
+     
+    public void upload(FileUploadEvent event) {
+    	file = event.getFile();
+    	try{
+    		//file = event.getFile();
+        if(file != null) {
+        	FacesContext aFacesContext = FacesContext.getCurrentInstance();
+        	ServletContext context = (ServletContext) aFacesContext.getExternalContext().getContext(); 
+        	String realPath =  context.getRealPath("/resources/img/");
+        	
+        	byte[] arquivo = file.getContents();
+        	String caminho = realPath + file.getFileName();
+            FileOutputStream fos = new FileOutputStream(caminho);
+            System.out.println(caminho);
+            fos.write(arquivo);
+            fos.close();
+            addMessage("Succesful", file.getFileName() + " is uploaded.");
+        }else
+        {
+        	 addMessage("TA NULL", "");
+        }
+    	}catch(Exception e)
+    	{
+    		addMessage(e.getMessage(), "");
+    	}
+    }
 
+	public String getTamanhoInserido() {
+		return tamanhoInserido;
+	}
+
+	public void setTamanhoInserido(String tamanhoInserido) {
+		this.tamanhoInserido = tamanhoInserido;
+	}
 
 	@PostConstruct
     public void init() {
 		//O id da sala que vou testar, vai ser a do ID 1. Depois tem que mudar pra pegar o ID dinamicamente
 		//Que vira do clique da sala na tela Minhas Salas
-		int idSala = 1;
+		int idSala = 2;
 		SalaDAO salaDAO = new SalaDAO();
 		UtensilioDAO utensilioDAO = new UtensilioDAO();
-		
-    	try 
+		CategoriaDAO categoriaDAO = new CategoriaDAO();
+		listaItens = new ArrayList<String>();
+		listaItens.add("Categoria");
+		listaItens.add("Utensilio");
+		listaItens.add("Tamanho");
+		try 
     	{
     		sala = salaDAO.consulta(idSala);
 			//utensilios = service.getUtensilios();
     		utensilios = utensilioDAO.getLista();
-    		nomeUtensilios = new ArrayList<String>();
+    		categorias = categoriaDAO.getLista();
     		addMessage("FOI: ", "");
-    		for(Utensilio u : utensilios)
-    		{
-    			nomeUtensilios.add(u.getNome());
-    		}
+
 		} 
     	catch (Exception e) 
     	{
@@ -70,6 +123,46 @@ public class editSalaBean implements Serializable {
 		}
     }
 	
+    public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public String getNomeC() {
+		return nomeC;
+	}
+
+	public void setNomeC(String nomeC) {
+		this.nomeC = nomeC;
+	}
+
+	public String getNomeT() {
+		return nomeT;
+	}
+
+	public void setNomeT(String nomeT) {
+		this.nomeT = nomeT;
+	}
+	
+	public String getItemSelecionado() {
+		return itemSelecionado;
+	}
+
+	public void setItemSelecionado(String itemSelecionado) {
+		this.itemSelecionado = itemSelecionado;
+	}
+
+	public List<String> getListaItens() {
+		return listaItens;
+	}
+
+	public void setListaItens(List<String> listaItens) {
+		this.listaItens = listaItens;
+	}
+
 	public Utensilio getUtensilioSelecionadoRemover() {
 		return utensilioSelecionadoRemover;
 	}
@@ -80,18 +173,23 @@ public class editSalaBean implements Serializable {
 	
 	public void removerUtensilio()
 	{
-		addMessage(utensilioSelecionadoRemover.getNome(), "");
+		if(utensilioSelecionadoRemover == null)
+		{
+			addMessage("Erro:", "Nao foi possivel remover!");
+		}else
+		{
+			if(sala.removerUtensilio(utensilioSelecionadoRemover))
+			{
+				addMessage("Removeu:", utensilioSelecionadoRemover.getNome());
+			}
+		}
 	}
 	
-	public List<String> getNomeUtensilios() {
-		return nomeUtensilios;
+	public void onItemChange()
+	{		
+		addMessage("MUDOU", "SIM");
 	}
-
-
-	public void setNomeUtensilios(List<String> nomeUtensilios) {
-		this.nomeUtensilios = nomeUtensilios;
-	}
-
+	
 
 	public String getNomeU() {
 		return nomeU;

@@ -1,14 +1,22 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Sala {
+public class Sala implements Serializable{
 
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4691961094499054539L;
+	
 	int idSala;
 	Categoria categoria;
 	ArrayList<Utensilio> utensilios;
+	ArrayList<Imagem> imagens;
 	int tamanhoMin, tamanhoMax;
-	SalaImagem salaImagem;
 	Double preco;
 	Localizacao localizacao;
 	String descricao;
@@ -19,11 +27,24 @@ public class Sala {
 	int numeroSala;
 
 	
-
-	
 	public Sala(Categoria categoria, int tamanhoMin, int tamanhoMax, Double preco, Localizacao localizacao, String descricao, Administrador administrador, int estrela,
 			Boolean status) {
 		super();
+		this.categoria = categoria;
+		this.tamanhoMin = tamanhoMin;
+		this.tamanhoMax = tamanhoMax;
+		this.preco = preco;
+		this.localizacao = localizacao;
+		this.descricao = descricao;
+		this.administrador = administrador;
+		this.estrela = estrela;
+		this.status = status;
+	}
+	
+	public Sala(int id, Categoria categoria, int tamanhoMin, int tamanhoMax, Double preco, Localizacao localizacao, String descricao, Administrador administrador, int estrela,
+			Boolean status) {
+		super();
+		this.idSala = id;
 		this.categoria = categoria;
 		this.tamanhoMin = tamanhoMin;
 		this.tamanhoMax = tamanhoMax;
@@ -41,6 +62,19 @@ public class Sala {
 		this.numeroSala = numeroSala;
 	}
 	
+	public boolean removerUtensilio(Utensilio utensilio)
+	{
+		boolean retorno = false;
+		for(Utensilio u : utensilios)
+		{
+			if(u.getIdUtensilio() == utensilio.getIdUtensilio())
+			{
+				retorno = true;
+			}
+		}
+		if(retorno) {utensilios.remove(utensilio);}
+		return retorno;
+	}
 	public int getNumeroSala()
 	{
 		return this.numeroSala;
@@ -57,13 +91,24 @@ public class Sala {
 	public void setIdSala(int idSala) {
 		this.idSala = idSala;
 	}
-	
-	public SalaImagem getSalaImagem() {
-		return salaImagem;
+
+	public String getImagemPrincipal()
+	{
+		String caminho = "";
+		for(Imagem i : imagens)
+		{
+			caminho = i.getUrl();
+			break;
+		}
+		return caminho;
 	}
 
-	public void setSalaImagem(SalaImagem salaImagem) {
-		this.salaImagem = salaImagem;
+	public ArrayList<Imagem> getImagens() {
+		return imagens;
+	}
+
+	public void setImagens(ArrayList<Imagem> imagens) {
+		this.imagens = imagens;
 	}
 
 	public Categoria getCategoria() {

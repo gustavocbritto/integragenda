@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,9 +11,14 @@ import javax.faces.bean.ManagedBean;
  
 @ManagedBean(name = "agendaService")
 @ApplicationScoped
-public class agendaService {
+public class agendaService implements Serializable{
      
-    private final static String[] colors;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 786673173999872843L;
+
+	private final static String[] colors;
      
     private final static String[] email;
    

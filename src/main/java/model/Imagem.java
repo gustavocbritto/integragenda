@@ -1,7 +1,13 @@
 package model;
 
-public class Imagem {
+import java.io.Serializable;
+
+public class Imagem implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8213513598404735672L;
 	int idImagem;
 	String url;
 	public Imagem(int idImagem, String url) {

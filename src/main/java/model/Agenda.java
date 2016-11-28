@@ -1,10 +1,15 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Agenda {
+public class Agenda implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -587723605723788740L;
 	int id;
 	String horaInicio;
 	String horaFim;
