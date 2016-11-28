@@ -237,4 +237,9 @@ public class Sala implements Serializable{
 		return retorno;
 	}
 
+	public void associarImagem(Imagem imagem) throws Exception {
+		
+		salaDAO.associarImagem(this.idSala, imagem);
+	}
+
 }

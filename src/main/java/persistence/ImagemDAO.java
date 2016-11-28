@@ -1,5 +1,6 @@
 package persistence;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import model.Imagem;
@@ -34,6 +35,25 @@ public class ImagemDAO extends DAO{
 		
 		return imagens;
 
+	}
+
+	public void inserir(Imagem imagem) throws Exception {	
+		open();
+		
+		stmt = con.prepareStatement("INSERT INTO IMAGEM (CAMINHO) VALUES (?) RETURNING ID;");
+		
+		stmt.setString(1, imagem.getUrl());
+
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next())
+		{
+			int idImagem = rs.getInt(1);
+			imagem.setIdImagem(idImagem);
+		}
+		
+		close();
 	}
 
 

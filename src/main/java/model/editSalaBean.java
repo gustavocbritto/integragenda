@@ -84,14 +84,15 @@ public class editSalaBean implements Serializable {
     }
     
     public void upload(FileUploadEvent event) {
+    	
     	file = event.getFile();
     	try{
     		//file = event.getFile();
         if(file != null) {
         	FacesContext aFacesContext = FacesContext.getCurrentInstance();
         	ServletContext context = (ServletContext) aFacesContext.getExternalContext().getContext(); 
-
-        	String realPath =  context.getRealPath("/resources/img/");
+        	String caminhoBase = "/resources/img/";
+        	String realPath =  context.getRealPath(caminhoBase);
         	//System.out.println(context.getContextPath());
         	byte[] arquivo = file.getContents();
         	String caminho = realPath + file.getFileName();
@@ -99,10 +100,13 @@ public class editSalaBean implements Serializable {
             System.out.println(caminho);
             fos.write(arquivo);
             fos.close();
+            Imagem imagem = new Imagem(caminhoBase+file.getFileName());
+            imagem.inserir();
+            sala.associarImagem(imagem);
             addMessage("Succesful", file.getFileName() + " is uploaded.");
         }else
         {
-        	 addMessage("TA NULL", "");
+        	 addMessage("ERRO:", "Nenhuma imagem selecionada.");
         }
     	}catch(Exception e)
     	{
