@@ -21,6 +21,7 @@ public class AdministradorDAO extends DAO{
 		{	
 			Pessoa pessoa = pessoaDAO.consulta(rs.getInt("idPessoa"));
 			administrador = new Administrador(rs.getString("tipo"), pessoa);
+			administrador.setIdAdministrador(idAdministrador);
 		}
 		
 		close();

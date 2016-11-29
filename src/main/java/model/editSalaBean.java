@@ -29,7 +29,7 @@ import persistence.UtensilioDAO;
 
  
 @ManagedBean(name="editSalaBean")
-@SessionScoped
+@ViewScoped
 //ViewScoped
 public class editSalaBean implements Serializable {
 
@@ -54,13 +54,17 @@ public class editSalaBean implements Serializable {
     @ManagedProperty(value = "#{usuario}")
     private Usuario usuario; 
 	
+    @ManagedProperty(value = "#{controleSalasBean}")
+    private ControleSalasBean controleSalasBean;
     
     @PostConstruct
     public void init() {
 		
 		//O id da sala que vou testar, vai ser a do ID 1. Depois tem que mudar pra pegar o ID dinamicamente
 		//Que vira do clique da sala na tela Minhas Salas
-		int idSala = 2;
+		int idSala = controleSalasBean.getSalaSelecionada().getIdSala();
+		controleSalasBean.setSalaSelecionada(null);
+		System.out.println(idSala);
 		SalaDAO salaDAO = new SalaDAO();
 		UtensilioDAO utensilioDAO = new UtensilioDAO();
 		CategoriaDAO categoriaDAO = new CategoriaDAO();
@@ -213,6 +217,11 @@ public class editSalaBean implements Serializable {
 	//Setter necessario para a anotação @ManagedProperty Funcionar corretamente =S
 		public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+		
+	//Setter necessario para a anotação @ManagedProperty Funcionar corretamente =S
+	public void setControleSalasBean(ControleSalasBean controleSalasBean) {
+		this.controleSalasBean = controleSalasBean;
 	}
 
     public UploadedFile getFile(){

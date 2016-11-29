@@ -20,19 +20,14 @@ xmlns:p="http://primefaces.org/ui">
 	
 	<ui:composition template="/template.xhtml">
 		<ui:define name="conteudo">
-		<h1 class="titulotxt">Selecao Sala</h1>
+		<h1 class="titulotxt">Minhas Salas</h1>
 			<h:form>
-				<h:panelGrid columns="7" style="padding-left: 25%">
-						<p:outputLabel for="di" value="Data Inicial " />
-						<p:calendar id="di" value="#{controleSalasBean.dt_inicial}" locale="pt_BR" navigator="true" pattern="dd/MM/yyyy" />
-						
-						<p:outputLabel for="df" value="Data Final " />
-						<p:calendar id="df" value="#{controleSalasBean.dt_final}" locale="pt_BR" navigator="true" pattern="dd/MM/yyyy" />
-						
+				<h:panelGrid columns="7" style="padding-left: 40%">
+								
 						<p:outputLabel for="cidade" value="Cidade " />
-						<p:inputText id="cidade" label="Cidade" value="#{controleSalasBean.cidadeSelecionada}"></p:inputText>
+						<p:inputText id="cidade" label="Cidade" value="#{controleMinhasSalasBean.cidadeSelecionada}"></p:inputText>
 						
-						<h:commandButton styleClass="buttonEntrar vermelho" action="#{controleSalasBean.buscaCidadeEData}" value="Consultar"/>	
+						<h:commandButton styleClass="buttonEntrar vermelho" action="#{controleMinhasSalasBean.buscaCidadeEData}" value="Consultar"/>	
 				</h:panelGrid>	
 			</h:form>
 		
@@ -45,16 +40,16 @@ xmlns:p="http://primefaces.org/ui">
 				    <p:accordionPanel multiple="true" class="listaInventario" id="itens">
 				        <p:tab title="Categoria">
 				            <h:panelGrid columns="2" cellpadding="0">
-				             	<p:commandLink rendered="#{controleSalasBean.categoriaFiltro != null}" update="formInventario form" title="Remover Filtro Categoria" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerCategoria}"/>
-				            	<h:outputLabel for="name" value="#{controleSalasBean.categoriaFiltro.descricao}" rendered="#{controleSalasBean.categoriaFiltro != null}"/>				
+				             	<p:commandLink rendered="#{controleMinhasSalasBean.categoriaFiltro != null}" update="formInventario form" title="Remover Filtro Categoria" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleMinhasSalasBean.removerCategoria}"/>
+				            	<h:outputLabel for="name" value="#{controleMinhasSalasBean.categoriaFiltro.descricao}" rendered="#{controleMinhasSalasBean.categoriaFiltro != null}"/>				
 				            </h:panelGrid>
 				        </p:tab>
 				        
 				        <p:tab title="Utensílios">
-						    <p:dataList id="listaUtensilio" value="#{controleSalasBean.utensiliosFiltro}" var="utensilio">
+						    <p:dataList id="listaUtensilio" value="#{controleMinhasSalasBean.utensiliosFiltro}" var="utensilio">
 						    <p:growl id="utensiliofeedback" showDetail="true"/> 
-					        	<p:commandLink update="utensiliofeedback listaUtensilio form" title="Remover Utensilio" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerUtensilio}">
-					           		<f:setPropertyActionListener target="#{controleSalasBean.utensilioSelecionadoRemover}" value="#{utensilio}" />
+					        	<p:commandLink update="utensiliofeedback listaUtensilio form" title="Remover Utensilio" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleMinhasSalasBean.removerUtensilio}">
+					           		<f:setPropertyActionListener target="#{controleMinhasSalasBean.utensilioSelecionadoRemover}" value="#{utensilio}" />
 						        </p:commandLink>
 						        <h:outputText value="#{utensilio.nome}"/>
 						    </p:dataList>
@@ -63,8 +58,8 @@ xmlns:p="http://primefaces.org/ui">
 				        <p:tab title="Tamanho">
 				            <h:panelGrid columns="2" cellpadding="0">
 				            
-					        <p:commandLink rendered="#{controleSalasBean.tamanhoInserido > 0}" update="formInventario form" title="Remover Filtro Tamanho" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerTamanho}"/>
-				            <h:outputLabel value="#{controleSalasBean.tamanhoInserido} Pessoas" rendered="#{controleSalasBean.tamanhoInserido > 0}"/>
+					        <p:commandLink rendered="#{controleMinhasSalasBean.tamanhoInserido > 0}" update="formInventario form" title="Remover Filtro Tamanho" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleMinhasSalasBean.removerTamanho}"/>
+				            <h:outputLabel value="#{controleMinhasSalasBean.tamanhoInserido} Pessoas" rendered="#{controleMinhasSalasBean.tamanhoInserido > 0}"/>
 				            
 				            </h:panelGrid>
 				        </p:tab>
@@ -78,31 +73,31 @@ xmlns:p="http://primefaces.org/ui">
 						<p:panel id="painel" header="Selecione um Item">
 							<h:panelGrid columns="1" cellpadding="5">
 							    <p:outputLabel for="tipo" value="Tipo Inventário: " />
-							    <p:selectOneMenu id="tipo" value="#{controleSalasBean.itemSelecionado}" >
+							    <p:selectOneMenu id="tipo" value="#{controleMinhasSalasBean.itemSelecionado}" >
 								    <f:selectItem itemLabel="Itens" itemValue="" noSelectionOption="true" />
-								    <f:selectItems value="#{controleSalasBean.listaItens}" />
+								    <f:selectItems value="#{controleMinhasSalasBean.listaItens}" />
 								    <p:ajax update="frm:painel" />
 								</p:selectOneMenu>
 
 								<p:outputLabel value="Inventario: " />
-								<p:selectOneMenu id="listaUtensilio" value="#{controleSalasBean.nomeU}" rendered="#{controleSalasBean.itemSelecionado == 'Utensilio'}">
+								<p:selectOneMenu id="listaUtensilio" value="#{controleMinhasSalasBean.nomeU}" rendered="#{controleMinhasSalasBean.itemSelecionado == 'Utensilio'}">
    									<f:selectItem itemLabel="Utensilio" itemValue="" />
-    								<f:selectItems value="#{controleSalasBean.utensilios}" var="u" itemLabel="#{u.nome}" itemValue="#{u.nome}"  />
+    								<f:selectItems value="#{controleMinhasSalasBean.utensilios}" var="u" itemLabel="#{u.nome}" itemValue="#{u.nome}"  />
 								</p:selectOneMenu>
 								
-								<p:selectOneMenu id="listaCategoria" value="#{controleSalasBean.nomeC}" rendered="#{controleSalasBean.itemSelecionado == 'Categoria'}">
+								<p:selectOneMenu id="listaCategoria" value="#{controleMinhasSalasBean.nomeC}" rendered="#{controleMinhasSalasBean.itemSelecionado == 'Categoria'}">
    									<f:selectItem itemLabel="Categoria" itemValue="" />
-    								<f:selectItems value="#{controleSalasBean.categorias}" var="c" itemLabel="#{c.descricao}" itemValue="#{c.descricao}"  />
+    								<f:selectItems value="#{controleMinhasSalasBean.categorias}" var="c" itemLabel="#{c.descricao}" itemValue="#{c.descricao}"  />
 								</p:selectOneMenu>
 								
-								<p:spinner id="tamMinMax" value="#{controleSalasBean.tamanhoInserido}" min="0" max="1000" rendered="#{controleSalasBean.itemSelecionado == 'Tamanho'}"/>
+								<p:spinner id="tamMinMax" value="#{controleMinhasSalasBean.tamanhoInserido}" min="0" max="1000" rendered="#{controleMinhasSalasBean.itemSelecionado == 'Tamanho'}"/>
 
             
 							</h:panelGrid>
 						 
 				        	<p:separator />
 						 
-				        	<p:commandButton value="Submit" update="msgs formInventario form" actionListener="#{controleSalasBean.adicionarFiltro}" icon="ui-icon-check" class="verde alugarBtn"/>
+				        	<p:commandButton value="Submit" update="msgs formInventario form" actionListener="#{controleMinhasSalasBean.adicionarFiltro}" icon="ui-icon-check" class="verde alugarBtn"/>
 					    </p:panel>
 					</h:form>
 					</div>
@@ -111,7 +106,7 @@ xmlns:p="http://primefaces.org/ui">
 			
 		
 		<h:form id="form" >
-			<p:dataGrid var="sala" value="#{controleSalasBean.salas}" columns="3" layout="grid"
+			<p:dataGrid var="sala" value="#{controleMinhasSalasBean.salas}" columns="3" layout="grid"
 			    rows="12" paginator="true" id="salas"
 			    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			    rowsPerPageTemplate="6,12,16" style="padding-left: 25%; margin-top: 5%;">
@@ -128,9 +123,9 @@ xmlns:p="http://primefaces.org/ui">
 				   		<p:rating value="#{sala.estrela}" />
 			           	<h:outputText value="#{sala.preco}" />
 			           
-			           	<p:commandLink id="comandoExibirSala" title="Detalhes" actionListener="#{controleSalasBean.exibirSala}">
+			           	<p:commandLink id="comandoExibirSala" title="Detalhes" actionListener="#{controleMinhasSalasBean.exibirSala}">
 		                   	<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
-		                   	<f:setPropertyActionListener for="comandoExibirSala" target="#{controleSalasBean.salaSelecionada}" value="#{sala}"/>
+		                   	<f:setPropertyActionListener for="comandoExibirSala" target="#{controleMinhasSalasBean.salaSelecionada}" value="#{sala}"/>
 		               	</p:commandLink>
 			
 			           

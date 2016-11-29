@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets">
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
@@ -18,19 +19,19 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 <body>
 <ui:composition>
 	<div class="cabecalho">
-		<form>
+		<h:form>
 		<button class="buttonCabecalhoLogo vermelho" formaction="selecaoSala.jsf"><img class="selecaoSalasLogo" src="resources/img/menu-options.png" alt="Logo"/></button>
 		<div class="dropdown floatRight">
-			<button class="buttonCabecalho vermelho floatRight"><i class="avatar"></i>Usuário</button>
+			<button class="buttonCabecalho vermelho floatRight"><i class="avatar"></i><p:outputLabel value="#{usuario.nomeAtual}"/></button>
 			<div class="dropdown-content floatRight">
-				<a href="Login.jsf">Entrar</a>
-				<a href="cadastro.jsf">Cadastrar</a>
-				<a href="meuPerfil.jsf">Perfil</a>
+				<p:commandLink actionListener="#{usuario.login}" rendered="#{usuario.nomeAtual == 'Usuario'}" value="Entrar" />
+				<p:commandLink actionListener="#{usuario.cadastro}" rendered="#{usuario.nomeAtual  == 'Usuario'}" value="Cadastrar" />
+				<p:commandLink actionListener="#{usuario.perfil}" rendered="#{usuario.nomeAtual != 'Usuario'}" value="Perfil"/>
 			</div>
 		</div>
 		<button class="buttonCabecalho vermelho" formaction="minhaAgenda.jsf"><i class="agenda"></i>Minha Agenda</button>
 		<button class="buttonCabecalho vermelho" formaction="minhasSalas.jsf"><i class="minhasSalas"></i>Minhas Salas</button>
-       </form>		
+       </h:form>		
 	</div>
 </ui:composition>
 </body>

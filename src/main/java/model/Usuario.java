@@ -1,17 +1,12 @@
 package model;
 
+import java.io.IOException;
 import java.io.Serializable;
-import java.sql.SQLException;
-import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import com.sun.javafx.collections.MappingChange.Map;
 
 import persistence.PessoaDAO;
 import persistence.SalaDAO;
@@ -24,11 +19,11 @@ public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = -7643404588198283069L;
 	
-	public int idUsuario;
-	public String tipo;
-	public Pessoa pessoa;
-	DataGridViewImagem data;
-	
+	private int idUsuario;
+	private String tipo;
+	private Pessoa pessoa;
+	ControleSalasBean data;
+	private String nomeAtual = "Usuario";
 
 	private Double preco;
 	
@@ -38,6 +33,28 @@ public class Usuario implements Serializable{
 		this.pessoa = new Pessoa();
 	}
 	
+	public void login() throws IOException
+	{
+		FacesContext.getCurrentInstance().getExternalContext().redirect("Login.jsf");
+	}
+	
+	public void cadastro() throws IOException
+	{
+		FacesContext.getCurrentInstance().getExternalContext().redirect("cadastro.jsf");
+	}
+	
+	public void perfil() throws IOException
+	{
+		FacesContext.getCurrentInstance().getExternalContext().redirect("meuPerfil.jsf");
+	}
+	public String getNomeAtual() {
+		return nomeAtual;
+	}
+
+	public void setNomeAtual(String nomeAtual) {
+		this.nomeAtual = nomeAtual;
+	}
+
 	public int getIdUsuario() {
 		return idUsuario;
 	}
@@ -88,31 +105,24 @@ public class Usuario implements Serializable{
 		
 		PessoaDAO pessoaDAO = new PessoaDAO();
 		FacesContext context = FacesContext.getCurrentInstance();
-		String retorno = pessoaDAO.verificaCadastro(this);
+		boolean retorno = pessoaDAO.verificaCadastro(this);
+		setNomeAtual(pessoa.getNome());
 		
-		
-		if (retorno.equals("selecaoSala")){
-			
-			SalaDAO salaDAO = new SalaDAO();
-			data = new DataGridViewImagem();
-			data.setSalas(salaDAO.consultar());
-			
-			data.init();
-				
-			return retorno;
+		if (retorno){
+			return "selecaoSala";
 		}else{
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Usuario ou Senha não cadastrado",""));
 			
 		}
 		
-		return retorno;
+		return "login";
 	}
 
-	public DataGridViewImagem getData() {
+	public ControleSalasBean getData() {
 		return data;
 	}
 
-	public void setData(DataGridViewImagem data) {
+	public void setData(ControleSalasBean data) {
 		this.data = data;
 	}
 

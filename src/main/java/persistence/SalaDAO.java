@@ -1,6 +1,7 @@
 package persistence;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.Administrador;
@@ -39,10 +40,12 @@ public class SalaDAO extends DAO {
 		CategoriaDAO categoriaDAO = new CategoriaDAO();
 		LocalizacaoDAO localizacaoDAO = new LocalizacaoDAO();
 		ImagemDAO imagemDAO =  new ImagemDAO();
+		UtensilioDAO utensilioDAO = new UtensilioDAO();
 		Sala sala = null;
 		Administrador administrador;
 		Categoria categoria;
 		Localizacao localizacao;
+		ArrayList<Utensilio> utensilios;
 
 		open();
 		st = con.createStatement();
@@ -60,6 +63,8 @@ public class SalaDAO extends DAO {
 					administrador,rs.getInt("estrela"),
 					rs.getBoolean("status"));
 			sala.setImagens(imagemDAO.getImagensSala(sala.getIdSala()));
+			utensilios = utensilioDAO.consultaSalaUtensilio(sala.getIdSala());
+			sala.setUtensilios(utensilios);
 			salas.add(sala);
 
 		}
@@ -149,5 +154,71 @@ public class SalaDAO extends DAO {
 		stmt.executeUpdate();
 		close();
 		
+	}
+
+	public boolean isDisponivel(int idSala, Date dt_inicial, Date dt_final) throws Exception {
+		
+		boolean retorno = false;
+		
+		open();
+		
+		stmt = con.prepareStatement("SELECT * FROM AGENDA WHERE DATAINICIO BETWEEN ? AND ? AND DATAFIM BETWEEN ? AND ? AND IDSALA = ?");
+		
+		stmt.setDate(1, new java.sql.Date (dt_inicial.getTime()));
+		stmt.setDate(2, new java.sql.Date (dt_final.getTime()));
+		stmt.setDate(3, new java.sql.Date (dt_inicial.getTime()));
+		stmt.setDate(4, new java.sql.Date (dt_final.getTime()));
+		stmt.setInt(5, idSala);
+		
+		rs = stmt.executeQuery();
+		
+		if(!rs.next())
+		{
+			retorno = true;
+		}
+		
+		close();
+		
+		return retorno;
+	}
+
+	public List<Sala> consultarPorUsuario(int idUsuario) throws Exception{
+		
+		List<Sala> salas = new ArrayList<Sala>();
+		AdministradorDAO administradorDAO = new AdministradorDAO();
+		CategoriaDAO categoriaDAO = new CategoriaDAO();
+		LocalizacaoDAO localizacaoDAO = new LocalizacaoDAO();
+		ImagemDAO imagemDAO =  new ImagemDAO();
+		UtensilioDAO utensilioDAO = new UtensilioDAO();
+		Sala sala = null;
+		Administrador administrador;
+		Categoria categoria;
+		Localizacao localizacao;
+		ArrayList<Utensilio> utensilios;
+
+		open();
+		st = con.prepareStatement("SELECT id, idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, estrela, status FROM sala where sala.idAdministrador = "+idUsuario);
+			
+		rs = stmt.executeQuery();
+		
+		while (rs.next()) {
+			categoria = categoriaDAO.consulta(rs
+					.getInt("idcategoria"));
+			administrador = administradorDAO.consulta(idUsuario);
+			localizacao = localizacaoDAO.consulta(rs.getInt("idLocalizacao"));
+			sala = new Sala(rs.getInt("id"), categoria, rs.getInt("tamanhomin"),
+					rs.getInt("tamanhomax"), rs.getDouble("preco"),
+					localizacao, rs.getString("descricao"),
+					administrador,rs.getInt("estrela"),
+					rs.getBoolean("status"));
+			sala.setImagens(imagemDAO.getImagensSala(sala.getIdSala()));
+			utensilios = utensilioDAO.consultaSalaUtensilio(sala.getIdSala());
+			sala.setUtensilios(utensilios);
+			salas.add(sala);
+
+		}
+
+		close();
+		return salas;
 	}
 }

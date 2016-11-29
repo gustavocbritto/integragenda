@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 import persistence.CategoriaDAO;
 import persistence.SalaDAO;
@@ -240,6 +241,14 @@ public class Sala implements Serializable{
 	public void associarImagem(Imagem imagem) throws Exception {
 		
 		salaDAO.associarImagem(this.idSala, imagem);
+	}
+
+	public boolean getDisponivel(Date dt_inicial, Date dt_final) throws Exception {
+		boolean retorno = false;
+		
+		retorno = salaDAO.isDisponivel(idSala, dt_inicial, dt_final);
+		
+		return retorno;
 	}
 
 }

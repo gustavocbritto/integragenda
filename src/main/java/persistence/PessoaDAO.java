@@ -24,6 +24,7 @@ public class PessoaDAO extends DAO{
 		if(rs.next())
 		{
 			pessoa = new Pessoa(rs.getString("nome"), rs.getString("sobrenome"), rs.getString("email"), rs.getString("sexo"),rs.getString("senha"),rs.getString("confirmarsenha"),rs.getString("teelfone"));
+			pessoa.setId(idPessoa);
 		}
 		
 		close();
@@ -67,8 +68,8 @@ public class PessoaDAO extends DAO{
 	}
 		
 	
-	public String verificaCadastro(Usuario usuario) throws Exception{
-		
+	public boolean verificaCadastro(Usuario usuario) throws Exception{
+		boolean retorno = false;
 		open();
 		st = con.createStatement();
 		rs = st.executeQuery("SELECT id, nome, sobrenome, email, teelfone, sexo, senha, confirmarsenha \r\n"
@@ -81,12 +82,13 @@ public class PessoaDAO extends DAO{
 			usuario.getPessoa().setSexo(rs.getString("sexo"));
 			usuario.getPessoa().setSenha(rs.getString("senha"));
 			usuario.getPessoa().setConfirmarsenha(rs.getString("confirmarsenha"));
+			usuario.getPessoa().setId(rs.getInt("id"));
 			close();
-			return "selecaoSala";
+			retorno = true;
 		}
 		close();
 		
-		return "Login";
+		return retorno;
 	}
 
 }
