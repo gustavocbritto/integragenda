@@ -24,7 +24,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 		<h:panelGrid columns="2" class="perfil">
 
 				<h:outputLabel value="Nome" for="nome"/>
-				<h:inputText id="nomeP" label="Nome" value="#{usuario.pessoa.nome}" required="true"/>
+				<h:inputText id="nomeP" label="Nome" value="#{usuario.pessoa.nome}" required="true" readonly="true" style="background-color:#C0C0C0"/>
 			
 				<h:outputLabel value="Sobrenome" for="sobrenome"/>
 				<h:inputText id="sobrenomeP" label="Sobrenome" value="#{usuario.pessoa.sobrenome}" required="true"/>
@@ -41,13 +41,14 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 			        <f:selectItem itemLabel="Feminino" itemValue="F"/>  
 				</h:selectOneRadio> 
 			
+				<h:commandButton class="buttonEntrar vermelho" action="#{usuario.update}" value="Salvar"/>
+				
 		</h:panelGrid>
 		</h:form>
 		
 	</ui:define>
 	</ui:composition>
 		
-		<a href="javascript:window.history.go(-1)">Voltar</a>	
 
 	</h:body>
 </html>

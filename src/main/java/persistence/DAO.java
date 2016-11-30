@@ -17,7 +17,7 @@ public class DAO {
 	
 	String url="jdbc:postgresql://localhost:5432/integragenda";
 	String usuario="postgres";
-	String senha= "123456";
+	String senha= "2734";
 	
 	protected void open()throws Exception{
 

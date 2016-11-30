@@ -137,7 +137,21 @@ public class Usuario implements Serializable{
 		
 		return "login";
 	}
-
+	
+	public String update() throws Exception{
+		
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		
+		
+		pessoaDAO.update(this.getPessoa());
+		
+		
+		return "meuPerfil";
+		
+		
+	}
+	
+	
 	public ControleSalasBean getData() {
 		return data;
 	}

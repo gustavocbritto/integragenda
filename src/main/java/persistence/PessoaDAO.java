@@ -90,5 +90,21 @@ public class PessoaDAO extends DAO{
 		
 		return retorno;
 	}
+	
+	public void update(Pessoa pessoa) throws Exception {
+
+
+		
+		open();
+		stmt = con.prepareStatement("UPDATE pessoa SET sobrenome= ?, email=?, sexo=?,telefone=? WHERE id = ?;");
+		stmt.setString(1, pessoa.getSobrenome());
+		stmt.setString(2, pessoa.getEmail());
+		stmt.setString(3, pessoa.getSexo());
+		stmt.setString(4, pessoa.getTelefone());
+		stmt.setInt(5, pessoa.getId());
+		stmt.executeUpdate();
+		close();
+		
+	}
 
 }

@@ -720,3 +720,9 @@ button > a{
 .noBorder:FOCUS{ 
 	background-color: #C0D9D9;
 }
+
+input[type="text"]:read-only {
+    cursor: normal;
+    background-color: #f8f8f8;
+    color: #999;
+}
