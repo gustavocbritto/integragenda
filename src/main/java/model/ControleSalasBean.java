@@ -94,6 +94,15 @@ public class ControleSalasBean implements Serializable {
     	selecionaSalas();
     }
     
+<<<<<<< HEAD
+    public void buscaCidade() throws Exception
+    {
+    	selecionaSalas();
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("selecaoSala.jsf");
+    }
+    
+=======
+>>>>>>> origin/master
     public void adicionarFiltro()
     {
     	try

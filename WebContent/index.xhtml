@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets">
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
@@ -22,20 +23,19 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 	            <ui:include src="cabecalho.xhtml" />
 	        </ui:insert> 
 					
-			<div class="centraliza">
-				<h1 class="titulo">As melhores salas, com os melhores preços</h1>
-				<h2 class="subtitulo">Escolha sua cidade:</h2>
-				<form>
-					<div>
-						<label for="cidade"></label>
-						<input class ="searchCidade" type="text" placeholder="Ex: Vitória" id="cidade"></input>
-					</div>
-					<div>
-						<button class="buttonEntrada vermelho" formaction="selecaoSala.html">Buscar!</button>
-					</div>
-				</form>
-			
-			</div>
+			<h:panelGrid columns="1" class="centraliza">
+				
+				<h:outputLabel id="melhoresSalas" style="padding: 40px" class="titulo" value="As melhores salas, com os melhores preços"/>
+				<h:outputLabel class="subtitulo" value="Escolha sua cidade:"/>
+				<h:form >
+					<h:panelGrid id="panelBuscar" style="padding-left: 35%">
+						<p:inputText id="cidade" styleClass="searchCidade" value="#{controleSalasBean.cidadeSelecionada}"></p:inputText>
+						
+						<h:commandButton styleClass="buttonEntrada vermelho" actionListener="#{controleSalasBean.buscaCidade}" value="Consultar"/>
+					</h:panelGrid>
+				</h:form>
+			<!-- valid html comment -->
+			</h:panelGrid>
 		</div>
 	</h:body>
 </html>
