@@ -17,7 +17,12 @@ public class Usuario implements Serializable{
 
 
 
-	private static final long serialVersionUID = -7643404588198283069L;
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5545896148325336216L;
 	
 	private int idUsuario;
 	private String tipo;
@@ -46,6 +51,21 @@ public class Usuario implements Serializable{
 	public void perfil() throws IOException
 	{
 		FacesContext.getCurrentInstance().getExternalContext().redirect("meuPerfil.jsf");
+	}
+	
+	public void selecaoSala() throws IOException
+	{
+		FacesContext.getCurrentInstance().getExternalContext().redirect("selecaoSala.jsf");
+	}
+	
+	public void minhaAgenda() throws IOException
+	{
+		FacesContext.getCurrentInstance().getExternalContext().redirect("minhaAgenda.jsf");
+	}
+	
+	public void minhasSalas() throws IOException
+	{
+		FacesContext.getCurrentInstance().getExternalContext().redirect("minhasSalas.jsf");
 	}
 	public String getNomeAtual() {
 		return nomeAtual;

@@ -32,7 +32,7 @@ xmlns:p="http://primefaces.org/ui">
 						<p:outputLabel for="cidade" value="Cidade " />
 						<p:inputText id="cidade" label="Cidade" value="#{controleSalasBean.cidadeSelecionada}"></p:inputText>
 						
-						<h:commandButton styleClass="buttonEntrar vermelho" action="#{controleSalasBean.buscaCidadeEData}" value="Consultar"/>	
+						<h:commandButton styleClass="buttonEntrar vermelho" actionListener="#{controleSalasBean.buscaCidadeEData}" value="Consultar"/>	
 				</h:panelGrid>	
 			</h:form>
 		
@@ -45,7 +45,7 @@ xmlns:p="http://primefaces.org/ui">
 				    <p:accordionPanel multiple="true" class="listaInventario" id="itens">
 				        <p:tab title="Categoria">
 				            <h:panelGrid columns="2" cellpadding="0">
-				             	<p:commandLink rendered="#{controleSalasBean.categoriaFiltro != null}" update="formInventario form" title="Remover Filtro Categoria" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerCategoria}"/>
+				             	<p:commandLink rendered="#{controleSalasBean.categoriaFiltro != null}" update="formInventario formu" title="Remover Filtro Categoria" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerCategoria}"/>
 				            	<h:outputLabel for="name" value="#{controleSalasBean.categoriaFiltro.descricao}" rendered="#{controleSalasBean.categoriaFiltro != null}"/>				
 				            </h:panelGrid>
 				        </p:tab>
@@ -53,7 +53,7 @@ xmlns:p="http://primefaces.org/ui">
 				        <p:tab title="Utensílios">
 						    <p:dataList id="listaUtensilio" value="#{controleSalasBean.utensiliosFiltro}" var="utensilio">
 						    <p:growl id="utensiliofeedback" showDetail="true"/> 
-					        	<p:commandLink update="utensiliofeedback listaUtensilio form" title="Remover Utensilio" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerUtensilio}">
+					        	<p:commandLink update="utensiliofeedback listaUtensilio formu" title="Remover Utensilio" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerUtensilio}">
 					           		<f:setPropertyActionListener target="#{controleSalasBean.utensilioSelecionadoRemover}" value="#{utensilio}" />
 						        </p:commandLink>
 						        <h:outputText value="#{utensilio.nome}"/>
@@ -63,7 +63,7 @@ xmlns:p="http://primefaces.org/ui">
 				        <p:tab title="Tamanho">
 				            <h:panelGrid columns="2" cellpadding="0">
 				            
-					        <p:commandLink rendered="#{controleSalasBean.tamanhoInserido > 0}" update="formInventario form" title="Remover Filtro Tamanho" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerTamanho}"/>
+					        <p:commandLink rendered="#{controleSalasBean.tamanhoInserido > 0}" update="formInventario formu" title="Remover Filtro Tamanho" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerTamanho}"/>
 				            <h:outputLabel value="#{controleSalasBean.tamanhoInserido} Pessoas" rendered="#{controleSalasBean.tamanhoInserido > 0}"/>
 				            
 				            </h:panelGrid>
@@ -102,7 +102,7 @@ xmlns:p="http://primefaces.org/ui">
 						 
 				        	<p:separator />
 						 
-				        	<p:commandButton value="Submit" update="msgs formInventario form" actionListener="#{controleSalasBean.adicionarFiltro}" icon="ui-icon-check" class="verde alugarBtn"/>
+				        	<p:commandButton value="Submit" update="msgs formInventario formu" actionListener="#{controleSalasBean.adicionarFiltro}" icon="ui-icon-check" class="verde alugarBtn"/>
 					    </p:panel>
 					</h:form>
 					</div>
@@ -110,7 +110,7 @@ xmlns:p="http://primefaces.org/ui">
 		
 			
 		
-		<h:form id="form" >
+		<h:form id="formu" >
 			<p:dataGrid var="sala" value="#{controleSalasBean.salas}" columns="3" layout="grid"
 			    rows="12" paginator="true" id="salas"
 			    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

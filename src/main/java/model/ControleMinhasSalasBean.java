@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
@@ -88,13 +89,19 @@ public class ControleMinhasSalasBean implements Serializable {
     		categorias = categoriaDAO.getLista();
     		
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.print(e.getMessage());
 		}
     }
     
-    public void buscaCidadeEData() throws Exception
+    public void buscaCidadeEData()
     {
-    	selecionaSalas();
+    	try{
+    		
+    		selecionaSalas();
+    	}catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    	}
     }
     
     public void adicionarFiltro()
@@ -305,13 +312,14 @@ public class ControleMinhasSalasBean implements Serializable {
     
     public void exibirSala() throws IOException
     {
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("salaSelecionada.jsf");
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("salaSelecionadaEdit.jsf");
     }
     
 	//Setter necessario para a anotação @ManagedProperty Funcionar corretamente =S
 	public void setUsuario(Usuario usuario) {
-	this.usuario = usuario;
-}
+		this.usuario = usuario;
+	}
+    
     
     public String getCidadeSelecionada() {
 		return cidadeSelecionada;

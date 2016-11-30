@@ -197,10 +197,10 @@ public class SalaDAO extends DAO {
 		ArrayList<Utensilio> utensilios;
 
 		open();
-		st = con.prepareStatement("SELECT id, idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, estrela, status FROM sala where sala.idAdministrador = "+idUsuario);
-			
-		rs = stmt.executeQuery();
 		
+		st = con.createStatement();
+		rs = st.executeQuery("SELECT id, idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, estrela, status FROM SALA WHERE idAdministrador = "+idUsuario+";");
+	
 		while (rs.next()) {
 			categoria = categoriaDAO.consulta(rs
 					.getInt("idcategoria"));
@@ -220,5 +220,6 @@ public class SalaDAO extends DAO {
 
 		close();
 		return salas;
+		
 	}
 }

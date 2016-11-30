@@ -9,7 +9,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
@@ -24,11 +26,12 @@ import persistence.UtensilioDAO;
 @SessionScoped
 public class ControleSalasBean implements Serializable {
      
+
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5387360500642035168L;
-	
+	private static final long serialVersionUID = -912595125659125754L;
 	private UtensilioDAO utensilioDAO = new UtensilioDAO();
 	private CategoriaDAO categoriaDAO = new CategoriaDAO();
 	private SalaDAO salaDAO = new SalaDAO();
@@ -62,6 +65,8 @@ public class ControleSalasBean implements Serializable {
     private Date dt_inicial;
     private Date dt_final;
     
+    @ManagedProperty(value = "#{usuario}")
+    private Usuario usuario; 
     
     @PostConstruct
     public void init() {
@@ -299,6 +304,10 @@ public class ControleSalasBean implements Serializable {
     	FacesContext.getCurrentInstance().getExternalContext().redirect("salaSelecionada.jsf");
     }
     
+	//Setter necessario para a anotação @ManagedProperty Funcionar corretamente =S
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
     
     public String getCidadeSelecionada() {
 		return cidadeSelecionada;

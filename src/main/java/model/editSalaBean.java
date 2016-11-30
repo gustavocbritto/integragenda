@@ -34,10 +34,13 @@ import persistence.UtensilioDAO;
 public class editSalaBean implements Serializable {
 
 	
+
+	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5909145939096459216L;
+	private static final long serialVersionUID = 3209177736367691827L;
 	private Sala sala;
     private List<Utensilio> utensilios;
     private List<Categoria> categorias;
@@ -57,13 +60,26 @@ public class editSalaBean implements Serializable {
     @ManagedProperty(value = "#{controleSalasBean}")
     private ControleSalasBean controleSalasBean;
     
+    @ManagedProperty(value = "#{controleMinhasSalasBean}")
+    private ControleMinhasSalasBean controleMinhasSalasBean;
+    
     @PostConstruct
     public void init() {
 		
 		//O id da sala que vou testar, vai ser a do ID 1. Depois tem que mudar pra pegar o ID dinamicamente
 		//Que vira do clique da sala na tela Minhas Salas
-		int idSala = controleSalasBean.getSalaSelecionada().getIdSala();
-		controleSalasBean.setSalaSelecionada(null);
+    	int idSala = 0;
+    	if(controleSalasBean != null)
+    		if(controleSalasBean.getSalaSelecionada() != null)
+    			idSala = controleSalasBean.getSalaSelecionada().getIdSala();
+    	
+    	if(controleMinhasSalasBean != null)
+    		if(controleMinhasSalasBean.getSalaSelecionada() != null)
+    			idSala = controleMinhasSalasBean.getSalaSelecionada().getIdSala();
+
+    	controleSalasBean.setSalaSelecionada(null);
+    	controleMinhasSalasBean.setSalaSelecionada(null);
+    	
 		System.out.println(idSala);
 		SalaDAO salaDAO = new SalaDAO();
 		UtensilioDAO utensilioDAO = new UtensilioDAO();
@@ -223,7 +239,12 @@ public class editSalaBean implements Serializable {
 	public void setControleSalasBean(ControleSalasBean controleSalasBean) {
 		this.controleSalasBean = controleSalasBean;
 	}
-
+	
+	//Setter necessario para a anotação @ManagedProperty Funcionar corretamente =S
+	public void setControleMinhasSalasBean(ControleMinhasSalasBean controleMinhasSalasBean) {
+		this.controleMinhasSalasBean = controleMinhasSalasBean;
+	}
+	
     public UploadedFile getFile(){
         return file;
     }
