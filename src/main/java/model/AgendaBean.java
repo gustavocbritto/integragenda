@@ -6,15 +6,11 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.CloseEvent;
 
  
 @ManagedBean(name="agendaBean")
@@ -33,12 +29,19 @@ public class AgendaBean implements Serializable {
 	private Agenda agendaAtual;
     private String email = "";
     
+    @ManagedProperty(value = "#{usuario}")
+    private Usuario usuario; 
+    
+    @PostConstruct
+    public void init() {
+    	agendas = usuario.getAgendas();
+    }
     
     public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) throws Exception {
 		if (!email.equals("")){
 			agendaAtual.adicionarNovoParticipante(email);
 			this.email = email;
@@ -52,31 +55,24 @@ public class AgendaBean implements Serializable {
 	public void setAgendaAtual(Agenda agendaAtual) {
 		this.agendaAtual = agendaAtual;
 	}
-
-	@ManagedProperty("#{agendaService}")
-    private agendaService service;
- 
-    @PostConstruct
-    public void init() {
-    	agendas = service.createAgendas(10);
-    }
      
     public List<Agenda> getAgendas() {
         return agendas;
     }
  
-    public void setService(agendaService service) {
-        this.service = service;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
-	public void confirmar(Agenda agenda) {
-		boolean status = !agenda.getStatus();
-		agenda.setStatus(status);
-		String mensagem = status ? "Não confirmado!" : "Confirmado!";
+	public void confirmar(Agenda agenda) throws Exception {
+		boolean lStatus = agenda.getStatus();
+		agenda.salvarStatus();
+		String mensagem = lStatus ? "Confirmado!" : "Não confirmado!";
         addMessage("Status:", mensagem);
     }
 	
-	public void cancelar(Agenda agenda) {
+	public void cancelar(Agenda agenda) throws Exception {
+		agenda.delete();
 		if(this.agendas.remove(agenda))
 		{
 			addMessage("Confirmação:", "Agenda deletada com sucesso!");

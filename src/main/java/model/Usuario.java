@@ -2,14 +2,19 @@ package model;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-
+import persistence.AgendaDAO;
 import persistence.PessoaDAO;
-import persistence.SalaDAO;
 
 @ManagedBean(name="usuario")
 @SessionScoped
@@ -27,12 +32,11 @@ public class Usuario implements Serializable{
 	private int idUsuario;
 	private String tipo;
 	private Pessoa pessoa;
-	ControleSalasBean data;
 	private String nomeAtual = "Usuario";
-
 	private Double preco;
+	private ArrayList<Agenda> agendas;
 	
-	
+	private AgendaDAO agendaDAO = new AgendaDAO();
 
 	public Usuario(){
 		this.pessoa = new Pessoa();
@@ -58,9 +62,16 @@ public class Usuario implements Serializable{
 		FacesContext.getCurrentInstance().getExternalContext().redirect("selecaoSala.jsf");
 	}
 	
-	public void minhaAgenda() throws IOException
+	public void minhaAgenda() throws Exception
 	{
-		FacesContext.getCurrentInstance().getExternalContext().redirect("minhaAgenda.jsf");
+		if(!nomeAtual.equals("Usuario"))
+		{
+			agendas = agendaDAO.getAgendaUsuario(pessoa.getId());
+			FacesContext.getCurrentInstance().getExternalContext().redirect("minhaAgenda.jsf");
+		}else
+		{
+			addMessage("ERRO:","Usuario deve estar logado!");
+		}
 	}
 	
 	public void minhasSalas() throws IOException
@@ -121,6 +132,11 @@ public class Usuario implements Serializable{
 		return "mostraUsuario";
 	}
 	
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
 	public String verifica() throws Exception{
 		
 		PessoaDAO pessoaDAO = new PessoaDAO();
@@ -151,15 +167,6 @@ public class Usuario implements Serializable{
 		
 	}
 	
-	
-	public ControleSalasBean getData() {
-		return data;
-	}
-
-	public void setData(ControleSalasBean data) {
-		this.data = data;
-	}
-
 	public Double getPreco() {
 		return preco;
 	}
@@ -167,5 +174,15 @@ public class Usuario implements Serializable{
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
+
+	public ArrayList<Agenda> getAgendas() {
+		return agendas;
+	}
+
+	public void setAgendas(ArrayList<Agenda> agendas) {
+		this.agendas = agendas;
+	}
+
+
 
 }

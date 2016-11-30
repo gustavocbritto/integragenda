@@ -27,6 +27,15 @@ xmlns:p="http://primefaces.org/ui">
 
 					
 					<p:dataTable id="tabelaAgenda" var="agendaAtual" value="#{agendaBean.agendaAtual}">
+					
+						<p:column headerText="Data Início">
+							<h:outputText value="#{agendaAtual.dataInicio}" />
+						</p:column>
+						 
+						<p:column headerText="Data Fim">
+							<h:outputText value="#{agendaAtual.dataFim}" />
+						</p:column>
+					
 						<p:column headerText="Horário Início">
 							<h:outputText value="#{agendaAtual.horaInicio}" />
 						</p:column>
@@ -40,7 +49,7 @@ xmlns:p="http://primefaces.org/ui">
 						</p:column>
 						 
 						<p:column headerText="Local">
-							<h:outputText value="#{agendaAtual.sala.localizacao}" />
+							<h:outputText value="Rua #{agendaAtual.sala.localizacao.rua}, #{agendaAtual.sala.localizacao.numero}" />
 						</p:column>
 											
 					</p:dataTable>

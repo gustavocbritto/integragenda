@@ -16,7 +16,7 @@ public class SalaDAO extends DAO {
 
 	public void inserir(Sala sala) throws Exception {
 		open();
-		stmt = con.prepareStatement("INSERT INTO sala(idCategoria, tamanhoMin, tamanhoMax, preco, localizacao, descricao, idAdministrador, idPessoa, estrela, status) VALUES(?,?,?,?,?,?,?,?,?,?)");
+		stmt = con.prepareStatement("INSERT INTO sala(idCategoria, tamanhoMin, tamanhoMax, preco, localizacao, descricao, idAdministrador, idPessoa, estrela, status, numero) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 		
 		stmt.setInt(1, sala.getCategoria().getId());
 		stmt.setInt(2, sala.getTamanhoMin());
@@ -28,6 +28,7 @@ public class SalaDAO extends DAO {
 		stmt.setInt(8, sala.getPessoa().getId());
 		stmt.setInt(9, sala.getEstrela());
 		stmt.setBoolean(10, sala.getStatus());
+		stmt.setInt(11, sala.getNumeroSala());
 		stmt.execute();
 
 		close();
@@ -49,7 +50,7 @@ public class SalaDAO extends DAO {
 
 		open();
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT id, idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, idAdministrador, estrela, status FROM sala");
+		rs = st.executeQuery("SELECT id, idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, idAdministrador, estrela, status, numero FROM sala");
 
 		while (rs.next()) {
 			categoria = categoriaDAO.consulta(rs
@@ -65,6 +66,7 @@ public class SalaDAO extends DAO {
 			sala.setImagens(imagemDAO.getImagensSala(sala.getIdSala()));
 			utensilios = utensilioDAO.consultaSalaUtensilio(sala.getIdSala());
 			sala.setUtensilios(utensilios);
+			sala.setNumeroSala(rs.getInt("numero"));
 			salas.add(sala);
 
 		}
@@ -88,7 +90,7 @@ public class SalaDAO extends DAO {
 		ArrayList<Utensilio> utensilios;
 		open();
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, idAdministrador, estrela, status FROM sala where sala.id = "+idSala+";");
+		rs = st.executeQuery("SELECT idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, idAdministrador, estrela, status, numero FROM sala where sala.id = "+idSala+";");
 
 		while (rs.next()) {
 			categoria = categoriaDAO.consulta(rs.getInt("idcategoria"));
@@ -102,7 +104,7 @@ public class SalaDAO extends DAO {
 					rs.getBoolean("status"));
 			utensilios = utensilioDAO.consultaSalaUtensilio(idSala);
 			sala.setUtensilios(utensilios);
-			sala.setNumeroSala(115);
+			sala.setNumeroSala(rs.getInt("numero"));
 			sala.setIdSala(idSala);
 			sala.setImagens(imagemDAO.getImagensSala(idSala));
 		}
@@ -131,12 +133,13 @@ public class SalaDAO extends DAO {
 		
 		open();
 		
-		stmt = con.prepareStatement("UPDATE SALA SET preco = ?, descricao = ?, estrela = ? where sala.id = ?");
+		stmt = con.prepareStatement("UPDATE SALA SET preco = ?, descricao = ?, estrela = ?, numero = ? where sala.id = ?");
 		
 		stmt.setDouble(1, sala.getPreco());
 		stmt.setString(2, sala.getDescricao());
 		stmt.setInt(3, sala.getEstrela());
-		stmt.setInt(4, sala.getIdSala());
+		stmt.setInt(4, sala.getNumeroSala());
+		stmt.setInt(5, sala.getIdSala());
 		sala.getLocalizacao().salvar();
 		stmt.executeUpdate();
 		close();
@@ -199,7 +202,7 @@ public class SalaDAO extends DAO {
 		open();
 		
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT id, idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, estrela, status FROM SALA WHERE idAdministrador = "+idUsuario+";");
+		rs = st.executeQuery("SELECT id, idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, estrela, status, numero FROM SALA WHERE idAdministrador = "+idUsuario+";");
 	
 		while (rs.next()) {
 			categoria = categoriaDAO.consulta(rs
@@ -214,6 +217,7 @@ public class SalaDAO extends DAO {
 			sala.setImagens(imagemDAO.getImagensSala(sala.getIdSala()));
 			utensilios = utensilioDAO.consultaSalaUtensilio(sala.getIdSala());
 			sala.setUtensilios(utensilios);
+			sala.setNumeroSala(rs.getInt("numero"));
 			salas.add(sala);
 
 		}

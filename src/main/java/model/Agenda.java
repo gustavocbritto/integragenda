@@ -1,25 +1,38 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import persistence.AgendaDAO;
+import persistence.ParticipanteDAO;
+
 public class Agenda implements Serializable{
+	
+
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -587723605723788740L;
-	int id;
-	String horaInicio;
-	String horaFim;
-	int numeroSala;
-	String local;
-	int qtdParticipantes;
-	Boolean status;
-	Sala sala;
-	List<Participante> participantes = new ArrayList<Participante>();
-
+	private static final long serialVersionUID = 379232833692722473L;
+	
+	private int id;
+	private String horaInicio;
+	private String horaFim;
+	private int qtdParticipantes; //Feito somente por causa do jsf pra ele pegar o valor pela variavel. Pode ser revisto
+	private Boolean status;
+	private Sala sala;
+	private List<Participante> participantes = new ArrayList<Participante>();
+	private Date dataInicio;
+	private Date dataFim;
+	private AgendaDAO agendaDAO = new AgendaDAO();
+	private ParticipanteDAO participanteDAO = new ParticipanteDAO();
+	
+	public Agenda()
+	{
+		super();
+	}
 	public Agenda(int idAgenda, String horaInicio, String horaFim, Boolean status,
 			Sala sala) {
 		super();
@@ -30,6 +43,18 @@ public class Agenda implements Serializable{
 		this.sala = sala;
 	}
 
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+	public Date getDataFim() {
+		return dataFim;
+	}
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
 	public int getId() {
 		return id;
 	}
@@ -52,22 +77,6 @@ public class Agenda implements Serializable{
 
 	public void setHoraFim(String horaFim) {
 		this.horaFim = horaFim;
-	}
-
-	public int getNumeroSala() {
-		return numeroSala;
-	}
-
-	public void setNumeroSala(int numeroSala) {
-		this.numeroSala = numeroSala;
-	}
-
-	public String getLocal() {
-		return local;
-	}
-
-	public void setLocal(String local) {
-		this.local = local;
 	}
 
 	public int getQtdParticipantes() {
@@ -107,11 +116,13 @@ public class Agenda implements Serializable{
 		this.participantes.add(participante);
 	}
 	
-	public void adicionarNovoParticipante(String email)
+	public void adicionarNovoParticipante(String email) throws Exception
 	{
 		if(!temEmailRepetido(email))
 		{
-			Participante participante = new Participante(email, this.sala);
+			Participante participante = new Participante();
+			participante.setEmail(email);
+			participanteDAO.inserir(id, participante);
 			this.participantes.add(participante);
 		}
 	}
@@ -129,8 +140,9 @@ public class Agenda implements Serializable{
 		}
 		return achou;		
 	}
-	public void removerParticipante(Participante participante)
+	public void removerParticipante(Participante participante) throws Exception
 	{
+		participanteDAO.desassociarAgendaParticipante(id, participante);
 		this.participantes.remove(participante);
 	}
 	
@@ -141,6 +153,14 @@ public class Agenda implements Serializable{
 		}else{
 			return this.participantes.size();
 		}
+	}
+	public void salvarStatus() throws Exception {
+		agendaDAO.salvarStatus(this);
+		
+	}
+	public void delete() throws Exception {
+		agendaDAO.remover(this);
+		
 	}
 
 	

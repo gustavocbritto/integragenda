@@ -4,19 +4,23 @@ import java.io.Serializable;
 
 public class Participante implements Serializable{
 	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7179751320118979931L;
+	private static final long serialVersionUID = 1560121457885628125L;
 	int idParticipantes;
 	String email;
-	Sala Sala;
 	
-	public Participante(String email, model.Sala sala) {
+	public Participante(int id, String email) {
 		super();
 		//this.idParticipantes = idParticipantes;
 		this.email = email;
-		Sala = sala;
+		this.idParticipantes = id;
+	}
+
+	public Participante() {
+		super();
 	}
 
 	public int getIdParticipantes() {
@@ -33,17 +37,6 @@ public class Participante implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public Sala getSala() {
-		return Sala;
-	}
-
-	public void setSala(Sala sala) {
-		Sala = sala;
-	}
-
-	
-	
+	}	
 	
 }
