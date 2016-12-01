@@ -253,10 +253,10 @@ CREATE TABLE pessoa (
     nome character varying(150) NOT NULL,
     sobrenome character varying(150) NOT NULL,
     email character varying(150) NOT NULL,
-    teelfone integer NOT NULL,
     sexo character(1) NOT NULL,
     senha character varying(150) NOT NULL,
-    confirmarsenha character varying(150) NOT NULL
+    confirmarsenha character varying(150) NOT NULL,
+    telefone character varying(30)
 );
 
 
@@ -621,10 +621,11 @@ SELECT pg_catalog.setval('participante_seq', 26, true);
 -- Data for Name: pessoa; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY pessoa (id, nome, sobrenome, email, teelfone, sexo, senha, confirmarsenha) FROM stdin;
-1	Gustavo	Britto	gustavo@gmail.com	31133333	M	123456	123456
-2	Bruno	Mergh	Bruno@gmail.com	32233333	M	123456	123456
-3	Italo	Lourenco	Italo@gmail.com	33333333	M	123456	123456
+COPY pessoa (id, nome, sobrenome, email, sexo, senha, confirmarsenha, telefone) FROM stdin;
+1	Gustavo	Britto	gustavo@gmail.com	M	123456	123456	3333333
+2	Bruno	Mergh	Bruno@gmail.com	M	123456	123456	4444444
+3	Italo	Lourenco	Italo@gmail.com	M	123456	123456	5555555
+5	Matesu	legal	mateus@gmail.com	M	123	123	1234
 \.
 
 
@@ -632,7 +633,7 @@ COPY pessoa (id, nome, sobrenome, email, teelfone, sexo, senha, confirmarsenha) 
 -- Name: pessoa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('pessoa_id_seq', 4, true);
+SELECT pg_catalog.setval('pessoa_id_seq', 5, true);
 
 
 --
@@ -694,6 +695,7 @@ COPY sala_utensilio (idsala, idutensilio, qtd) FROM stdin;
 
 COPY usuario (id, tipo, idpessoa) FROM stdin;
 5	Locador	3
+6	Locatario	5
 \.
 
 
@@ -701,7 +703,7 @@ COPY usuario (id, tipo, idpessoa) FROM stdin;
 -- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('usuario_id_seq', 5, true);
+SELECT pg_catalog.setval('usuario_id_seq', 6, true);
 
 
 --
