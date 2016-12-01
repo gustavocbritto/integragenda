@@ -14,7 +14,8 @@ addons:
  - psql -c 'create database integragenda;' -U postgres
  - psql -U postgres -d integragenda < dump
  
- services: postgresql
+ services: 
+  - postgresql
 
 script:
   - mvn clean install sonar:sonar -Dmaven.test.skip=false
