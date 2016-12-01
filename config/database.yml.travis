@@ -1,4 +1,4 @@
-postgresql: &postgresql
+postgresql:
   adapter: postgresql
   username: postgres
   password: 123456
