@@ -4,6 +4,11 @@ java:
 jdk:
   - oraclejdk8
   
+before_install:
+ - sudo apt-get update
+ - sudo apt-get purge postgresql-9.1 postgresql-9.2 postgresql-9.3
+ - sudo apt-get install postgresql-client-common postgresql-9.4
+ 
 addons:
   - sonarqube: true
   - postgresql: "9.4"
