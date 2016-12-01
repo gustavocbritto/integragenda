@@ -20,7 +20,7 @@ before_install:
  - cp config/database.yml.travis config/database.yml
  - psql -c 'create database integragenda;' -U postgres
  - psql -U postgres -d integragenda < dump
-
+ 
 script:
   - mvn clean install sonar:sonar -Dmaven.test.skip=false
   
