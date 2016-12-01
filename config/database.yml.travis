@@ -2,4 +2,9 @@ postgresql:
   adapter: postgresql
   username: postgres
   password: 123456
-  database: integragenda
+  database: integragenda_test
+ 
+test:
+  adapter: postgresql
+  database: integragenda_test
+  username: postgres
