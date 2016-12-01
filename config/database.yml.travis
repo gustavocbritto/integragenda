@@ -1,4 +1,4 @@
 test:
   adapter: postgresql
-  database: integragenda_test
+  database: integragenda
   username: postgres
