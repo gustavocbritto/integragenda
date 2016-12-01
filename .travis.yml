@@ -10,11 +10,6 @@ addons:
   
 services:
   - postgresql
-  
- postgres:
-  adapter: postgresql
-  database: integragenda
-  username: postgres
 
 before_script:
  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
