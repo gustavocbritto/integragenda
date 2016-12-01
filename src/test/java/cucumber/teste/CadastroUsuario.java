@@ -33,7 +33,8 @@ public class CadastroUsuario {
 
 	@Then("^my user are regitered$")
 	public void myUserAreRegitered() throws Throwable {
-		assertThat(usuario.entrar(), is(true));
+		usuario.entrar();
+		assertThat(usuario.getNomeAtual(), is("Paulo"));
 	}
 	
 }
