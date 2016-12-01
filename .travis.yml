@@ -14,7 +14,7 @@ addons:
 before_script:
  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
  - psql -c 'create database integragenda;' -U postgres
- - psql -h localhost -U postgres -d integragenda < bp_integragenda.backup
+ - psql -U postgres -d integragenda < bp_integragenda.backup
 
 script:
   - mvn clean install sonar:sonar -Dmaven.test.skip=false
