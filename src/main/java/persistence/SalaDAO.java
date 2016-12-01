@@ -3,12 +3,10 @@ package persistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import model.Administrador;
 import model.Categoria;
 import model.Imagem;
 import model.Localizacao;
-import model.Pessoa;
 import model.Sala;
 import model.Utensilio;
 

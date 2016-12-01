@@ -1,6 +1,5 @@
 package persistence;
 
-import model.Categoria;
 import model.Localizacao;
 
 public class LocalizacaoDAO extends DAO{

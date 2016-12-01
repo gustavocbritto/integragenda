@@ -1,9 +1,6 @@
 package persistence;
 
 
-import java.sql.SQLException;
-
-import model.Categoria;
 import model.Pessoa;
 import model.Usuario;
 

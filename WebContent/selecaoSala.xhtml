@@ -109,7 +109,7 @@ xmlns:p="http://primefaces.org/ui">
 		</div>
 		
 			
-		
+		<f:event listener="#{controleSalasBean.carregarSalas}" type="preRenderView" />
 		<h:form id="formu" >
 			<p:dataGrid var="sala" value="#{controleSalasBean.salas}" columns="3" layout="grid"
 			    rows="12" paginator="true" id="salas"

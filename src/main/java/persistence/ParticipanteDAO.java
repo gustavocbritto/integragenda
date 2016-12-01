@@ -8,7 +8,7 @@ import model.Participante;
 public class ParticipanteDAO extends DAO {
 
 
-	public ArrayList<Participante> getParticipantes(int idSala) throws Exception{
+	public ArrayList<Participante> getParticipantes(int idAgenda) throws Exception{
 		
 		ArrayList<Participante> participantes = new ArrayList<Participante>();
 
@@ -17,7 +17,7 @@ public class ParticipanteDAO extends DAO {
 		stmt = con.prepareStatement("SELECT PARTICIPANTE.ID, PARTICIPANTE.EMAIL FROM PARTICIPANTE"+
 									" INNER JOIN AGENDA_PARTICIPANTE ON PARTICIPANTE.ID = AGENDA_PARTICIPANTE.IDPARTICIPANTE"+
 									" INNER JOIN AGENDA ON AGENDA_PARTICIPANTE.IDAGENDA = AGENDA.ID"+
-									" WHERE AGENDA.ID = "+idSala);
+									" WHERE AGENDA.ID = "+idAgenda);
 		
 		stmt.executeQuery();
 		ResultSet rs = stmt.getResultSet();

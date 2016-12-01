@@ -4,10 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-//import org.primefaces.showcase.domain.Car;
  
 @ManagedBean(name = "agendaService")
 @ApplicationScoped
@@ -58,10 +56,6 @@ public class agendaService implements Serializable{
          
         return list;
     }
-     
-    private Integer getRandomId() {
-        return new Integer(UUID.randomUUID().toString().substring(0, 3));
-    }
     
     private String getRandonDataInicio() {
         return (int)((Math.random() * 23)+1) + ":" + (int)(Math.random() * 59);
@@ -70,19 +64,7 @@ public class agendaService implements Serializable{
     private String getRandonDataFim() {
     	return (int)((Math.random() * 23)+1) + ":" + (int)(Math.random() * 59);
     }
-     
-    private int getRandomYear() {
-        return (int) (Math.random() * 24);
-    }
-     
-    private String getRandomColor() {
-        return colors[(int) (Math.random() * 10)];
-    }
-     
-    private String getRandomEmail() {
-        return email[(int) (Math.random() * 10)];
-    }
-     
+          
     public boolean getRandomStatus() {
        if (Math.random() * 1000 > 500)
        {

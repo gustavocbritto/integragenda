@@ -2,16 +2,10 @@ package persistence;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import model.Imagem;
-import model.Sala;
+
 
 public class ImagemDAO extends DAO{
-
-	public Imagem consulta(int idSalaImagem) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	public ArrayList<Imagem> getImagensSala(int idSala) throws Exception {
 				

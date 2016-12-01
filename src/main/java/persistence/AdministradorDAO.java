@@ -1,7 +1,6 @@
 package persistence;
 
 import model.Administrador;
-import model.Categoria;
 import model.Pessoa;
 
 public class AdministradorDAO extends DAO{

@@ -1,5 +1,6 @@
 package persistence;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class AgendaDAO extends DAO {
 			agenda.setStatus(rs.getInt(5) == 1);
 			agenda.setDataInicio(rs.getDate(6));
 			agenda.setDataFim(rs.getDate(7));		
-			agenda.setParticipantes(participanteDAO.getParticipantes(agenda.getSala().getIdSala()));
+			agenda.setParticipantes(participanteDAO.getParticipantes(agenda.getId()));
 			agendas.add(agenda);
 		}
 		
@@ -40,9 +41,11 @@ public class AgendaDAO extends DAO {
 	}
 
 	public void salvarStatus(Agenda agenda) throws Exception {
+		
 		int statusUpdate = 0;
 		if (agenda.getStatus())
 			statusUpdate = 1;
+		
 		open();
 		
 		st = con.createStatement();
@@ -72,6 +75,36 @@ public class AgendaDAO extends DAO {
 		st.executeUpdate("DELETE FROM AGENDA WHERE ID = "+agenda.getId());
 		
 		close();
+	}
+
+	public void salvar(Agenda agenda, int idLocador) throws Exception{
+		
+		open();
+		
+		stmt = con.prepareStatement("INSERT INTO AGENDA (IDSALA, STATUS, DATAINICIO, DATAFIM, IDLOCADOR, HORAINICIO, HORAFIM) VALUES (?,?,?,?,?,?,?) RETURNING ID;");
+		
+		int status = 0;
+		if(agenda.getStatus())
+			status = 1;
+		
+		stmt.setInt(1, agenda.getSala().getIdSala());
+		stmt.setInt(2, status);
+		stmt.setDate(3, agenda.getDataInicio());
+		stmt.setDate(4, agenda.getDataFim());
+		stmt.setInt(5, idLocador);
+		stmt.setString(6, agenda.getHoraInicio());
+		stmt.setString(7, agenda.getHoraFim());
+				
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next())
+		{
+			int idAgenda = rs.getInt(1);
+			agenda.setId(idAgenda);
+		}
+		
+		close();
+		
 	}
 
 }

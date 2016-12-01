@@ -3,8 +3,6 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-
-import persistence.CategoriaDAO;
 import persistence.SalaDAO;
 import persistence.UtensilioDAO;
 
