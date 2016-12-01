@@ -2,6 +2,7 @@ package cucumber.teste;
 
 import model.Pessoa;
 import model.Usuario;
+import persistence.PessoaDAO;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -28,7 +29,9 @@ public class CadastroUsuario {
 
 	@When("^I click in register$")
 	public void iClickInRegister() throws Throwable {
-		assertThat(usuario.cadastrar(), is(true));
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		pessoaDAO.gravar(usuario);
+		//assertThat(usuario.cadastrar(), is(true));
 	}
 
 	@Then("^my user are regitered$")
