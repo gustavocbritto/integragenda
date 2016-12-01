@@ -21,7 +21,7 @@ public class LoginUsuario {
 	
 	@When("^Eu clico em entrar$")
 	public void euClicoEmEntrar() throws Throwable {
-			usuario.verifica();
+			usuario.entrar();
 	}
 
 	@Then("^Meu usuario e logado no sistema$")

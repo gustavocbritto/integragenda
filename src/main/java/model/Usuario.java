@@ -169,6 +169,13 @@ public class Usuario implements Serializable{
 		return "login";
 	}
 	
+	public void entrar() throws Exception
+	{
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		boolean retorno = pessoaDAO.verificaCadastro(this);
+		if(retorno) { setNomeAtual(pessoa.getNome()); }
+	}
+	
 	public String update() throws Exception{
 		
 		PessoaDAO pessoaDAO = new PessoaDAO();
