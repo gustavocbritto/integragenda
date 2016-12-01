@@ -22,22 +22,19 @@ public class CadastroUsuario {
 		pessoa.setSobrenome("Legal");
 		pessoa.setEmail("paulo@gmail.com");
 		pessoa.setTelefone("423");
-		pessoa.setSenha("M");
+		pessoa.setSexo("M");
 		pessoa.setConfirmarsenha(arg2);
 		usuario.setPessoa(pessoa);
 	}
 
 	@When("^I click in register$")
 	public void iClickInRegister() throws Throwable {
-		PessoaDAO pessoaDAO = new PessoaDAO();
-		pessoaDAO.gravar(usuario);
-		//assertThat(usuario.cadastrar(), is(true));
+		assertThat(usuario.cadastrar(), is(true));
 	}
 
 	@Then("^my user are regitered$")
 	public void myUserAreRegitered() throws Throwable {
-		usuario.entrar();
-		assertThat(usuario.getNomeAtual(), is("Paulo"));
+		assertThat(usuario.entrar(), is(true));
 	}
 	
 }
