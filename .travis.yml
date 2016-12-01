@@ -15,7 +15,6 @@ before_script:
  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
  - cp config/database.yml.travis config/database.yml
  - psql -c 'create database integragenda;' -U postgres
- - "rake db:migrate"
  - psql -U postgres -d integragenda < dump
 
 script:
