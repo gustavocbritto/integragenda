@@ -15,7 +15,7 @@ before_install:
   - sudo apt-get -y remove --purge postgresql-9.3
   - sudo apt-get update
   - sudo apt-get install postgresql-9.4
-  - sudo service postgresql start 
+  - sudo service postgresql start 9.4 
 
 before_script:
  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
