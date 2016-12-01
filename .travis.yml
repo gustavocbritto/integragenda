@@ -8,14 +8,14 @@ addons:
   - sonarqube: true
   - postgresql: "9.4"
  
- services: postgresql
- 
- before_script:
+  before_script:
  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
  - cp config/database.yml.travis config/database.yml
  - psql -c 'create database integragenda;' -U postgres
  - psql -U postgres -d integragenda < dump
  
+ services: postgresql
+
 script:
   - mvn clean install sonar:sonar -Dmaven.test.skip=false
   
