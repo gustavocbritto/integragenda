@@ -1,0 +1,932 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: administrador; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE administrador (
+    id integer NOT NULL,
+    tipo character varying(150) NOT NULL,
+    idpessoa integer NOT NULL
+);
+
+
+ALTER TABLE administrador OWNER TO postgres;
+
+--
+-- Name: administrador_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE administrador_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE administrador_id_seq OWNER TO postgres;
+
+--
+-- Name: administrador_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE administrador_id_seq OWNED BY administrador.id;
+
+
+--
+-- Name: agenda; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE agenda (
+    id integer NOT NULL,
+    idsala integer NOT NULL,
+    status integer,
+    datainicio date,
+    datafim date,
+    idlocador integer,
+    horainicio character varying(5),
+    horafim character varying(5)
+);
+
+
+ALTER TABLE agenda OWNER TO postgres;
+
+--
+-- Name: agenda_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE agenda_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE agenda_id_seq OWNER TO postgres;
+
+--
+-- Name: agenda_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE agenda_id_seq OWNED BY agenda.id;
+
+
+--
+-- Name: agenda_participante; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE agenda_participante (
+    idagenda integer NOT NULL,
+    idparticipante integer NOT NULL
+);
+
+
+ALTER TABLE agenda_participante OWNER TO postgres;
+
+--
+-- Name: categoria; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE categoria (
+    id integer NOT NULL,
+    descricao character varying(150)
+);
+
+
+ALTER TABLE categoria OWNER TO postgres;
+
+--
+-- Name: categoria_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE categoria_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE categoria_id_seq OWNER TO postgres;
+
+--
+-- Name: categoria_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE categoria_id_seq OWNED BY categoria.id;
+
+
+--
+-- Name: imagem; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE imagem (
+    id integer NOT NULL,
+    caminho character varying(200)
+);
+
+
+ALTER TABLE imagem OWNER TO postgres;
+
+--
+-- Name: imagem_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE imagem_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE imagem_id_seq OWNER TO postgres;
+
+--
+-- Name: imagem_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE imagem_id_seq OWNED BY imagem.id;
+
+
+--
+-- Name: localizacao; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE localizacao (
+    id integer NOT NULL,
+    rua character varying(150),
+    numero integer,
+    complemento integer,
+    cidade character varying(150),
+    estado character varying(150),
+    pais character varying(150)
+);
+
+
+ALTER TABLE localizacao OWNER TO postgres;
+
+--
+-- Name: localizacao_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE localizacao_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE localizacao_id_seq OWNER TO postgres;
+
+--
+-- Name: localizacao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE localizacao_id_seq OWNED BY localizacao.id;
+
+
+--
+-- Name: participante_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE participante_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE participante_seq OWNER TO postgres;
+
+--
+-- Name: participante; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE participante (
+    id integer DEFAULT nextval('participante_seq'::regclass) NOT NULL,
+    email character varying(150) NOT NULL
+);
+
+
+ALTER TABLE participante OWNER TO postgres;
+
+--
+-- Name: pessoa; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE pessoa (
+    id integer NOT NULL,
+    nome character varying(150) NOT NULL,
+    sobrenome character varying(150) NOT NULL,
+    email character varying(150) NOT NULL,
+    teelfone integer NOT NULL,
+    sexo character(1) NOT NULL,
+    senha character varying(150) NOT NULL,
+    confirmarsenha character varying(150) NOT NULL
+);
+
+
+ALTER TABLE pessoa OWNER TO postgres;
+
+--
+-- Name: pessoa_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE pessoa_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE pessoa_id_seq OWNER TO postgres;
+
+--
+-- Name: pessoa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE pessoa_id_seq OWNED BY pessoa.id;
+
+
+--
+-- Name: sala; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE sala (
+    id integer NOT NULL,
+    idcategoria integer NOT NULL,
+    tamanhomin integer,
+    tamanhomax integer,
+    preco numeric,
+    idlocalizacao integer NOT NULL,
+    descricao character varying(150),
+    idadministrador integer NOT NULL,
+    estrela integer,
+    status integer,
+    numero integer
+);
+
+
+ALTER TABLE sala OWNER TO postgres;
+
+--
+-- Name: sala_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE sala_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE sala_id_seq OWNER TO postgres;
+
+--
+-- Name: sala_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE sala_id_seq OWNED BY sala.id;
+
+
+--
+-- Name: sala_imagem; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE sala_imagem (
+    idsala integer NOT NULL,
+    idimagem integer NOT NULL
+);
+
+
+ALTER TABLE sala_imagem OWNER TO postgres;
+
+--
+-- Name: sala_usuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE sala_usuario (
+    idsala integer NOT NULL,
+    idusuario integer NOT NULL
+);
+
+
+ALTER TABLE sala_usuario OWNER TO postgres;
+
+--
+-- Name: sala_utensilio; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE sala_utensilio (
+    idsala integer NOT NULL,
+    idutensilio integer NOT NULL,
+    qtd integer
+);
+
+
+ALTER TABLE sala_utensilio OWNER TO postgres;
+
+--
+-- Name: usuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE usuario (
+    id integer NOT NULL,
+    tipo character varying(150) NOT NULL,
+    idpessoa integer NOT NULL
+);
+
+
+ALTER TABLE usuario OWNER TO postgres;
+
+--
+-- Name: usuario_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE usuario_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE usuario_id_seq OWNER TO postgres;
+
+--
+-- Name: usuario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE usuario_id_seq OWNED BY usuario.id;
+
+
+--
+-- Name: utensilio; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE utensilio (
+    id integer NOT NULL,
+    descricao character varying(150)
+);
+
+
+ALTER TABLE utensilio OWNER TO postgres;
+
+--
+-- Name: utensilio_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE utensilio_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE utensilio_id_seq OWNER TO postgres;
+
+--
+-- Name: utensilio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE utensilio_id_seq OWNED BY utensilio.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY administrador ALTER COLUMN id SET DEFAULT nextval('administrador_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY agenda ALTER COLUMN id SET DEFAULT nextval('agenda_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY categoria ALTER COLUMN id SET DEFAULT nextval('categoria_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY imagem ALTER COLUMN id SET DEFAULT nextval('imagem_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY localizacao ALTER COLUMN id SET DEFAULT nextval('localizacao_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY pessoa ALTER COLUMN id SET DEFAULT nextval('pessoa_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sala ALTER COLUMN id SET DEFAULT nextval('sala_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuario ALTER COLUMN id SET DEFAULT nextval('usuario_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY utensilio ALTER COLUMN id SET DEFAULT nextval('utensilio_id_seq'::regclass);
+
+
+--
+-- Data for Name: administrador; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY administrador (id, tipo, idpessoa) FROM stdin;
+1	Admin	1
+2	Admin	2
+\.
+
+
+--
+-- Name: administrador_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('administrador_id_seq', 11, true);
+
+
+--
+-- Data for Name: agenda; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY agenda (id, idsala, status, datainicio, datafim, idlocador, horainicio, horafim) FROM stdin;
+2	1	0	2016-05-08	2016-05-09	2	08:00	18:00
+3	2	1	2016-11-09	2016-11-11	1	05:28	08:28
+5	1	0	2016-11-26	2016-11-27	1	09:00	14:00
+6	1	0	2016-11-29	2016-11-29	1	07:00	19:00
+4	2	1	2016-11-02	2016-11-04	1	05:28	08:28
+7	1	1	2016-09-06	2016-09-07	1	04:00	18:00
+\.
+
+
+--
+-- Name: agenda_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('agenda_id_seq', 7, true);
+
+
+--
+-- Data for Name: agenda_participante; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY agenda_participante (idagenda, idparticipante) FROM stdin;
+2	4
+2	5
+2	6
+3	24
+3	25
+7	26
+\.
+
+
+--
+-- Data for Name: categoria; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY categoria (id, descricao) FROM stdin;
+1	Executivo
+2	Casual
+\.
+
+
+--
+-- Name: categoria_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('categoria_id_seq', 10, true);
+
+
+--
+-- Data for Name: imagem; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY imagem (id, caminho) FROM stdin;
+2	/resources/img/sala2.jpg
+1	/resources/img/sala1.jpg
+8	/resources/img/profile.png
+\.
+
+
+--
+-- Name: imagem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('imagem_id_seq', 8, true);
+
+
+--
+-- Data for Name: localizacao; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY localizacao (id, rua, numero, complemento, cidade, estado, pais) FROM stdin;
+2	Primeiro de maio	905	3302	Cariacica	ES	Brasil
+1	Pereira Pinto	115	902	Vitoria	ES	Brasil
+\.
+
+
+--
+-- Name: localizacao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('localizacao_id_seq', 10, true);
+
+
+--
+-- Data for Name: participante; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY participante (id, email) FROM stdin;
+4	IGOR@GMAIL.COM
+5	BRASIL@GMAIL.COM
+6	CORLOBIN@GMAIL.COM
+24	ko
+25	yguygyuy
+26	jhuihiu
+\.
+
+
+--
+-- Name: participante_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('participante_seq', 26, true);
+
+
+--
+-- Data for Name: pessoa; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY pessoa (id, nome, sobrenome, email, teelfone, sexo, senha, confirmarsenha) FROM stdin;
+1	Gustavo	Britto	gustavo@gmail.com	31133333	M	123456	123456
+2	Bruno	Mergh	Bruno@gmail.com	32233333	M	123456	123456
+3	Italo	Lourenco	Italo@gmail.com	33333333	M	123456	123456
+\.
+
+
+--
+-- Name: pessoa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('pessoa_id_seq', 4, true);
+
+
+--
+-- Data for Name: sala; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY sala (id, idcategoria, tamanhomin, tamanhomax, preco, idlocalizacao, descricao, idadministrador, estrela, status, numero) FROM stdin;
+2	2	1	100	1000	2	SALAAA	2	4	0	400
+1	1	1	100	2000	1	Sala muito boa	1	5	0	202
+\.
+
+
+--
+-- Name: sala_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('sala_id_seq', 9, true);
+
+
+--
+-- Data for Name: sala_imagem; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY sala_imagem (idsala, idimagem) FROM stdin;
+1	1
+2	2
+2	8
+\.
+
+
+--
+-- Data for Name: sala_usuario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY sala_usuario (idsala, idusuario) FROM stdin;
+\.
+
+
+--
+-- Data for Name: sala_utensilio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY sala_utensilio (idsala, idutensilio, qtd) FROM stdin;
+1	1	1
+1	2	1
+1	3	1
+1	4	1
+1	5	1
+2	1	1
+2	2	1
+2	3	1
+2	4	1
+\.
+
+
+--
+-- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY usuario (id, tipo, idpessoa) FROM stdin;
+5	Locador	3
+\.
+
+
+--
+-- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('usuario_id_seq', 5, true);
+
+
+--
+-- Data for Name: utensilio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY utensilio (id, descricao) FROM stdin;
+1	Datashow
+2	Quadro Branco
+3	Mesa Central
+4	Caixa de som
+5	Microfone
+\.
+
+
+--
+-- Name: utensilio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('utensilio_id_seq', 20, true);
+
+
+--
+-- Name: administrador_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY administrador
+    ADD CONSTRAINT administrador_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: agenda_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY agenda
+    ADD CONSTRAINT agenda_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: categoria_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY categoria
+    ADD CONSTRAINT categoria_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: imagem_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY imagem
+    ADD CONSTRAINT imagem_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: localizacao_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY localizacao
+    ADD CONSTRAINT localizacao_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: participante_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY participante
+    ADD CONSTRAINT participante_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pessoa_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY pessoa
+    ADD CONSTRAINT pessoa_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sala_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY sala
+    ADD CONSTRAINT sala_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY usuario
+    ADD CONSTRAINT usuario_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: utensilio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY utensilio
+    ADD CONSTRAINT utensilio_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: administrador_idpessoa_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY administrador
+    ADD CONSTRAINT administrador_idpessoa_fkey FOREIGN KEY (idpessoa) REFERENCES pessoa(id);
+
+
+--
+-- Name: agenda_participante_idagenda_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY agenda_participante
+    ADD CONSTRAINT agenda_participante_idagenda_fkey FOREIGN KEY (idagenda) REFERENCES agenda(id);
+
+
+--
+-- Name: agenda_participante_idparticipante_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY agenda_participante
+    ADD CONSTRAINT agenda_participante_idparticipante_fkey FOREIGN KEY (idparticipante) REFERENCES participante(id);
+
+
+--
+-- Name: pk_pessoa; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY agenda
+    ADD CONSTRAINT pk_pessoa FOREIGN KEY (idlocador) REFERENCES pessoa(id);
+
+
+--
+-- Name: sala_idadministrador_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sala
+    ADD CONSTRAINT sala_idadministrador_fkey FOREIGN KEY (idadministrador) REFERENCES administrador(id);
+
+
+--
+-- Name: sala_idcategoria_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sala
+    ADD CONSTRAINT sala_idcategoria_fkey FOREIGN KEY (idcategoria) REFERENCES categoria(id);
+
+
+--
+-- Name: sala_idlocalizacao_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sala
+    ADD CONSTRAINT sala_idlocalizacao_fkey FOREIGN KEY (idlocalizacao) REFERENCES localizacao(id);
+
+
+--
+-- Name: sala_imagem_idimagem_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sala_imagem
+    ADD CONSTRAINT sala_imagem_idimagem_fkey FOREIGN KEY (idimagem) REFERENCES imagem(id);
+
+
+--
+-- Name: sala_imagem_idsala_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sala_imagem
+    ADD CONSTRAINT sala_imagem_idsala_fkey FOREIGN KEY (idsala) REFERENCES sala(id);
+
+
+--
+-- Name: sala_usuario_idsala_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sala_usuario
+    ADD CONSTRAINT sala_usuario_idsala_fkey FOREIGN KEY (idsala) REFERENCES sala(id);
+
+
+--
+-- Name: sala_usuario_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sala_usuario
+    ADD CONSTRAINT sala_usuario_idusuario_fkey FOREIGN KEY (idusuario) REFERENCES usuario(id);
+
+
+--
+-- Name: sala_utensilio_idsala_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sala_utensilio
+    ADD CONSTRAINT sala_utensilio_idsala_fkey FOREIGN KEY (idsala) REFERENCES sala(id);
+
+
+--
+-- Name: sala_utensilio_idutensilio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sala_utensilio
+    ADD CONSTRAINT sala_utensilio_idutensilio_fkey FOREIGN KEY (idutensilio) REFERENCES utensilio(id);
+
+
+--
+-- Name: usuario_idpessoa_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuario
+    ADD CONSTRAINT usuario_idpessoa_fkey FOREIGN KEY (idpessoa) REFERENCES pessoa(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
