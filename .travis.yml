@@ -20,8 +20,9 @@ before_install:
 before_script:
  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
  - cp config/database.yml.travis config/database.yml
- - psql -c 'create database integragenda;' -U postgres
- - psql -U postgres -d integragenda < dump
+ - psql -c 'create database integragenda;' -U postgres -W 123456
+ - 123456
+ - psql -U postgres -W 123456 -d integragenda < dump
  
 script:
   - mvn clean install sonar:sonar -Dmaven.test.skip=false
