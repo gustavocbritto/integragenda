@@ -19,13 +19,13 @@ public class CadastroUsuario {
 	@Given("^I am not registered yet and my username \"([^\"]*)\" and password \"([^\"]*)\"$")
 	public void iAmNotRegisteredYetAndMyUsernameAndPassword(String arg1, String arg2) throws Throwable {
 		
-		pessoa.setNome(arg1);
-		pessoa.setSenha(arg2);
+		pessoa.setNome("VAI");
+		pessoa.setSenha("123");
 		pessoa.setSobrenome("Legal");
 		pessoa.setEmail("paulo@gmail.com");
 		pessoa.setTelefone("423");
 		pessoa.setSenha("M");
-		pessoa.setConfirmarsenha(arg2);
+		pessoa.setConfirmarsenha("123");
 		usuario.setPessoa(pessoa);
 	}
 
