@@ -132,19 +132,27 @@ public class Usuario implements Serializable{
 	
 	public String salvar() throws Exception
 	{
-		PessoaDAO pessoaDAO = new PessoaDAO();
 		
 		FacesContext context = FacesContext.getCurrentInstance();
-		if(! this.pessoa.senha.equalsIgnoreCase(this.pessoa.confirmarsenha))
+		if(!cadastrar())
 		{
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Senha confirmada incorretamente",""));
 			return "usuario";
-		}
-		
-		pessoaDAO.gravar(this);
-		
+		}	
 		
 		return "mostraUsuario";
+	}
+	
+	public boolean cadastrar() throws Exception
+	{
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		boolean retorno = false;
+		if(this.pessoa.senha.equalsIgnoreCase(this.pessoa.confirmarsenha))
+		{
+			pessoaDAO.gravar(this);
+			retorno =  true;
+		}
+		return retorno;
 	}
 	
     public void addMessage(String summary, String detail) {
@@ -154,11 +162,10 @@ public class Usuario implements Serializable{
     
 	public String verifica() throws Exception{
 		
-		PessoaDAO pessoaDAO = new PessoaDAO();
-		FacesContext context = FacesContext.getCurrentInstance();
-		boolean retorno = pessoaDAO.verificaCadastro(this);
-		setNomeAtual(pessoa.getNome());
 		
+		boolean retorno = entrar();
+		
+		FacesContext context = FacesContext.getCurrentInstance();
 		if (retorno){
 			return "selecaoSala";
 		}else{
@@ -169,11 +176,12 @@ public class Usuario implements Serializable{
 		return "login";
 	}
 	
-	public void entrar() throws Exception
+	public boolean entrar() throws Exception
 	{
 		PessoaDAO pessoaDAO = new PessoaDAO();
 		boolean retorno = pessoaDAO.verificaCadastro(this);
 		if(retorno) { setNomeAtual(pessoa.getNome()); }
+		return retorno;
 	}
 	
 	public String update() throws Exception{

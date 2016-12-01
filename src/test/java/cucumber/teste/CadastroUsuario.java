@@ -1,6 +1,8 @@
 package cucumber.teste;
 
 import integragenda.modelo.Belly;
+import model.Pessoa;
+import model.Usuario;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -11,23 +13,24 @@ import static org.junit.Assert.assertThat;
 
 
 public class CadastroUsuario {
-
+	private Pessoa pessoa = new Pessoa();
+	private Usuario usuario = new Usuario();
+	
 	@Given("^I am not registered yet and my username \"([^\"]*)\" and password \"([^\"]*)\"$")
 	public void iAmNotRegisteredYetAndMyUsernameAndPassword(String arg1, String arg2) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		usuario.setPessoa(pessoa);
+		pessoa.setNome(arg1);
+		pessoa.setSenha(arg2);
 	}
 
 	@When("^I click in register$")
 	public void iClickInRegister() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		usuario.cadastrar();
 	}
 
 	@Then("^my user are regitered$")
 	public void myUserAreRegitered() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		assertThat(usuario.entrar(), is(true));
 	}
 	
 }
