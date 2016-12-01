@@ -15,7 +15,6 @@ services:
   adapter: postgresql
   database: integragenda
   username: postgres
-  password: 123456
 
 before_script:
  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
