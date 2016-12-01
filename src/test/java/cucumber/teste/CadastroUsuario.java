@@ -21,6 +21,11 @@ public class CadastroUsuario {
 		usuario.setPessoa(pessoa);
 		pessoa.setNome(arg1);
 		pessoa.setSenha(arg2);
+		pessoa.setSobrenome("Legal");
+		pessoa.setEmail("paulo@gmail.com");
+		pessoa.setTelefone("423");
+		pessoa.setSenha("M");
+		pessoa.setConfirmarsenha(arg2);
 	}
 
 	@When("^I click in register$")
