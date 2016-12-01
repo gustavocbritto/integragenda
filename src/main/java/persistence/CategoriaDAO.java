@@ -2,10 +2,7 @@ package persistence;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import model.Categoria;
-import model.Sala;
-import model.Utensilio;
 
 public class CategoriaDAO extends DAO {
 	

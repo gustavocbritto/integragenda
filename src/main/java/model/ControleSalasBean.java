@@ -2,21 +2,18 @@ package model;
  
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.SlideEndEvent;
-
 import persistence.CategoriaDAO;
 import persistence.SalaDAO;
 import persistence.UtensilioDAO;
@@ -71,7 +68,6 @@ public class ControleSalasBean implements Serializable {
     @PostConstruct
     public void init() {
     	
-
 		try {
 			
 			listaItens.add("Categoria");
@@ -89,6 +85,22 @@ public class ControleSalasBean implements Serializable {
 		}
     }
     
+    public String dataInicialFormatada()
+    {
+    	DateFormat dtOutput = new SimpleDateFormat("dd/MM/YYYY");
+        return dtOutput.format(dt_inicial.getTime());
+    }
+    
+    public String dataFinalFormatada()
+    {
+    	DateFormat dtOutput = new SimpleDateFormat("dd/MM/YYYY");
+        return dtOutput.format(dt_final.getTime());
+    }
+    
+    public void carregarSalas() throws Exception
+    {
+    	selecionaSalas();
+    }
     public void buscaCidadeEData() throws Exception
     {
     	selecionaSalas();
@@ -455,4 +467,18 @@ public class ControleSalasBean implements Serializable {
     public void setSalaSelecionada(Sala salaSelecionada) {
         this.salaSelecionada = salaSelecionada;
     }
+
+	public boolean verificaDisponibilidadeSala(Sala sala) throws Exception 
+	{
+		boolean retorno =  false;
+		
+    	if(dt_inicial != null && dt_final != null)
+    	{
+			if(sala.getDisponivel(dt_inicial, dt_final))
+			{
+				retorno =  true;
+			}
+    	}
+		return retorno;
+	}
 }

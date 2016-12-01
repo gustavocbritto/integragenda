@@ -22,20 +22,24 @@ xmlns:p="http://primefaces.org/ui">
 			<ui:insert name="cabecalho" >
 	            <ui:include src="cabecalho.xhtml" />
 	        </ui:insert> 
-					
-			<h:panelGrid columns="1" class="centraliza">
-				
-				<h:outputLabel id="melhoresSalas" style="padding: 40px" class="titulo" value="As melhores salas, com os melhores preços"/>
-				<h:outputLabel class="subtitulo" value="Escolha sua cidade:"/>
-				<h:form >
-					<h:panelGrid id="panelBuscar" style="padding-left: 35%">
-						<p:inputText id="cidade" styleClass="searchCidade" value="#{controleSalasBean.cidadeSelecionada}"></p:inputText>
-						
-						<h:commandButton styleClass="buttonEntrada vermelho" actionListener="#{controleSalasBean.buscaCidade}" value="Consultar"/>
-					</h:panelGrid>
-				</h:form>
-			<!-- valid html comment -->
-			</h:panelGrid>
+	        <br/><br/><br/>
+	        <br/><br/><br/>
+	        <br/><br/>
+			<div class="container">		
+				<div class="centraliza">
+					<h:outputLabel styleClass="titulo" value="As melhores salas, com os melhores preços"/>
+					<br/>
+					<h:outputLabel styleClass="subtitulo" value="Escolha sua cidade:"/>
+					<h:form >
+						<div>
+							<p:inputText id="cidade" styleClass="searchCidade" value="#{controleSalasBean.cidadeSelecionada}"/>
+						</div>
+						<div>				
+							<h:commandButton styleClass="buttonEntrada vermelho" actionListener="#{controleSalasBean.buscaCidade}" value="Consultar"/>
+						</div>				
+					</h:form>
+				</div>
+			</div>
 		</div>
 	</h:body>
 </html>

@@ -16,7 +16,6 @@ public class utensilioService implements Serializable {
 	 */
 	private static final long serialVersionUID = -6406069601890203800L;
 	
-	private ArrayList<Utensilio> utensilios;
 	UtensilioDAO utensilioDAO = new UtensilioDAO();
 	public ArrayList<Utensilio> getUtensilios() throws Exception
 	{

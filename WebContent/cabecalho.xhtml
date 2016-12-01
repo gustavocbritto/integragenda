@@ -20,6 +20,7 @@ xmlns:p="http://primefaces.org/ui">
 <ui:composition>
 	<div class="cabecalho">
 		<h:form>
+		<p:growl id="msgs" showDetail="true" sticky="true" />  
 		<p:commandLink class="buttonCabecalhoLogo vermelho" actionListener="#{usuario.selecaoSala}"><img class="selecaoSalasLogo" src="resources/img/menu-options.png" alt="Logo"/></p:commandLink>
 		<div class="dropdown floatRight">
 			<button class="buttonCabecalho vermelho floatRight"><i class="avatar"></i><p:outputLabel value="#{usuario.nomeAtual}"/></button>
@@ -27,10 +28,11 @@ xmlns:p="http://primefaces.org/ui">
 				<p:commandLink actionListener="#{usuario.login}" rendered="#{usuario.nomeAtual == 'Usuario'}" value="Entrar" />
 				<p:commandLink actionListener="#{usuario.cadastro}" rendered="#{usuario.nomeAtual  == 'Usuario'}" value="Cadastrar" />
 				<p:commandLink actionListener="#{usuario.perfil}" rendered="#{usuario.nomeAtual != 'Usuario'}" value="Perfil"/>
+				<p:commandLink actionListener="#{usuario.logout}" rendered="#{usuario.nomeAtual != 'Usuario'}" value="Sair"/>
 			</div>
 		</div>
-		<p:commandLink class="buttonCabecalho vermelho" actionListener="#{usuario.minhaAgenda}"><i class="agenda"></i>Minha Agenda</p:commandLink>
-		<p:commandLink class="buttonCabecalho vermelho" actionListener="#{usuario.minhasSalas}"><i class="minhasSalas"></i>Minhas Salas</p:commandLink>
+		<p:commandLink class="buttonCabecalho vermelho" actionListener="#{usuario.minhaAgenda}" update="msgs"><i class="agenda"></i>Minha Agenda</p:commandLink>
+		<p:commandLink class="buttonCabecalho vermelho" actionListener="#{usuario.minhasSalas}" update="msgs"><i class="minhasSalas"></i>Minhas Salas</p:commandLink>
        </h:form>		
 	</div>
 </ui:composition>

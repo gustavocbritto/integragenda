@@ -162,6 +162,10 @@ public class Agenda implements Serializable{
 		agendaDAO.remover(this);
 		
 	}
+	public void salvar(int idLocador) throws Exception {
+		agendaDAO.salvar(this, idLocador);
+		
+	}
 
 	
 	

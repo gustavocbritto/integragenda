@@ -15,7 +15,6 @@ import org.primefaces.context.RequestContext;
  
 @ManagedBean(name="agendaBean")
 @SessionScoped
-//ViewScoped
 public class AgendaBean implements Serializable {
  
 
@@ -41,11 +40,18 @@ public class AgendaBean implements Serializable {
 		return email;
 	}
 
-	public void setEmail(String email) throws Exception {
-		if (!email.equals("")){
+	public void setEmail(String email) throws Exception 
+	{
+		if (!email.equals(""))
+		{
 			agendaAtual.adicionarNovoParticipante(email);
 			this.email = email;
 		}
+	}
+	
+	public void atualizarAgendas()
+	{
+		agendas = usuario.getAgendas();
 	}
 
 	public Agenda getAgendaAtual() {

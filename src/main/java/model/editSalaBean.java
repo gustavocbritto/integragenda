@@ -1,28 +1,20 @@
 package model;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
-
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.CloseEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-
 import persistence.CategoriaDAO;
 import persistence.SalaDAO;
 import persistence.UtensilioDAO;
@@ -33,14 +25,11 @@ import persistence.UtensilioDAO;
 //ViewScoped
 public class editSalaBean implements Serializable {
 
-	
-
-	
-
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3209177736367691827L;
+	private static final long serialVersionUID = -8078976743416457960L;
+	
 	private Sala sala;
     private List<Utensilio> utensilios;
     private List<Categoria> categorias;
@@ -53,7 +42,9 @@ public class editSalaBean implements Serializable {
     private List<String> listaItens;
     private String tamanhoInserido;
     private UploadedFile file;
-      
+    private Date horarioInicio;
+    private Date horarioFim;
+    
     @ManagedProperty(value = "#{usuario}")
     private Usuario usuario; 
 	
@@ -101,6 +92,43 @@ public class editSalaBean implements Serializable {
     		addMessage("ERROR:", e.getMessage());
 			System.out.println(e.getMessage());
 		}
+    }
+    
+    public void alugarSala() 
+    {	
+    	try{
+    	//Verifica se o usuario esta logado.
+    	if(!usuario.getNomeAtual().equals("Usuario"))
+    	{
+        	//Verifica se a data esta OK.
+    		if(controleSalasBean.verificaDisponibilidadeSala(sala))
+    		{
+            	//Cria a agenda para esta sala.
+    			usuario.criarAgenda(sala, horarioInicio, horarioFim, controleSalasBean.getDt_inicial(), controleSalasBean.getDt_final());
+    			
+            	//Redirecionar para minha agenda.
+    			FacesContext.getCurrentInstance().getExternalContext().redirect("minhaAgenda.jsf");
+    		}
+    		else
+    		{
+    			addMessage("ERRO:", "Sala não está diponivel nesta data.");
+    		}
+
+    	}else
+    	{
+    		addMessage("ERRO:", "Usuario deve estar logado.");
+    	}
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    	}
+
+    }
+    
+    public void voltarSelecaoSala() throws IOException
+    {
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("selecaoSala.jsf");
     }
     
     public void upload(FileUploadEvent event) {
@@ -245,7 +273,25 @@ public class editSalaBean implements Serializable {
 		this.controleMinhasSalasBean = controleMinhasSalasBean;
 	}
 	
-    public UploadedFile getFile(){
+	
+	
+    public Date getHorarioInicio() {
+		return horarioInicio;
+	}
+
+	public void setHorarioInicio(Date horarioInicio) {
+		this.horarioInicio = horarioInicio;
+	}
+
+	public Date getHorarioFim() {
+		return horarioFim;
+	}
+
+	public void setHorarioFim(Date horarioFim) {
+		this.horarioFim = horarioFim;
+	}
+
+	public UploadedFile getFile(){
         return file;
     }
  

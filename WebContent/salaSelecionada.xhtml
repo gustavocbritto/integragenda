@@ -68,9 +68,27 @@ xmlns:p="http://primefaces.org/ui">
 							
 							<h:panelGrid columns="1" cellpadding="2">
 							    <h:outputLabel value="localização GoogleMaps:" />
-							    <h:outputLabel value ="Preço(R$): #{editSalaBean.sala.preco}"/>
-						     
-							     
+							    
+							    <h:panelGrid columns="2" cellpadding="2">
+						    	
+							    	<p:outputLabel for="popupDataInicial" value="Data Inicio:" />
+	        						<p:calendar id="popupDataInicial" value="#{controleSalasBean.dt_inicial}" />	
+							    	
+							    	<p:outputLabel for="popupDataFinal" value="Data Final:" />
+	        						<p:calendar id="popupDataFinal" value="#{controleSalasBean.dt_final}" />
+     
+							    </h:panelGrid>
+							    
+							    <p:outputLabel for="horarioInicio" value="Horario Inicio:" />
+        						<p:calendar id="horarioInicio" value="#{editSalaBean.horarioInicio}" pattern="HH:mm" timeOnly="true"  />
+
+							    <p:outputLabel for="horarioFim" value="Horario Fim:" />
+        						<p:calendar id="horarioFim" value="#{editSalaBean.horarioFim}" pattern="HH:mm" timeOnly="true"  />						   
+            
+							    <h:outputLabel value ="Preço(R$)/dia: #{editSalaBean.sala.preco}"/>
+							    
+							    <h:outputLabel value ="Numero da Sala: #{editSalaBean.sala.numeroSala}"/>
+							    
 						    	<h:outputLabel for="name" value="Localização:" />
 						    
 								<p:growl id="msgLocalizacao" showDetail="true" />
@@ -93,10 +111,8 @@ xmlns:p="http://primefaces.org/ui">
     						<h:panelGrid columns="2" cellpadding="4">	
     							<h:outputText id="display" />
     							<div class="btnAlugarContainer">
-									<p:commandButton value="Alugar" class="verde alugarBtn" formaction="https://pagseguro.uol.com.br" update="msgs"/>
-									<p:commandButton value="Cancelar" class="vermelho trocaCidadeBtn" formaction="selecaoSala.jsf"/>
-
-									
+									<p:commandButton value="Alugar" class="verde alugarBtn" actionListener="#{editSalaBean.alugarSala}" update="msgs"/>
+									<p:commandButton value="Cancelar" class="vermelho trocaCidadeBtn" actionListener="#{editSalaBean.voltarSelecaoSala()}"/>
 								</div>
 							</h:panelGrid>
 							

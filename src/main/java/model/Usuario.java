@@ -6,13 +6,10 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
 import persistence.AgendaDAO;
 import persistence.PessoaDAO;
 
@@ -42,6 +39,16 @@ public class Usuario implements Serializable{
 		this.pessoa = new Pessoa();
 	}
 	
+	public void logout() throws Exception
+	{
+		nomeAtual = "Usuario";
+		idUsuario = 0;
+		pessoa = new Pessoa();
+		preco = 0.0;
+		agendas = new ArrayList<Agenda>();
+		FacesContext.getCurrentInstance().getExternalContext().redirect("index.jsf");
+	}
+	
 	public void login() throws IOException
 	{
 		FacesContext.getCurrentInstance().getExternalContext().redirect("Login.jsf");
@@ -49,6 +56,7 @@ public class Usuario implements Serializable{
 	
 	public void cadastro() throws IOException
 	{
+		
 		FacesContext.getCurrentInstance().getExternalContext().redirect("cadastro.jsf");
 	}
 	
@@ -76,7 +84,14 @@ public class Usuario implements Serializable{
 	
 	public void minhasSalas() throws IOException
 	{
-		FacesContext.getCurrentInstance().getExternalContext().redirect("minhasSalas.jsf");
+		if(!nomeAtual.equals("Usuario"))
+		{
+			FacesContext.getCurrentInstance().getExternalContext().redirect("minhasSalas.jsf");
+		}else
+		{
+			addMessage("ERRO:","Usuario deve estar logado!");
+		}
+		
 	}
 	public String getNomeAtual() {
 		return nomeAtual;
@@ -181,6 +196,21 @@ public class Usuario implements Serializable{
 
 	public void setAgendas(ArrayList<Agenda> agendas) {
 		this.agendas = agendas;
+	}
+
+
+	public void criarAgenda(Sala sala, Date horarioInicio, Date horarioFim, Date dt_inicial, Date dt_final) throws Exception{
+        DateFormat dtOutput = new SimpleDateFormat("HH:mm");
+        
+		Agenda agenda = new Agenda();
+		agenda.setDataInicio(new java.sql.Date(dt_inicial.getTime()));
+		agenda.setDataFim(new java.sql.Date(dt_final.getTime()));
+		agenda.setHoraInicio(dtOutput.format(horarioInicio));
+		agenda.setHoraFim(dtOutput.format(horarioFim));
+		agenda.setSala(sala);
+		agenda.setStatus(false);
+		agenda.salvar(pessoa.getId());
+		this.agendas.add(agenda);
 	}
 
 
