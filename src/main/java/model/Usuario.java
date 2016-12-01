@@ -146,8 +146,8 @@ public class Usuario implements Serializable{
 	public boolean cadastrar() throws Exception
 	{
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		boolean retorno = true;
-		if(this.pessoa.senha.equalsIgnoreCase(this.pessoa.confirmarsenha))
+		boolean retorno = false;
+		if(this.pessoa.senha.equals(this.pessoa.confirmarsenha))
 		{
 			retorno =  true;
 			pessoaDAO.gravar(this);
