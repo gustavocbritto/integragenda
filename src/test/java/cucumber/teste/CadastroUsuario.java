@@ -18,7 +18,7 @@ public class CadastroUsuario {
 	
 	@Given("^I am not registered yet and my username \"([^\"]*)\" and password \"([^\"]*)\"$")
 	public void iAmNotRegisteredYetAndMyUsernameAndPassword(String arg1, String arg2) throws Throwable {
-		usuario.setPessoa(pessoa);
+		
 		pessoa.setNome(arg1);
 		pessoa.setSenha(arg2);
 		pessoa.setSobrenome("Legal");
@@ -26,11 +26,12 @@ public class CadastroUsuario {
 		pessoa.setTelefone("423");
 		pessoa.setSenha("M");
 		pessoa.setConfirmarsenha(arg2);
+		usuario.setPessoa(pessoa);
 	}
 
 	@When("^I click in register$")
 	public void iClickInRegister() throws Throwable {
-		usuario.cadastrar();
+		assertThat(usuario.cadastrar(), is(true));
 	}
 
 	@Then("^my user are regitered$")
