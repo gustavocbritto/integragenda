@@ -1,6 +1,8 @@
 package cucumber.teste;
 
 import integragenda.modelo.Belly;
+import model.Pessoa;
+import model.Usuario;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -11,23 +13,38 @@ import static org.junit.Assert.assertThat;
 
 
 public class UsuarioEditaSeuPerfil {
-	
-	@Given("^Eu tenho cadastrado como nome \"([^\"]*)\" e desejo alterar para \"([^\"]*)\"$")
-	public void euTenhoCadastradoComoNomeEDesejoAlterarPara(String arg1, String arg2) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	private Usuario usuario = new Usuario();
+	private Pessoa pessoa =  new Pessoa();
+	private String telefoneAntigo, telefoneNovo;
+	@Given("^Eu tenho cadastrado como telefone \"([^\"]*)\" e desejo alterar para \"([^\"]*)\"$")
+	public void euTenhoCadastradoComoTelefoneEDesejoAlterarPara(String arg1, String arg2) throws Throwable {
+		usuario.setPessoa(pessoa);
+		pessoa.setNome("Gustavo");
+		pessoa.setSenha("123456");
+		usuario.entrar();
+		telefoneAntigo = arg1;
+		telefoneNovo = arg2;
+	   // 332233333
+	    //331133333
 	}
 
-	@When("^Eu clico em salvar$")
-	public void euClicoEmSalvar() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	@When("^Eu clico em alterar$")
+	public void euClicoEmAlterar() throws Throwable {
+		assertThat(usuario.getPessoa().getTelefone(), is(telefoneAntigo));
+		usuario.getPessoa().setTelefone(telefoneNovo);
+		usuario.update();
 	}
 
-	@Then("^Meu nome e alterado para \"([^\"]*)\"$")
-	public void meuNomeEAlteradoPara(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	@Then("^Meu telefone e alterado de \"([^\"]*)\" para \"([^\"]*)\"$")
+	public void meuTelefoneEAlteradoDePara(String arg1, String arg2) throws Throwable {
+		Usuario usuarioLocal = new Usuario();
+		Pessoa pessoaLocal = new Pessoa();
+		usuarioLocal.setPessoa(pessoa);
+		pessoaLocal.setNome("Gustavo");
+		pessoaLocal.setSenha("123456");
+		usuarioLocal.entrar();
+		assertThat(usuarioLocal.getPessoa().getTelefone(), is(telefoneNovo));
 	}
+
 	
 }
