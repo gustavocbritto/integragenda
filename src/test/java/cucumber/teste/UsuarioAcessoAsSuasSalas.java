@@ -1,11 +1,9 @@
 package cucumber.teste;
 
-import integragenda.modelo.Belly;
 import model.ControleMinhasSalasBean;
 import model.Pessoa;
 import model.Usuario;
 import model.Sala;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

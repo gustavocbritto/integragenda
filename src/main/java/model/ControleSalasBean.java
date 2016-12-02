@@ -229,7 +229,6 @@ public class ControleSalasBean implements Serializable {
     				if(cont < utensiliosFiltro.size())
     				{
     					salaTemp.remove(s);
-    					System.out.println("Descricao:" + s.getDescricao());
     				}
     				
     				
@@ -266,15 +265,6 @@ public class ControleSalasBean implements Serializable {
     		salas.add(s);
     	}
     	
-    	for(Sala s : salaTemp)
-		{
-    		System.out.println("Descricao:" + s.getCategoria().getDescricao());
-    		for(Utensilio u : s.getUtensilios())
-    		{
-    			System.out.println("Utensilio: " + u.getNome());
-    		}
-    		System.out.println("---");
-		}
     }
     
     public void onSlideEnd(SlideEndEvent event) {
