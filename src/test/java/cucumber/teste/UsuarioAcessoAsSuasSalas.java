@@ -41,7 +41,7 @@ public class UsuarioAcessoAsSuasSalas {
 	    listaSalas = controle.getSalas();
 	    for(Sala sala : listaSalas)
 	    {
-	    	assertThat(sala.getPessoa().getNome(), is(usuario.getPessoa().getNome()));
+	    	assertThat(sala.getAdministrador().getPessoa().getNome(), is(usuario.getPessoa().getNome()));
 	    }
 	}
 	
