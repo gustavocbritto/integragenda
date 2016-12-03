@@ -78,7 +78,7 @@ public class ControleMinhasSalasBean implements Serializable {
 			listaItens.add("Tamanho");
 			
 			System.out.println(usuario.getPessoa().getId());
-			setSalas(salaDAO.consultarPorUsuario(usuario.getPessoa().getId()));
+			selecionaSalas();
 			
     		utensilios = utensilioDAO.getLista();
     		categorias = categoriaDAO.getLista();
@@ -257,6 +257,20 @@ public class ControleMinhasSalasBean implements Serializable {
     		salas.add(s);
     	}
     	
+    	Sala salaCriacao = getInstanceSalaNova();
+    	salas.add(salaCriacao);
+    	
+    }
+    
+    public Sala getInstanceSalaNova()
+    {
+    	Sala salaCriacao = new Sala();
+    	
+    	Imagem imagemCriacao = new Imagem("/resources/img/novasala.png");
+    	salaCriacao.getImagens().add(imagemCriacao);
+    	salaCriacao.setAdministrador(new Administrador("Locatario", usuario.getPessoa()));
+    	
+    	return salaCriacao;
     }
     
     public void onSlideEnd(SlideEndEvent event) {

@@ -1,5 +1,6 @@
 package persistence;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,22 +14,49 @@ import model.Utensilio;
 public class SalaDAO extends DAO {
 
 	public void inserir(Sala sala) throws Exception {
+		UtensilioDAO utensilioDAO = new UtensilioDAO();
 		open();
-		stmt = con.prepareStatement("INSERT INTO sala(idCategoria, tamanhoMin, tamanhoMax, preco, localizacao, descricao, idAdministrador, idPessoa, estrela, status, numero) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 		
+		stmt = con.prepareStatement("INSERT INTO sala(idCategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, idAdministrador, estrela, status, numero) VALUES(?,?,?,?,?,?,?,?,?,?) RETURNING ID;");
+		
+		sala.getLocalizacao().salvar();
+				
 		stmt.setInt(1, sala.getCategoria().getId());
 		stmt.setInt(2, sala.getTamanhoMin());
 		stmt.setInt(3, sala.getTamanhoMax());
 		stmt.setDouble(4, sala.getPreco());
 		stmt.setInt(5, sala.getLocalizacao().getId());
 		stmt.setString(6, sala.getDescricao());
-		stmt.setInt(7, sala.getAdministrador().getIdAdministrador());
-		stmt.setInt(8, sala.getPessoa().getId());
-		stmt.setInt(9, sala.getEstrela());
-		stmt.setBoolean(10, sala.getStatus());
-		stmt.setInt(11, sala.getNumeroSala());
-		stmt.execute();
+		stmt.setInt(7, sala.getAdministrador().getPessoa().getId());
+		stmt.setInt(8, sala.getEstrela());
+		
+		int status = 0;
+		if(sala.getStatus())
+			status = 1;
+		
+		stmt.setInt(9, status);
+		stmt.setInt(10, sala.getNumeroSala());
+		
+		ResultSet rs = stmt.executeQuery();
 
+		if(rs.next())
+		{
+			int id = rs.getInt(1);
+			sala.setIdSala(id);
+		}
+		
+		//Adicionar utensilios adicionado a sala;
+		for(Utensilio u : sala.getUtensilios())
+		{
+			utensilioDAO.associarUtensilio(sala.getIdSala(), u);
+		}
+		
+		//adiciona a imagem adicionada a sala;
+		for(Imagem i : sala.getImagens())
+		{
+			associarImagem(sala.getIdSala(), i);
+		}	
+		
 		close();
 	}
 

@@ -26,6 +26,10 @@ public class Categoria implements Serializable {
 	}
 	
 	
+	public Categoria() {
+		super();
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -21,11 +21,12 @@ public class Usuario implements Serializable{
 
 
 	
+
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5545896148325336216L;
-	
+	private static final long serialVersionUID = 2212107377872568980L;
 	private int idUsuario;
 	private String tipo;
 	private Pessoa pessoa;

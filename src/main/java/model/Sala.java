@@ -16,17 +16,17 @@ public class Sala implements Serializable{
 	private static final long serialVersionUID = -4691961094499054539L;
 	
 	int idSala;
-	Categoria categoria;
-	ArrayList<Utensilio> utensilios;
-	ArrayList<Imagem> imagens;
+	Categoria categoria = new Categoria();
+	ArrayList<Utensilio> utensilios = new ArrayList<Utensilio>();
+	ArrayList<Imagem> imagens = new ArrayList<Imagem>();
 	int tamanhoMin, tamanhoMax;
 	Double preco;
-	Localizacao localizacao;
+	Localizacao localizacao = new Localizacao();
 	String descricao;
 	Administrador administrador;
 	Pessoa pessoa;
 	int estrela;
-	Boolean status;
+	boolean status;
 	int numeroSala;
 	SalaDAO salaDAO = new SalaDAO();
 	UtensilioDAO utensilioDAO = new UtensilioDAO();
@@ -66,6 +66,10 @@ public class Sala implements Serializable{
 		this.numeroSala = numeroSala;
 	}
 	
+	public Sala() {
+		super();
+	}
+
 	public boolean removerUtensilio(Utensilio utensilio) throws Exception
 	{
 		boolean retorno = false;
@@ -123,7 +127,8 @@ public class Sala implements Serializable{
 	}
 
 	public void setCategoria(Categoria categoria) throws Exception {
-		salaDAO.updateCategoria(idSala, categoria);
+		if(idSala > 0)
+			salaDAO.updateCategoria(idSala, categoria);
 		this.categoria = categoria;
 	}
 
@@ -148,7 +153,8 @@ public class Sala implements Serializable{
 	}
 
 	public void setTamanhoMax(int tamanhoMax) throws Exception{
-		salaDAO.updateTamanhoMax(idSala, tamanhoMax);
+		if(idSala > 0 )
+			salaDAO.updateTamanhoMax(idSala, tamanhoMax);
 		this.tamanhoMax = tamanhoMax;
 	}
 
@@ -217,9 +223,12 @@ public class Sala implements Serializable{
 				retorno = false;
 			}
 		}
-		if(retorno)
+		if(retorno && idSala > 0)
 		{
 			utensilioDAO.associarUtensilio(idSala, novoU);
+			utensilios.add(novoU);
+		}else
+		{
 			utensilios.add(novoU);
 		}
 		return retorno;
@@ -246,6 +255,21 @@ public class Sala implements Serializable{
 		
 		retorno = salaDAO.isDisponivel(idSala, dt_inicial, dt_final);
 		
+		return retorno;
+	}
+
+	public boolean podeSalvar() {
+		boolean retorno =  false;
+		if	(   utensilios.size() > 0 &&
+				imagens.size() > 0 &&
+				categoria.getId() > 0 &&
+				!descricao.equals("") &&
+				tamanhoMax > 0 &&
+				preco > 0 &&
+				localizacao.podeSalvar() &&
+				!descricao.equals("")	
+				)
+			retorno = true;
 		return retorno;
 	}
 

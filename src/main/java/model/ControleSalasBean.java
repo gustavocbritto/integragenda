@@ -25,10 +25,11 @@ public class ControleSalasBean implements Serializable {
      
 
 
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -912595125659125754L;
+	private static final long serialVersionUID = 6998096403529389893L;
 	private UtensilioDAO utensilioDAO = new UtensilioDAO();
 	private CategoriaDAO categoriaDAO = new CategoriaDAO();
 	private SalaDAO salaDAO = new SalaDAO();
@@ -75,7 +76,7 @@ public class ControleSalasBean implements Serializable {
 			listaItens.add("Tamanho");
 			
 
-			setSalas(salaDAO.consultar());
+			selecionaSalas();
 			
     		utensilios = utensilioDAO.getLista();
     		categorias = categoriaDAO.getLista();
@@ -264,6 +265,8 @@ public class ControleSalasBean implements Serializable {
     	{
     		salas.add(s);
     	}
+    	
+
     	
     }
     

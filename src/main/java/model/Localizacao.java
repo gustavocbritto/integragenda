@@ -22,6 +22,9 @@ public class Localizacao implements Serializable {
 		this.estado = estado;
 		this.pais = pais;
 	}
+	public Localizacao() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}
@@ -65,8 +68,23 @@ public class Localizacao implements Serializable {
 		this.pais = pais;
 	}
 	public void salvar() throws Exception{
-		localizacaoDAO.salvar(this);
+		if(id > 0)
+			localizacaoDAO.salvar(this);
+		else
+			localizacaoDAO.inserir(this);
 	}
+	public boolean podeSalvar() {
+		boolean retorno =  false;
+		if(   	numero > 0 &&
+				complemento > 0 &&
+				!rua.equals("") &&
+				!cidade.equals("") &&
+				!estado.equals("") &&
+				!pais.equals(""))
+			retorno = true;
+		return retorno;
+	}
+	
 	
 	
 	

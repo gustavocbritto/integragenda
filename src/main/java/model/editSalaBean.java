@@ -56,9 +56,7 @@ public class editSalaBean implements Serializable {
     
     @PostConstruct
     public void init() {
-		
-		//O id da sala que vou testar, vai ser a do ID 1. Depois tem que mudar pra pegar o ID dinamicamente
-		//Que vira do clique da sala na tela Minhas Salas
+		//Inicialmente o id da sala eh 0, depois tento pegar o ID real da sala que o usuario quer editar.
     	int idSala = 0;
     	if(controleSalasBean != null)
     		if(controleSalasBean.getSalaSelecionada() != null)
@@ -71,11 +69,12 @@ public class editSalaBean implements Serializable {
     	controleSalasBean.setSalaSelecionada(null);
     	controleMinhasSalasBean.setSalaSelecionada(null);
     	
-		System.out.println(idSala);
+    	//Crio os objetios para conversa com o banco
 		SalaDAO salaDAO = new SalaDAO();
 		UtensilioDAO utensilioDAO = new UtensilioDAO();
 		CategoriaDAO categoriaDAO = new CategoriaDAO();
 		
+		//Adiciono os itens que o usuario pode querer adicionar na sala
 		listaItens = new ArrayList<String>();
 		listaItens.add("Categoria");
 		listaItens.add("Utensilio");
@@ -83,7 +82,17 @@ public class editSalaBean implements Serializable {
 		
 		try 
     	{
-    		sala = salaDAO.consulta(idSala);
+			// Se o Id for 0, quer dizer que é sala nova e nao eh pra tentar pegar do banco.
+			if(idSala > 0)
+			{
+				sala = salaDAO.consulta(idSala);
+			}
+			else
+			{
+				sala = getInstanceSalaNova();
+			}
+			
+			//Pego as lista de categorias e utensilios disponiveis no banco.
     		utensilios = utensilioDAO.getLista();
     		categorias = categoriaDAO.getLista();
 		} 
@@ -92,6 +101,17 @@ public class editSalaBean implements Serializable {
     		addMessage("ERROR:", e.getMessage());
 			System.out.println(e.getMessage());
 		}
+    }
+    
+    public Sala getInstanceSalaNova()
+    {
+    	Sala salaCriacao = new Sala();
+    	
+    	Imagem imagemCriacao = new Imagem("/resources/img/novasala.png");
+    	salaCriacao.getImagens().add(imagemCriacao);
+    	salaCriacao.setAdministrador(new Administrador("Locatario", usuario.getPessoa()));
+    	
+    	return salaCriacao;
     }
     
     public void alugarSala() 
@@ -150,7 +170,15 @@ public class editSalaBean implements Serializable {
             fos.close();
             Imagem imagem = new Imagem(caminhoBase+file.getFileName());
             imagem.inserir();
-            sala.associarImagem(imagem);
+            if(sala.getIdSala() > 0)
+            {
+            	sala.associarImagem(imagem);
+            }
+            else
+            {
+            	sala.getImagens().clear();
+            	sala.getImagens().add(imagem);
+            }
             addMessage("Succesful", file.getFileName() + " is uploaded.");
         }else
         {
@@ -166,8 +194,15 @@ public class editSalaBean implements Serializable {
     {
     	try
     	{
-			sala.salvar();
-			addMessage("SUCESSO:", "Sala salva com sucesso!"+usuario.getPessoa().getNome());
+    		if(sala.podeSalvar())
+    		{
+    			sala.salvar();
+    			addMessage("SUCESSO:", "Sala salva com sucesso!");
+    		}else
+    		{
+    			addMessage("ERRO:", "Todos os campos são obrigatorios! Exceto Numero Sala.");
+    		}
+
     	}
     	catch(Exception e)
     	{

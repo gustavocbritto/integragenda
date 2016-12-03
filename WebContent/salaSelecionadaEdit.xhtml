@@ -88,7 +88,7 @@ xmlns:p="http://primefaces.org/ui">
 						 
 				        	<p:separator />
 						 
-				        	<p:commandButton value="Submit" update="msgs formInventario" actionListener="#{editSalaBean.salvarInventario}" icon="ui-icon-check" class="verde alugarBtn"/>
+				        	<p:commandButton value="Submit" update="msgs formInventario" actionListener="#{editSalaBean.salvarInventario}" icon="ui-icon-check" class="verde alugarBtn" />
 					    </p:panel>
 					</h:form>
 					</div>
@@ -100,21 +100,23 @@ xmlns:p="http://primefaces.org/ui">
 						
 							<p:ajax event="close" listener="#{panelView.onClose}" update="msgs" />
 							
-						 	<h:panelGrid columns="1" cellpadding="4">
-				        		<h:form enctype="multipart/form-data">
+						 	<h:panelGrid id="painelGridUpload" columns="1" cellpadding="4">
+				        		<h:form id="formUpload" enctype="multipart/form-data">
 									<p:growl id="messages" showDetail="true" />
 									
-									<p:fileUpload fileUploadListener="#{editSalaBean.upload}" mode="advanced" update="messages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
- 									  
+									<p:fileUpload fileUploadListener="#{editSalaBean.upload}" mode="advanced" update="messages imgsala22" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/">
+ 										<p:graphicImage class="imgSalaSelecionada" id="imgsala22" value="#{editSalaBean.sala.getImagemPrincipal()}" />
+									</p:fileUpload>
 								</h:form>
 								
-							    <p:graphicImage class="imgSalaSelecionada" id="imgsala22" value="#{editSalaBean.sala.getImagemPrincipal()}" />
+							    
 							    <br/>
 						  	</h:panelGrid>
 							
 							<h:panelGrid columns="1" cellpadding="2">
 							    <h:outputLabel value="Link para localização GoogleMaps:" /><p:inputText />
 							    <h:outputLabel value="Preço(R$):" /><p:inputText value ="#{editSalaBean.sala.preco}"/>
+							     
 						     
 							     
 						    <h:outputLabel for="name" value="Localização:" />
@@ -144,7 +146,7 @@ xmlns:p="http://primefaces.org/ui">
 								<h:outputLabel value="Numero:" /><p:inputText value="#{editSalaBean.sala.localizacao.numero}"/>
 								
 								<h:outputLabel value="Complemento:" /><p:inputText value="#{editSalaBean.sala.localizacao.complemento}"/>	
-	 						
+	 							<h:outputLabel value="Numero da sala:" /><p:inputText value ="#{editSalaBean.sala.numeroSala}"/>
 							    <h:outputLabel for="name" value="Descrição:" />
     							<p:inputTextarea value="#{editSalaBean.sala.descricao}" rows="5" cols="30" counter="display" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" />
     						</h:panelGrid>

@@ -34,6 +34,7 @@ public class UsuarioEditaSeuPerfil {
 
 	@Then("^Meu telefone e alterado de \"([^\"]*)\" para \"([^\"]*)\"$")
 	public void meuTelefoneEAlteradoDePara(String arg1, String arg2) throws Throwable {
+		
 		Usuario usuarioLocal = new Usuario();
 		Pessoa pessoaLocal = new Pessoa();
 		usuarioLocal.setPessoa(pessoa);
@@ -41,6 +42,7 @@ public class UsuarioEditaSeuPerfil {
 		pessoaLocal.setSenha("123456");
 		usuarioLocal.entrar();
 		assertThat(usuarioLocal.getPessoa().getTelefone(), is(telefoneNovo));
+		
 	}
 
 	
