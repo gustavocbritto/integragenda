@@ -36,7 +36,7 @@ public class PessoaDAO extends DAO{
 		open();
 		stmt = con.prepareStatement("INSERT INTO pessoa(\r\n" + 
 				"	nome, sobrenome, email, telefone, sexo, senha, confirmarsenha, tipo)\r\n" + 
-				"	VALUES (?, ?, ?, ?, ?, ?, ?);");
+				"	VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
 		
 		stmt.setString(1, usuario.getPessoa().getNome());
 		stmt.setString(2, usuario.getPessoa().getSobrenome());
