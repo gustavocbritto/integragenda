@@ -4,10 +4,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import model.Administrador;
 import model.Categoria;
 import model.Imagem;
 import model.Localizacao;
+import model.Pessoa;
 import model.Sala;
 import model.Utensilio;
 
@@ -27,7 +27,7 @@ public class SalaDAO extends DAO {
 		stmt.setDouble(4, sala.getPreco());
 		stmt.setInt(5, sala.getLocalizacao().getId());
 		stmt.setString(6, sala.getDescricao());
-		stmt.setInt(7, sala.getAdministrador().getPessoa().getId());
+		stmt.setInt(7, sala.getPessoa().getId());
 		stmt.setInt(8, sala.getEstrela());
 		
 		int status = 0;
@@ -63,13 +63,13 @@ public class SalaDAO extends DAO {
 	public List<Sala> consultar() throws Exception {
 
 		List<Sala> salas = new ArrayList<Sala>();
-		AdministradorDAO administradorDAO = new AdministradorDAO();
+		PessoaDAO pessoaDAO = new PessoaDAO();
 		CategoriaDAO categoriaDAO = new CategoriaDAO();
 		LocalizacaoDAO localizacaoDAO = new LocalizacaoDAO();
 		ImagemDAO imagemDAO =  new ImagemDAO();
 		UtensilioDAO utensilioDAO = new UtensilioDAO();
 		Sala sala = null;
-		Administrador administrador;
+		Pessoa pessoa;
 		Categoria categoria;
 		Localizacao localizacao;
 		ArrayList<Utensilio> utensilios;
@@ -81,13 +81,13 @@ public class SalaDAO extends DAO {
 		while (rs.next()) {
 			categoria = categoriaDAO.consulta(rs
 					.getInt("idcategoria"));
-			administrador = administradorDAO.consulta(rs
+			pessoa = pessoaDAO.consulta(rs
 					.getInt("idAdministrador"));
 			localizacao = localizacaoDAO.consulta(rs.getInt("idLocalizacao"));
 			sala = new Sala(rs.getInt("id"), categoria, rs.getInt("tamanhomin"),
 					rs.getInt("tamanhomax"), rs.getDouble("preco"),
 					localizacao, rs.getString("descricao"),
-					administrador,rs.getInt("estrela"),
+					pessoa,rs.getInt("estrela"),
 					rs.getBoolean("status"));
 			sala.setImagens(imagemDAO.getImagensSala(sala.getIdSala()));
 			utensilios = utensilioDAO.consultaSalaUtensilio(sala.getIdSala());
@@ -103,14 +103,14 @@ public class SalaDAO extends DAO {
 
 	public Sala consulta(int idSala) throws Exception{
 
-		AdministradorDAO administradorDAO = new AdministradorDAO();
+		PessoaDAO pessoaDAO = new PessoaDAO();
 		CategoriaDAO categoriaDAO = new CategoriaDAO();
 		LocalizacaoDAO localizacaoDAO = new LocalizacaoDAO();
 		UtensilioDAO utensilioDAO = new UtensilioDAO();
 		ImagemDAO imagemDAO =  new ImagemDAO();
 		
 		Sala sala = null;
-		Administrador administrador;
+		Pessoa pessoa;
 		Categoria categoria;
 		Localizacao localizacao;
 		ArrayList<Utensilio> utensilios;
@@ -120,13 +120,13 @@ public class SalaDAO extends DAO {
 
 		while (rs.next()) {
 			categoria = categoriaDAO.consulta(rs.getInt("idcategoria"));
-			administrador = administradorDAO.consulta(rs.getInt("idAdministrador"));
+			pessoa = pessoaDAO.consulta(rs.getInt("idAdministrador"));
 			localizacao = localizacaoDAO.consulta(rs.getInt("idLocalizacao"));
 			
 			sala = new Sala(categoria, rs.getInt("tamanhomin"),
 					rs.getInt("tamanhomax"), rs.getDouble("preco"),
 					localizacao, rs.getString("descricao"),
-					administrador,rs.getInt("estrela"),
+					pessoa,rs.getInt("estrela"),
 					rs.getBoolean("status"));
 			utensilios = utensilioDAO.consultaSalaUtensilio(idSala);
 			sala.setUtensilios(utensilios);
@@ -214,17 +214,16 @@ public class SalaDAO extends DAO {
 	public List<Sala> consultarPorUsuario(int idUsuario) throws Exception{
 		
 		List<Sala> salas = new ArrayList<Sala>();
-		AdministradorDAO administradorDAO = new AdministradorDAO();
+		PessoaDAO pessoaDAO = new PessoaDAO();
 		CategoriaDAO categoriaDAO = new CategoriaDAO();
 		LocalizacaoDAO localizacaoDAO = new LocalizacaoDAO();
 		ImagemDAO imagemDAO =  new ImagemDAO();
 		UtensilioDAO utensilioDAO = new UtensilioDAO();
 		Sala sala = null;
-		Administrador administrador;
 		Categoria categoria;
 		Localizacao localizacao;
 		ArrayList<Utensilio> utensilios;
-
+		Pessoa pessoa;
 		open();
 		
 		st = con.createStatement();
@@ -233,12 +232,12 @@ public class SalaDAO extends DAO {
 		while (rs.next()) {
 			categoria = categoriaDAO.consulta(rs
 					.getInt("idcategoria"));
-			administrador = administradorDAO.consulta(idUsuario);
+			pessoa = pessoaDAO.consulta(idUsuario);
 			localizacao = localizacaoDAO.consulta(rs.getInt("idLocalizacao"));
 			sala = new Sala(rs.getInt("id"), categoria, rs.getInt("tamanhomin"),
 					rs.getInt("tamanhomax"), rs.getDouble("preco"),
 					localizacao, rs.getString("descricao"),
-					administrador,rs.getInt("estrela"),
+					pessoa,rs.getInt("estrela"),
 					rs.getBoolean("status"));
 			sala.setImagens(imagemDAO.getImagensSala(sala.getIdSala()));
 			utensilios = utensilioDAO.consultaSalaUtensilio(sala.getIdSala());

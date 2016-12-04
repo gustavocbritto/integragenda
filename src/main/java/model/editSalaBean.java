@@ -109,7 +109,7 @@ public class editSalaBean implements Serializable {
     	
     	Imagem imagemCriacao = new Imagem("/resources/img/novasala.png");
     	salaCriacao.getImagens().add(imagemCriacao);
-    	salaCriacao.setAdministrador(new Administrador("Locatario", usuario.getPessoa()));
+    	salaCriacao.setPessoa(usuario.getPessoa());
     	
     	return salaCriacao;
     }

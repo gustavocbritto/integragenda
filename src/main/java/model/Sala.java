@@ -15,23 +15,22 @@ public class Sala implements Serializable{
 	 */
 	private static final long serialVersionUID = -4691961094499054539L;
 	
-	int idSala;
-	Categoria categoria = new Categoria();
-	ArrayList<Utensilio> utensilios = new ArrayList<Utensilio>();
-	ArrayList<Imagem> imagens = new ArrayList<Imagem>();
-	int tamanhoMin, tamanhoMax;
-	Double preco;
-	Localizacao localizacao = new Localizacao();
-	String descricao;
-	Administrador administrador;
-	Pessoa pessoa;
-	int estrela;
-	boolean status;
-	int numeroSala;
-	SalaDAO salaDAO = new SalaDAO();
-	UtensilioDAO utensilioDAO = new UtensilioDAO();
+	private int idSala;
+	private Categoria categoria = new Categoria();
+	private ArrayList<Utensilio> utensilios = new ArrayList<Utensilio>();
+	private ArrayList<Imagem> imagens = new ArrayList<Imagem>();
+	private int tamanhoMin, tamanhoMax;
+	private Double preco;
+	private Localizacao localizacao = new Localizacao();
+	private String descricao;
+	private Pessoa pessoa;
+	private int estrela;
+	private boolean status;
+	private int numeroSala;
+	private SalaDAO salaDAO = new SalaDAO();
+	private UtensilioDAO utensilioDAO = new UtensilioDAO();
 	
-	public Sala(Categoria categoria, int tamanhoMin, int tamanhoMax, Double preco, Localizacao localizacao, String descricao, Administrador administrador, int estrela,
+	public Sala(Categoria categoria, int tamanhoMin, int tamanhoMax, Double preco, Localizacao localizacao, String descricao, Pessoa pessoa, int estrela,
 			Boolean status) {
 		super();
 		this.categoria = categoria;
@@ -40,12 +39,12 @@ public class Sala implements Serializable{
 		this.preco = preco;
 		this.localizacao = localizacao;
 		this.descricao = descricao;
-		this.administrador = administrador;
 		this.estrela = estrela;
 		this.status = status;
+		this.pessoa = pessoa;
 	}
 	
-	public Sala(int id, Categoria categoria, int tamanhoMin, int tamanhoMax, Double preco, Localizacao localizacao, String descricao, Administrador administrador, int estrela,
+	public Sala(int id, Categoria categoria, int tamanhoMin, int tamanhoMax, Double preco, Localizacao localizacao, String descricao, Pessoa pessoa, int estrela,
 			Boolean status) {
 		super();
 		this.idSala = id;
@@ -55,9 +54,9 @@ public class Sala implements Serializable{
 		this.preco = preco;
 		this.localizacao = localizacao;
 		this.descricao = descricao;
-		this.administrador = administrador;
 		this.estrela = estrela;
 		this.status = status;
+		this.pessoa = pessoa;
 	}
 
 	public Sala(Localizacao localizacao, int numeroSala){
@@ -180,14 +179,6 @@ public class Sala implements Serializable{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public Administrador getAdministrador() {
-		return administrador;
-	}
-
-	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
 	}
 
 	public Pessoa getPessoa() {
