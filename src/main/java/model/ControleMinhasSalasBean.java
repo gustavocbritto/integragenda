@@ -79,6 +79,7 @@ public class ControleMinhasSalasBean implements Serializable {
 			
 			System.out.println(usuario.getPessoa().getId());
 			selecionaSalas();
+			adicionarSalaParaSalvar();
 			
     		utensilios = utensilioDAO.getLista();
     		categorias = categoriaDAO.getLista();
@@ -91,6 +92,7 @@ public class ControleMinhasSalasBean implements Serializable {
     public void carregarSalas() throws Exception
     {
     	selecionaSalas();
+    	adicionarSalaParaSalvar();
     }
     
     public void buscaCidadeEData()
@@ -98,6 +100,7 @@ public class ControleMinhasSalasBean implements Serializable {
     	try{
     		
     		selecionaSalas();
+    		adicionarSalaParaSalvar();
     	}catch(Exception e)
     	{
     		System.out.println(e.getMessage());
@@ -157,6 +160,7 @@ public class ControleMinhasSalasBean implements Serializable {
     		}
 	    	
 	    	selecionaSalas();
+	    	adicionarSalaParaSalvar();
     	}catch(Exception e)
     	{
     		System.out.println(e.getMessage());
@@ -257,8 +261,6 @@ public class ControleMinhasSalasBean implements Serializable {
     		salas.add(s);
     	}
     	
-    	Sala salaCriacao = getInstanceSalaNova();
-    	salas.add(salaCriacao);
     	
     }
     
@@ -293,13 +295,19 @@ public class ControleMinhasSalasBean implements Serializable {
 				}
 			}
 			selecionaSalas();
+			adicionarSalaParaSalvar();
 		}catch(Exception e)
 		{
 			System.out.println(e.getMessage());
 		}
 		
     }
-    
+    public void adicionarSalaParaSalvar()
+    {
+    	Sala salaCriacao = getInstanceSalaNova();
+    	salas.add(salaCriacao);
+    }
+
     public void addMessage(String summary, String detail) {
     	FacesMessage message;
     	
@@ -353,12 +361,14 @@ public class ControleMinhasSalasBean implements Serializable {
     {
     	tamanhoInserido = 0;
     	selecionaSalas();
+    	adicionarSalaParaSalvar();
     }
     
     public void removerCategoria() throws Exception
     {
     	categoriaFiltro = null;
     	selecionaSalas();
+    	adicionarSalaParaSalvar();
     }
     public ArrayList<Utensilio> getUtensiliosFiltro() {
 		return utensiliosFiltro;
