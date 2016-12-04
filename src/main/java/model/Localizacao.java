@@ -6,10 +6,11 @@ import persistence.LocalizacaoDAO;
 
 public class Localizacao implements Serializable {
 	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1758740998354552631L;
+	private static final long serialVersionUID = 6639738799988807845L;
 	int id, numero,complemento;
 	String rua, cidade, estado, pais;
 	LocalizacaoDAO localizacaoDAO = new LocalizacaoDAO();

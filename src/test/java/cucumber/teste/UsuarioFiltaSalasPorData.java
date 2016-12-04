@@ -28,7 +28,7 @@ public class UsuarioFiltaSalasPorData {
 		//provar que tem mais de 1 sala
 		controle.selecionaSalas();
 		listaSalas = controle.getSalas();
-		assertThat(listaSalas.size(), is(2));
+		assertThat(listaSalas.size(), is(8));
 		//Informo o filtro para o controlador
 		dataInicio = formatter.parse(arg1);
 		dataFim = formatter.parse(arg2);
@@ -47,7 +47,7 @@ public class UsuarioFiltaSalasPorData {
 
 		//Pego as salas ja filtradas e verifico que elas estao disponiveis naquela dala
 	    listaSalas = controle.getSalas();
-	    assertThat(listaSalas.size(), is(1));
+	    assertThat(listaSalas.size(), is(7));
 	    for(Sala sala : listaSalas)
 	    {
 	    	assertThat(sala.getDisponivel(dataInicio, dataFim), is(true));

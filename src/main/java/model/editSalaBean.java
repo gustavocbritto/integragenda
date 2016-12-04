@@ -25,11 +25,12 @@ import persistence.UtensilioDAO;
 //ViewScoped
 public class editSalaBean implements Serializable {
 
+
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8078976743416457960L;
-	
+	private static final long serialVersionUID = -4308416125678672757L;
 	private Sala sala;
     private List<Utensilio> utensilios;
     private List<Categoria> categorias;
@@ -109,9 +110,31 @@ public class editSalaBean implements Serializable {
     	
     	Imagem imagemCriacao = new Imagem("/resources/img/novasala.png");
     	salaCriacao.getImagens().add(imagemCriacao);
-    	salaCriacao.setAdministrador(new Administrador("Locatario", usuario.getPessoa()));
+    	salaCriacao.setPessoa(usuario.getPessoa());
     	
     	return salaCriacao;
+    }
+    
+    public void deletarSala()
+    {
+    	try
+    	{
+    		if(sala.podeDeletar())
+    		{
+    			sala.deletar();
+    			addMessage("SUCESSO:", "Sala deletada com sucesso!");
+    			FacesContext.getCurrentInstance().getExternalContext().redirect("minhasSalas.jsf");
+    		}else
+    		{
+    			addMessage("ERRO:", "Todos os campos são obrigatorios! Exceto Numero Sala.");
+    		}
+
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    		addMessage("ERRO:", "Nao foi possivel deletar a sala!");
+    	}
     }
     
     public void alugarSala() 

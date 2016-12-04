@@ -19,11 +19,11 @@ public class AgendaBean implements Serializable {
  
 
 	
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7793338733478542233L;
-	
+	private static final long serialVersionUID = 2829079801620183154L;
 	private List<Agenda> agendas;
 	private Agenda agendaAtual;
     private String email = "";

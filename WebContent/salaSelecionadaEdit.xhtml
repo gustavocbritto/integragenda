@@ -114,7 +114,7 @@ xmlns:p="http://primefaces.org/ui">
 						  	</h:panelGrid>
 							
 							<h:panelGrid columns="1" cellpadding="2">
-							    <h:outputLabel value="Link para localização GoogleMaps:" /><p:inputText />
+							   
 							    <h:outputLabel value="Preço(R$):" /><p:inputText value ="#{editSalaBean.sala.preco}"/>
 							     
 						     
@@ -162,7 +162,7 @@ xmlns:p="http://primefaces.org/ui">
 							    <p:menu>
 							        <p:submenu label="Settings">
 
-							            <p:menuitem value="Deletar" url="#" icon="ui-icon-newwin" onclick="PF('panel').toggle()" />
+							            <p:menuitem value="Deletar" icon="ui-icon-newwin" actionListener="#{editSalaBean.deletarSala()}" />
 						            </p:submenu>
 						        </p:menu>
 						    </f:facet>

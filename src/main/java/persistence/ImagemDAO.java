@@ -50,5 +50,20 @@ public class ImagemDAO extends DAO{
 		close();
 	}
 
+	public void deletar(Imagem imagem) throws Exception{
+		
+		open();
+
+		
+		stmt = con.prepareStatement("DELETE FROM IMAGEM WHERE ID = ?");
+		
+		stmt.setInt(1, imagem.getIdImagem());
+		
+		stmt.executeUpdate();
+				
+		close();
+		
+	}
+
 
 }

@@ -11,9 +11,13 @@ import javax.faces.bean.RequestScoped;
 public class Pessoa implements Serializable{
 	
 
-	private static final long serialVersionUID = -462253599634007607L;
-	public int id;
-	public String nome, sobrenome, email, telefone, sexo, senha, confirmarsenha;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3897602236279083720L;
+	
+	private int id;
+	private String nome, sobrenome, email, telefone, sexo, senha, confirmarsenha, tipo;
 	
 	public Pessoa(){
 		
@@ -30,6 +34,17 @@ public class Pessoa implements Serializable{
 		this.senha = senha;
 		this.confirmarsenha = confirmarsenha;
 	}
+	
+	
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	public String getConfirmarsenha() {
 		return confirmarsenha;
 	}

@@ -11,16 +11,17 @@ public class PessoaDAO extends DAO{
 		
 		
 		Pessoa pessoa = null;
-
+		TipoDAO tipoDAO = new TipoDAO();
 		
 		open();
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT id, nome, sobrenome, email, sexo, senha, confirmarsenha, telefone FROM Pessoa where id= "+idPessoa+"");
+		rs = st.executeQuery("SELECT id, nome, sobrenome, email, sexo, senha, confirmarsenha, telefone, tipo FROM Pessoa where id= "+idPessoa+"");
 		
 		
 		if(rs.next())
 		{
 			pessoa = new Pessoa(rs.getString("nome"), rs.getString("sobrenome"), rs.getString("email"), rs.getString("sexo"),rs.getString("senha"),rs.getString("confirmarsenha"),rs.getString("telefone"));
+			pessoa.setTipo(tipoDAO.consulta(rs.getInt("tipo")));
 			pessoa.setId(idPessoa);
 		}
 		
@@ -34,8 +35,9 @@ public class PessoaDAO extends DAO{
 		
 		open();
 		stmt = con.prepareStatement("INSERT INTO pessoa(\r\n" + 
-				"	nome, sobrenome, email, telefone, sexo, senha, confirmarsenha)\r\n" + 
-				"	VALUES (?, ?, ?, ?, ?, ?, ?);");
+				"	nome, sobrenome, email, telefone, sexo, senha, confirmarsenha, tipo)\r\n" + 
+				"	VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+		
 		stmt.setString(1, usuario.getPessoa().getNome());
 		stmt.setString(2, usuario.getPessoa().getSobrenome());
 		stmt.setString(3, usuario.getPessoa().getEmail());
@@ -43,6 +45,7 @@ public class PessoaDAO extends DAO{
 		stmt.setString(5, usuario.getPessoa().getSexo());
 		stmt.setString(6, usuario.getPessoa().getSenha());
 		stmt.setString(7, usuario.getPessoa().getConfirmarsenha());	
+		stmt.setInt(8, 2);	
 		stmt.execute();
 		
 		st = con.createStatement();
@@ -51,14 +54,8 @@ public class PessoaDAO extends DAO{
 		if (rs.next()) {
 			idPessoa = rs.getInt("id");
 		}
+		usuario.getPessoa().setId(idPessoa);
 		
-		stmt = con.prepareStatement("INSERT INTO usuario(\r\n" + 
-				"	tipo, idPessoa)\r\n" + 
-				"	VALUES (?, ?);");
-		
-		stmt.setString(1, "Locatario");
-		stmt.setInt(2, idPessoa);
-		stmt.execute();
 		close();
 
 		
@@ -67,9 +64,10 @@ public class PessoaDAO extends DAO{
 	
 	public boolean verificaCadastro(Usuario usuario) throws Exception{
 		boolean retorno = false;
+		TipoDAO tipoDAO = new TipoDAO();
 		open();
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT id, nome, sobrenome, email, telefone, sexo, senha, confirmarsenha \r\n"
+		rs = st.executeQuery("SELECT id, nome, sobrenome, email, telefone, sexo, senha, confirmarsenha, tipo \r\n"
 				+ "FROM Pessoa where nome = '"+ usuario.getPessoa().getNome() +"' \r\n"+
 				"and senha = '"+ usuario.getPessoa().getSenha()  +"'");
 		if (rs.next()) {
@@ -79,6 +77,7 @@ public class PessoaDAO extends DAO{
 			usuario.getPessoa().setSexo(rs.getString("sexo"));
 			usuario.getPessoa().setSenha(rs.getString("senha"));
 			usuario.getPessoa().setConfirmarsenha(rs.getString("confirmarsenha"));
+			usuario.getPessoa().setTipo(tipoDAO.consulta(rs.getInt("tipo")));
 			usuario.getPessoa().setId(rs.getInt("id"));
 			close();
 			retorno = true;

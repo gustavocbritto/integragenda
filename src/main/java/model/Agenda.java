@@ -12,10 +12,11 @@ public class Agenda implements Serializable{
 	
 
 	
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 379232833692722473L;
+	private static final long serialVersionUID = 4641141216799141860L;
 	
 	private int id;
 	private String horaInicio;

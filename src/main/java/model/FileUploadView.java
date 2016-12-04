@@ -9,7 +9,8 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 public class FileUploadView implements Serializable{
      
-    /**
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4676708453685243523L;

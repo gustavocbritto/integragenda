@@ -17,12 +17,6 @@ import persistence.PessoaDAO;
 @SessionScoped
 public class Usuario implements Serializable{
 
-
-
-
-	
-
-	
 	/**
 	 * 
 	 */
@@ -148,7 +142,7 @@ public class Usuario implements Serializable{
 	{
 		PessoaDAO pessoaDAO = new PessoaDAO();
 		boolean retorno = false;
-		if(this.pessoa.senha.equals(this.pessoa.confirmarsenha))
+		if(this.pessoa.getSenha().equals(this.pessoa.getConfirmarsenha()))
 		{
 			retorno =  true;
 			pessoaDAO.gravar(this);
