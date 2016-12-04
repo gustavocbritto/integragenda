@@ -10,10 +10,11 @@ public class Sala implements Serializable{
 
 
 	
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4691961094499054539L;
+	private static final long serialVersionUID = -5650095897594541603L;
 	
 	private int idSala;
 	private Categoria categoria = new Categoria();
@@ -108,7 +109,6 @@ public class Sala implements Serializable{
 		for(Imagem i : imagens)
 		{
 			caminho = i.getUrl();
-			break;
 		}
 		return caminho;
 	}
@@ -257,10 +257,34 @@ public class Sala implements Serializable{
 				!descricao.equals("") &&
 				tamanhoMax > 0 &&
 				preco > 0 &&
-				localizacao.podeSalvar() &&
-				!descricao.equals("")	
+				localizacao.podeSalvar()
 				)
 			retorno = true;
+		return retorno;
+	}
+
+	public boolean podeDeletar() throws Exception {
+		
+		boolean retorno =  false;
+		
+		if(disponibilidade())
+		{
+			retorno = true;
+		}
+		
+		return retorno;
+	}
+
+	public void deletar() throws Exception {
+		salaDAO.deltar(this);		
+	}
+	
+	public boolean disponibilidade() throws Exception
+	{
+		boolean retorno =  false;
+		
+		retorno = salaDAO.isDisponivel(idSala);
+		
 		return retorno;
 	}
 

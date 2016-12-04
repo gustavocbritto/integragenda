@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Utensilio implements Serializable {
 	
+
 	/**
 	 * 
 	 */

@@ -23,9 +23,6 @@ import persistence.UtensilioDAO;
 @SessionScoped
 public class ControleSalasBean implements Serializable {
      
-
-
-
 	/**
 	 * 
 	 */

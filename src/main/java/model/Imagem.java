@@ -6,10 +6,11 @@ import persistence.ImagemDAO;
 
 public class Imagem implements Serializable{
 	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8213513598404735672L;
+	private static final long serialVersionUID = 9099019251291862593L;
 	private int idImagem;
 	private String url;
 	private ImagemDAO imagemDAO = new ImagemDAO();
@@ -40,6 +41,10 @@ public class Imagem implements Serializable{
 
 	public void inserir() throws Exception{	
 		imagemDAO.inserir(this);
+	}
+
+	public void deletar() throws Exception {
+		imagemDAO.deletar(this);		
 	}
 	
 	

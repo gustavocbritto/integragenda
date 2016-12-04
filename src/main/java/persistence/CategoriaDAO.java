@@ -22,6 +22,7 @@ public class CategoriaDAO extends DAO {
 			if(rs.next())
 			{
 				categoria = new Categoria(rs.getString("descricao"));
+				categoria.setId(idCategoria);
 			}
 			
 			close();

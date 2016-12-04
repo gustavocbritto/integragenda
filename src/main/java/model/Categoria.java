@@ -5,12 +5,13 @@ import java.io.Serializable;
 public class Categoria implements Serializable {
 	
 	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -563484593639697665L;
-	int id;
-	String descricao;
+	private static final long serialVersionUID = -5002677077378467989L;
+	private int id;
+	private String descricao;
 	
 	
 	

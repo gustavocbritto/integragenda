@@ -251,4 +251,84 @@ public class SalaDAO extends DAO {
 		return salas;
 		
 	}
+
+	public boolean isDisponivel(int idSala) throws Exception{
+		boolean retorno = false;
+		
+		open();
+		
+		stmt = con.prepareStatement("SELECT * FROM AGENDA WHERE IDSALA = ?");
+		
+		stmt.setInt(1, idSala);
+		
+		rs = stmt.executeQuery();
+		
+		if(!rs.next())
+		{
+			retorno = true;
+		}
+		
+		close();
+		
+		return retorno;
+		
+	}
+
+	public void deltar(Sala sala)  throws Exception
+	{
+		
+		
+		for(Imagem i : sala.getImagens())
+		{
+			desassociarImagem(sala.getIdSala(), i);
+		}
+		
+		for(Utensilio u : sala.getUtensilios())
+		{
+			desassociarUtensilio(sala.getIdSala(), u);
+		}
+		
+		open();
+		
+		stmt = con.prepareStatement("DELETE FROM SALA WHERE ID = ?");
+		
+		stmt.setInt(1, sala.getIdSala());
+		
+		stmt.executeUpdate();
+				
+		close();
+		
+	}
+	
+	private void desassociarUtensilio(int idSala, Utensilio u) throws Exception{
+		
+		open();
+		
+		stmt = con.prepareStatement("DELETE FROM SALA_UTENSILIO WHERE IDSALA = ? AND IDUTENSILIO = ?");
+		
+		stmt.setInt(1, idSala);
+		stmt.setInt(2, u.getIdUtensilio());
+		
+		stmt.executeUpdate();
+		
+		close();
+
+		
+	}
+
+	public void desassociarImagem(int idSala, Imagem imagem) throws Exception {
+		
+		open();
+		
+		stmt = con.prepareStatement("DELETE FROM SALA_IMAGEM WHERE IDSALA = ? AND IDIMAGEM = ?");
+		
+		stmt.setInt(1, idSala);
+		stmt.setInt(2, imagem.getIdImagem());
+		
+		stmt.executeUpdate();
+		close();
+		
+		imagem.deletar();
+	}
+	
 }

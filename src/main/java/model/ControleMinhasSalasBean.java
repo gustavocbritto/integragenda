@@ -23,11 +23,11 @@ public class ControleMinhasSalasBean implements Serializable {
      
 
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8204944550192981447L;
-	
+	private static final long serialVersionUID = 5402430546353335471L;
 	private UtensilioDAO utensilioDAO = new UtensilioDAO();
 	private CategoriaDAO categoriaDAO = new CategoriaDAO();
 	private SalaDAO salaDAO = new SalaDAO();
@@ -169,7 +169,10 @@ public class ControleMinhasSalasBean implements Serializable {
     
     public void selecionaSalas() throws Exception
     {
-    	salas = salaDAO.consultarPorUsuario(usuario.getPessoa().getId());
+    	if(usuario.getPessoa().getTipo().equals("Admin"))
+    		salas = salaDAO.consultar();
+    	else
+    		salas = salaDAO.consultarPorUsuario(usuario.getPessoa().getId());
     	
     	ArrayList<Sala> salaTemp = new ArrayList<Sala>();
     	

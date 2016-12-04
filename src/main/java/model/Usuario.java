@@ -17,12 +17,6 @@ import persistence.PessoaDAO;
 @SessionScoped
 public class Usuario implements Serializable{
 
-
-
-
-	
-
-	
 	/**
 	 * 
 	 */

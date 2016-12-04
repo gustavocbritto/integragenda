@@ -11,11 +11,12 @@ import persistence.UtensilioDAO;
 @ApplicationScoped
 public class utensilioService implements Serializable {
 	
+
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6406069601890203800L;
-	
+	private static final long serialVersionUID = 7886771518613693599L;
 	UtensilioDAO utensilioDAO = new UtensilioDAO();
 	public ArrayList<Utensilio> getUtensilios() throws Exception
 	{
