@@ -135,7 +135,7 @@ public class Usuario implements Serializable{
 			return "usuario";
 		}	
 		
-		return "mostraUsuario";
+		return "Login";
 	}
 	
 	public boolean cadastrar() throws Exception
