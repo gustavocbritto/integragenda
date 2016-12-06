@@ -28,3 +28,9 @@ script:
   
 notifications:
   slack: integragenda:D6kydUY1wzAKAbdLPmre18wr
+  
+deploy:
+  provider: openshift
+  user: gustavocbritto/api-preview-openshift-com:443
+  password: senhaOpenshift
+  domain: api-preview-openshift-com:443
