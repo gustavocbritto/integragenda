@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
+	<script type="text/javascript" src="resources/js/validador.js"></script>
+	<ui:define name="titulo">
+    	<title>Sala</title>
+    </ui:define>
+	
+</h:head>
+
+<h:body class="background">
+	
+	<ui:composition template="/template.xhtml">
+		<ui:define name="conteudo">
+		
+			<h1 class="centraliza">Alugar Sala</h1>
+			<h:messages id="msgs"/>
+			<div class="Filtro_edit">
+					
+				<div class="cabecalhoFiltro">
+					Inventário
+				</div>
+				<h:form id="formInventario">
+				    <p:accordionPanel multiple="true" class="listaInventario" id="itens">
+				        <p:tab title="Categoria">
+				            <h:panelGrid columns="1" cellpadding="10">
+				            	<h:outputLabel for="name" value="#{editSalaBean.sala.categoria.descricao}" />				
+				            </h:panelGrid>
+				        </p:tab>
+				        
+				        <p:tab title="Utensílios">
+						    <p:dataList id="listaUtensilio" value="#{editSalaBean.sala.utensilios}" var="utensilio">
+						    <p:growl id="utensiliofeedback" showDetail="true"/> 
+						        <h:outputText value="#{utensilio.nome}, #{utensilio.quantidade}"/>
+						    </p:dataList>
+				        </p:tab>
+				        
+				        <p:tab title="Tamanho">
+				            <h:panelGrid columns="1" cellpadding="10">
+								<h:outputLabel value="#{editSalaBean.sala.tamanhoMax} Pessoas"  />
+								
+				            </h:panelGrid>
+				        </p:tab>
+				        
+				    </p:accordionPanel>
+			    </h:form>
+			</div>
+				<div class="salaSelecionada_edit containerSalaSelecionada left">
+					<h:form >
+						<p:growl id="msgs" showDetail="true" />
+						<p:panel id="toggleable" header="Sala" toggleable="false" closable="false" toggleSpeed="500" closeSpeed="500" widgetVar="panel" >
+							
+						 	<h:panelGrid columns="1" cellpadding="4">
+								
+							    <p:graphicImage class="imgSalaSelecionada" id="imgsala22" value="#{editSalaBean.sala.getImagemPrincipal()}" />
+							    <br/>
+						  	</h:panelGrid>
+							
+							<h:panelGrid columns="1" cellpadding="2">
+							    						    
+							    <h:panelGrid columns="2" cellpadding="2">
+						    	
+							    	<p:outputLabel for="popupDataInicial" value="Data Inicio:" />
+	        						<p:calendar id="popupDataInicial" value="#{controleSalasBean.dt_inicial}" />	
+							    	
+							    	<p:outputLabel for="popupDataFinal" value="Data Final:" />
+	        						<p:calendar id="popupDataFinal" value="#{controleSalasBean.dt_final}" />
+     
+							    </h:panelGrid>
+							    
+							    <p:outputLabel for="horarioInicio" value="Horario Inicio:" />
+        						<p:calendar id="horarioInicio" value="#{editSalaBean.horarioInicio}" pattern="HH:mm" timeOnly="true"  />
+
+							    <p:outputLabel for="horarioFim" value="Horario Fim:" />
+        						<p:calendar id="horarioFim" value="#{editSalaBean.horarioFim}" pattern="HH:mm" timeOnly="true"  />						   
+            
+							    <h:outputLabel value ="Preço(R$)/dia: #{editSalaBean.sala.preco}"/>
+							    
+							    <h:outputLabel value ="Numero da Sala: #{editSalaBean.sala.numeroSala}"/>
+							    
+						    	<h:outputLabel for="name" value="Localização:" />
+						    
+								<p:growl id="msgLocalizacao" showDetail="true" />
+						
+							    <h:outputLabel id="pais" value="Pais: #{editSalaBean.sala.localizacao.pais}"/>
+								
+								<h:outputLabel id="estado" value="Estado: #{editSalaBean.sala.localizacao.estado}"/>
+	
+								<h:outputLabel id="cidade" value="Cidade: #{editSalaBean.sala.localizacao.cidade}" />
+										
+								<h:outputLabel value="Rua: #{editSalaBean.sala.localizacao.rua}"/>
+								
+								<h:outputLabel value="Numero: #{editSalaBean.sala.localizacao.numero}"/>
+								
+								<h:outputLabel value="Complemento: #{editSalaBean.sala.localizacao.complemento}"/>	
+	 						
+							    <h:outputLabel for="name" value="Descrição:" />
+    							<p:inputTextarea value="#{editSalaBean.sala.descricao}" disabled="true" rows="5" cols="30" counter="display" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" />
+    						</h:panelGrid>
+    						<h:panelGrid columns="2" cellpadding="4">	
+    							<h:outputText id="display" />
+    							<div class="btnAlugarContainer">
+									<p:commandButton value="Alugar" class="verde alugarBtn" actionListener="#{editSalaBean.alugarSala}" update="msgs"/>
+									<p:commandButton value="Cancelar" class="vermelho trocaCidadeBtn" actionListener="#{editSalaBean.voltarSelecaoSala()}"/>
+								</div>
+							</h:panelGrid>
+							
+						</p:panel>
+					</h:form>
+				</div>
+			
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

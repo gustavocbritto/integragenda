@@ -3,14 +3,43 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Sistema</title>
-</head>
-<h:body>
-	<h:form>
-		<h:commandLink action="#{usuarioBean.novo}" value="Novo Usuário"/>
-	</h:form>
-</h:body>
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
+	<script type="text/javascript" src="resources/js/validador.js"></script>
+	<ui:define name="titulo">
+    	<title>Início</title>
+    </ui:define>
+	
+</h:head>
+	<h:body >
+		<div class="background full entrada">
+		
+			<ui:insert name="cabecalho" >
+	            <ui:include src="cabecalho.xhtml" />
+	        </ui:insert> 
+	        <br/><br/><br/>
+	        <br/><br/><br/>
+	        <br/><br/>
+			<div class="container">		
+				<div class="centraliza">
+					<h:outputLabel styleClass="titulo" value="As melhores salas, com os melhores preços"/>
+					<br/>
+					<h:outputLabel styleClass="subtitulo" value="Escolha sua cidade:"/>
+					<h:form >
+						<div>
+							<p:inputText id="cidade" styleClass="searchCidade" value="#{controleSalasBean.cidadeSelecionada}"/>
+						</div>
+						<div>				
+							<h:commandButton styleClass="buttonEntrada vermelho" actionListener="#{controleSalasBean.buscaCidade}" value="Consultar"/>
+						</div>				
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</h:body>
 </html>
