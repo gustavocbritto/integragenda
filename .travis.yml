@@ -31,6 +31,6 @@ notifications:
   
 deploy:
   provider: openshift
-  user: gustavocbritto/api-preview-openshift-com:443
+  user: gustavocbritto
   password: senhaOpenshift
   domain: api-preview-openshift-com:443
