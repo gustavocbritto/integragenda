@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
+	<script type="text/javascript" src="resources/js/validador.js"></script>
+	<ui:define name="titulo">
+    	<title>Perfil</title>
+    </ui:define>
+	
+</head>
+<h:body class="background">
+	
+	<ui:composition template="/template.xhtml">
+		<ui:define name="conteudo">
+		<h1 class="titulotxt">Meu Perfil</h1>
+		<h:form>
+		<h:panelGrid columns="2" class="perfil">
+
+				<h:outputLabel value="Nome" for="nome"/>
+				<h:inputText id="nomeP" label="Nome" value="#{usuario.pessoa.nome}" required="true" readonly="true" style="background-color:#C0C0C0"/>
+			
+				<h:outputLabel value="Sobrenome" for="sobrenome"/>
+				<h:inputText id="sobrenomeP" label="Sobrenome" value="#{usuario.pessoa.sobrenome}" required="true"/>
+			
+				<h:outputLabel value="Email" for="email"/>
+				<h:inputText id="email" label="Email" value="#{usuario.pessoa.email}" required="true"/>
+			
+				<h:outputLabel value="Telefone" for="telefone"/>
+				<h:inputText id="telefone" label="Telefone" value="#{usuario.pessoa.telefone}" required="true"/>
+				
+				<h:outputLabel value="Sexo"/>
+				<h:selectOneRadio id="sexoRadio" value="#{usuario.pessoa.sexo}">
+			        <f:selectItem itemLabel="Masculino" itemValue="M"  />  
+			        <f:selectItem itemLabel="Feminino" itemValue="F"/>  
+				</h:selectOneRadio> 
+			
+				<h:commandButton class="buttonEntrar vermelho" action="#{usuario.update}" value="Salvar"/>
+				
+		</h:panelGrid>
+		</h:form>
+		
+	</ui:define>
+	</ui:composition>
+		
+
+	</h:body>
+</html>

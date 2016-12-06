@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
+	<script type="text/javascript" src="resources/js/validador.js"></script>
+	<ui:define name="titulo">
+    	<title>Minha Agenda</title>
+    </ui:define>
+	
+</h:head>
+
+<h:body class="background">
+	 
+	<ui:composition template="/template.xhtml">
+		<ui:define name="conteudo">
+			<f:event listener="#{agendaBean.atualizarAgendas}" type="preRenderView" />
+			<h:form>
+				<p:dataTable id="tabelaAgenda" var="agenda" value="#{agendaBean.agendas}">
+					
+					<p:column headerText="Data Início">
+						<h:outputText value="#{agenda.dataInicio}" />
+					</p:column>
+					 
+					<p:column headerText="Data Fim">
+						<h:outputText value="#{agenda.dataFim}" />
+					</p:column>
+					
+					<p:column headerText="Horário Início">
+						<h:outputText value="#{agenda.horaInicio}" />
+					</p:column>
+					 
+					<p:column headerText="Horário Fim">
+						<h:outputText value="#{agenda.horaFim}" />
+					</p:column>
+					 
+					<p:column headerText="Sala">
+						<h:outputText value="#{agenda.sala.numeroSala}" />
+					</p:column>
+					 
+					<p:column headerText="Local">
+						<h:outputText value="Rua #{agenda.sala.localizacao.rua}, #{agenda.sala.localizacao.numero}" />
+					</p:column>
+					
+					<p:column headerText="Quantidade de Participantes">
+						<p:commandLink value="#{agenda.getNumeroParticipantes()}" actionListener="#{agendaBean.guardaAgenda(agenda)}" ajax="false"/>
+						
+					
+					</p:column>
+					
+					<p:column headerText="Confirmado">
+						<p:growl id="messageConfirmar" showDetail="true"/> 
+						
+				        <p:selectBooleanCheckbox value="#{agenda.status}">
+				            <p:ajax update="messageConfirmar" listener="#{agendaBean.confirmar(agenda)}" />
+				        </p:selectBooleanCheckbox>
+			
+					</p:column>
+					
+					<p:column headerText="Cancelar">
+					  
+						<p:growl id="messageCancelar" showDetail="true" />
+	   					<p:commandButton value="-" actionListener="#{agendaBean.cancelar(agenda)}" update="messageCancelar tabelaAgenda">
+	       					<p:confirm header="Confirmação" message="Tem Certeza?" icon="ui-icon-alert" />
+	   					</p:commandButton>
+	
+					    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					    </p:confirmDialog>
+					    
+					</p:column>
+					
+				</p:dataTable>
+			</h:form>
+
+			<a href="javascript:window.history.go(-1)">Voltar</a>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

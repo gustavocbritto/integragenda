@@ -236,13 +236,8 @@
 }
 
 .imgSala {
-    width: 50%;
-    height: 100px;
-}
-
-#imgSala1 {
-    width: 50%;
-    height: 100px;
+    width: 100%;
+    height: 180px;
 }
 
 div.desc {
@@ -253,7 +248,7 @@ div.desc {
 .salas{
 	position: relative;
 	margin-left: 30%;
-	margin-top:0%;
+	margin-top:	10%;
 	margin-right: 10%;
 	height: auto;
 }
@@ -284,7 +279,7 @@ div.desc {
 .containerSalaSelecionada {
     border: 1px solid #ccc;
     display: inline-block;
-    width: 400px;
+    width: 50%;
 }
 
 .Filtro{
@@ -638,14 +633,14 @@ button > a{
 
 .listaInventario
 {
-   border:1px solid #ccc;
-    border-bottom:none;
+   	border:1px solid #ccc;
+    /*border-bottom:none;*/
     background:#eee;
     color: black;
 }
 
 .listaInventario span {
-    padding:10px;
+    /*padding:10px;*/
     display:block;
 }
 
@@ -724,4 +719,10 @@ button > a{
 }
 .noBorder:FOCUS{ 
 	background-color: #C0D9D9;
+}
+
+input[type="text"]:read-only {
+    cursor: normal;
+    background-color: #f8f8f8;
+    color: #999;
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
+	<script type="text/javascript" src="resources/js/validador.js"></script>
+	<ui:insert name="titulo">
+		
+	</ui:insert>
+</head>
+
+<body>
+<ui:composition>
+	<div class="cabecalho">
+		<h:form>
+		<p:growl id="msgs" showDetail="true" sticky="true" />  
+		<p:commandLink class="buttonCabecalhoLogo vermelho" actionListener="#{usuario.selecaoSala}"><img class="selecaoSalasLogo" src="resources/img/menu-options.png" alt="Logo"/></p:commandLink>
+		<div class="dropdown floatRight">
+			<button class="buttonCabecalho vermelho floatRight"><i class="avatar"></i><p:outputLabel value="#{usuario.nomeAtual}"/></button>
+			<div class="dropdown-content floatRight">
+				<p:commandLink actionListener="#{usuario.login}" rendered="#{usuario.nomeAtual == 'Usuario'}" value="Entrar" />
+				<p:commandLink actionListener="#{usuario.cadastro}" rendered="#{usuario.nomeAtual  == 'Usuario'}" value="Cadastrar" />
+				<p:commandLink actionListener="#{usuario.perfil}" rendered="#{usuario.nomeAtual != 'Usuario'}" value="Perfil"/>
+				<p:commandLink actionListener="#{usuario.logout}" rendered="#{usuario.nomeAtual != 'Usuario'}" value="Sair"/>
+			</div>
+		</div>
+		<p:commandLink class="buttonCabecalho vermelho" actionListener="#{usuario.minhaAgenda}" update="msgs"><i class="agenda"></i>Minha Agenda</p:commandLink>
+		<p:commandLink class="buttonCabecalho vermelho" actionListener="#{usuario.minhasSalas}" update="msgs"><i class="minhasSalas"></i>Minhas Salas</p:commandLink>
+       </h:form>		
+	</div>
+</ui:composition>
+</body>
+</html>

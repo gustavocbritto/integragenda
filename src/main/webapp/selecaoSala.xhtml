@@ -4,14 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets">
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<link rel="stylesheet" type="text/css" href="resources/css/estilo.css"/>
 	<link rel="stylesheet" type="text/css" href="resources/css/integragendaCSS.css"/>
 	<script type="text/javascript" src="resources/js/validador.js"></script>
 	<ui:define name="titulo">
-    	<title>Usuario</title>
+    	<title>Perfil</title>
     </ui:define>
 	
 </head>
@@ -19,23 +20,129 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 	
 	<ui:composition template="/template.xhtml">
 		<ui:define name="conteudo">
-			
-			
-				<h:form class="selecao_cidade" action="demo_form.asp" method="get">
-					<input class="selecao_cidade_size" list="browsers" name="browser" placeholder="Cidade"/>
-						<h:dataTable id="browsers">
-							<option value="Vitória"/>
-						</h:dataTable>
-					<input class="vermelho trocaCidadeBtn" type="submit" value="Trocar"/>
-				</h:form>
-				<h:form>
-					<button type="submit" class="vermelho trocaCidadeBtn" >Ir</button>
-				</h:form>
-				
-			</ui:define>
-			</ui:composition>
-			<a href="javascript:window.history.go(-1)">Voltar</a>	
+		<h1 class="titulotxt">Selecao Sala</h1>
+			<h:form>
+				<h:panelGrid columns="7" style="padding-left: 25%">
+						<p:outputLabel for="di" value="Data Inicial " />
+						<p:calendar id="di" value="#{controleSalasBean.dt_inicial}" locale="pt_BR" navigator="true" pattern="dd/MM/yyyy" />
+						
+						<p:outputLabel for="df" value="Data Final " />
+						<p:calendar id="df" value="#{controleSalasBean.dt_final}" locale="pt_BR" navigator="true" pattern="dd/MM/yyyy" />
+						
+						<p:outputLabel for="cidade" value="Cidade " />
+						<p:inputText id="cidade" label="Cidade" value="#{controleSalasBean.cidadeSelecionada}"></p:inputText>
+						
+						<h:commandButton styleClass="buttonEntrar vermelho" actionListener="#{controleSalasBean.buscaCidadeEData}" value="Consultar"/>	
+				</h:panelGrid>	
+			</h:form>
+		
+		<div id="divmaior" class="Filtro_edit">
+					
+				<div class="cabecalhoFiltro">
+					Filtro Inventário:
+				</div>
+				<h:form id="formInventario">
+				    <p:accordionPanel multiple="true" class="listaInventario" id="itens">
+				        <p:tab title="Categoria">
+				            <h:panelGrid columns="2" cellpadding="0">
+				             	<p:commandLink rendered="#{controleSalasBean.categoriaFiltro != null}" update="formInventario formu" title="Remover Filtro Categoria" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerCategoria}"/>
+				            	<h:outputLabel for="name" value="#{controleSalasBean.categoriaFiltro.descricao}" rendered="#{controleSalasBean.categoriaFiltro != null}"/>				
+				            </h:panelGrid>
+				        </p:tab>
+				        
+				        <p:tab title="Utensílios">
+						    <p:dataList id="listaUtensilio" value="#{controleSalasBean.utensiliosFiltro}" var="utensilio">
+						    <p:growl id="utensiliofeedback" showDetail="true"/> 
+					        	<p:commandLink update="utensiliofeedback listaUtensilio formu" title="Remover Utensilio" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerUtensilio}">
+					           		<f:setPropertyActionListener target="#{controleSalasBean.utensilioSelecionadoRemover}" value="#{utensilio}" />
+						        </p:commandLink>
+						        <h:outputText value="#{utensilio.nome}"/>
+						    </p:dataList>
+				        </p:tab>
+				        
+				        <p:tab title="Tamanho">
+				            <h:panelGrid columns="2" cellpadding="0">
+				            
+					        <p:commandLink rendered="#{controleSalasBean.tamanhoInserido > 0}" update="formInventario formu" title="Remover Filtro Tamanho" styleClass="ui-icon ui-icon-closethick" style="float:left;margin-right:10px" action="#{controleSalasBean.removerTamanho}"/>
+				            <h:outputLabel value="#{controleSalasBean.tamanhoInserido} Pessoas" rendered="#{controleSalasBean.tamanhoInserido > 0}"/>
+				            
+				            </h:panelGrid>
+				        </p:tab>
+				        
+				    </p:accordionPanel>
+			    </h:form>
+			    <div class="adicionarInventario">
+				    <h:form id="frm">
+					<p:growl id="msgs" showDetail="true" />
+					
+						<p:panel id="painel" header="Selecione um Item">
+							<h:panelGrid columns="1" cellpadding="5">
+							    <p:outputLabel for="tipo" value="Tipo Inventário: " />
+							    <p:selectOneMenu id="tipo" value="#{controleSalasBean.itemSelecionado}" >
+								    <f:selectItem itemLabel="Itens" itemValue="" noSelectionOption="true" />
+								    <f:selectItems value="#{controleSalasBean.listaItens}" />
+								    <p:ajax update="frm:painel" />
+								</p:selectOneMenu>
 
-	
+								<p:outputLabel value="Inventario: " />
+								<p:selectOneMenu id="listaUtensilio" value="#{controleSalasBean.nomeU}" rendered="#{controleSalasBean.itemSelecionado == 'Utensilio'}">
+   									<f:selectItem itemLabel="Utensilio" itemValue="" />
+    								<f:selectItems value="#{controleSalasBean.utensilios}" var="u" itemLabel="#{u.nome}" itemValue="#{u.nome}"  />
+								</p:selectOneMenu>
+								
+								<p:selectOneMenu id="listaCategoria" value="#{controleSalasBean.nomeC}" rendered="#{controleSalasBean.itemSelecionado == 'Categoria'}">
+   									<f:selectItem itemLabel="Categoria" itemValue="" />
+    								<f:selectItems value="#{controleSalasBean.categorias}" var="c" itemLabel="#{c.descricao}" itemValue="#{c.descricao}"  />
+								</p:selectOneMenu>
+								
+								<p:spinner id="tamMinMax" value="#{controleSalasBean.tamanhoInserido}" min="0" max="1000" rendered="#{controleSalasBean.itemSelecionado == 'Tamanho'}"/>
+
+            
+							</h:panelGrid>
+						 
+				        	<p:separator />
+						 
+				        	<p:commandButton value="Submit" update="msgs formInventario formu" actionListener="#{controleSalasBean.adicionarFiltro}" icon="ui-icon-check" class="verde alugarBtn"/>
+					    </p:panel>
+					</h:form>
+					</div>
+		</div>
+		
+			
+		<f:event listener="#{controleSalasBean.carregarSalas}" type="preRenderView" />
+		<h:form id="formu" >
+			<p:dataGrid var="sala" value="#{controleSalasBean.salas}" columns="3" layout="grid"
+			    rows="12" paginator="true" id="salas"
+			    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			    rowsPerPageTemplate="6,12,16" style="padding-left: 25%; margin-top: 5%;">
+			
+			    <f:facet name="header">
+			        Salas para alugar
+			    </f:facet>
+			
+			    <p:panel header="#{sala.descricao}" style="text-align:center">
+			       <h:panelGrid columns="1" style="width:100%">
+			       <p:dataGrid id="imgsala22" var="imagem" value="#{sala.imagens}" columns="1">
+				   		<p:graphicImage id="imgsala221" value="#{imagem.url}" style="height: 180px; width: 300px;"/>
+				   </p:dataGrid>
+				   		<p:rating value="#{sala.estrela}" />
+			           	<h:outputText value="#{sala.preco}" />
+			           
+			           	<p:commandLink id="comandoExibirSala" title="Detalhes" actionListener="#{controleSalasBean.exibirSala}">
+		                   	<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+		                   	<f:setPropertyActionListener for="comandoExibirSala" target="#{controleSalasBean.salaSelecionada}" value="#{sala}"/>
+		               	</p:commandLink>
+			
+			           
+			        </h:panelGrid>
+			    </p:panel>
+			
+			</p:dataGrid>
+		
+		
+		</h:form>
+
+	</ui:define>
+	</ui:composition>
 	</h:body>
 </html>
