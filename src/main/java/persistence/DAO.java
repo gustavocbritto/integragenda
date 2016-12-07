@@ -13,7 +13,7 @@ public class DAO {
 	protected ResultSet rs;
 	protected Statement st;
 	
-	String url="jdbc:postgresql://localhost:5432/integragenda";
+	String url="jdbc:postgresql://localhost:5432,postgresql-94-centos7:5432/integragenda";
 	String usuario="postgres";
 	String senha= "123456";
 	
@@ -22,6 +22,7 @@ public class DAO {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(url, usuario, senha);
 
+			
 	}
 	public void close()throws Exception{
 		con.close();
