@@ -39,8 +39,9 @@ public class AdminEditTodasAsSalas {
 
 	@When("^Eu clico em minhas salas$")
 	public void euClicoEmMinhasSalas() throws Throwable {
-		
+		//bean responsavel por pegar as salas que posso editar
 		controleMinhasSalas.selecionaSalas();
+		//bean responsavel por pegar todas as salas
 		controleSalas.selecionaSalas();
 	}
 
@@ -52,7 +53,8 @@ public class AdminEditTodasAsSalas {
 	    listaSalas = controleSalas.getSalas();
 	    listaMihasSalas = controleMinhasSalas.getSalas();
 	    
-	    assertThat(listaSalas, is(listaMihasSalas));
+	    //Verifico se a quantidade de salas eh a mesma quantidade de salas que posso editar
+	    assertThat(listaSalas.size(), is(listaMihasSalas.size()));
 	    
 	}
 	
