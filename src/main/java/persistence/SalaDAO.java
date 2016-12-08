@@ -330,5 +330,13 @@ public class SalaDAO extends DAO {
 		
 		imagem.deletar();
 	}
+
+	public void updateEstrela(int idSala, int estrela) throws Exception{
+		open();
+		stmt = con.prepareStatement("update sala set estrela = "+ estrela +" where sala.id = "+ idSala);
+		stmt.executeUpdate();
+		close();
+		
+	}
 	
 }

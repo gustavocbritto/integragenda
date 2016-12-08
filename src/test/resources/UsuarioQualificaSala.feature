@@ -4,8 +4,3 @@ Feature: UsuarioQualificaSala
     Given Eu desejo avaliar uma sala que eu ja tenha alugado
     When Eu seleciono a pontuacao 5 para a sala
     Then A pontuacao da sala e atualizada com meu voto
-
-   Scenario: Usuario deseja avaliar uma sala que nao tenha alugado
-    Given Eu desejo avaliar uma sala que eu nao tenha alugado
-    When Seleciono a pontuacao 0 para a sala
-    Then A pontuacao da sala nao e atualizada com meu voto

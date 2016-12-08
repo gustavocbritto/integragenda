@@ -60,6 +60,9 @@ public class ControleSalasBean implements Serializable {
     private Date dt_inicial;
     private Date dt_final;
     
+    //Define se o usuario logado pode pontuar a sala ou nao
+    private boolean disablePodePontuar = true;
+    
     @ManagedProperty(value = "#{usuario}")
     private Usuario usuario; 
     
@@ -77,6 +80,13 @@ public class ControleSalasBean implements Serializable {
 			
     		utensilios = utensilioDAO.getLista();
     		categorias = categoriaDAO.getLista();
+    		
+    		if(usuario.getPessoa() != null)
+    			if(usuario.getPessoa().getTipo() != null)
+		    		if(usuario.getPessoa().getTipo().equals("Admin"))
+		    		{
+		    			disablePodePontuar = false;
+		    		}
     		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -294,6 +304,7 @@ public class ControleSalasBean implements Serializable {
 		
     }
     
+    
     public void addMessage(String summary, String detail) {
     	FacesMessage message;
     	
@@ -318,7 +329,23 @@ public class ControleSalasBean implements Serializable {
 		this.usuario = usuario;
 	}
     
-    public String getCidadeSelecionada() {
+	
+	
+    public boolean getDisablePodePontuar() {
+		if(usuario.getPessoa() != null)
+			if(usuario.getPessoa().getTipo() != null)
+	    		if(usuario.getPessoa().getTipo().equals("Admin"))
+	    		{
+	    			disablePodePontuar = false;
+	    		}
+		return disablePodePontuar;
+	}
+
+	public void setDisablePodePontuar(boolean podePontuar) {
+		this.disablePodePontuar = podePontuar;
+	}
+
+	public String getCidadeSelecionada() {
 		return cidadeSelecionada;
 	}
 
