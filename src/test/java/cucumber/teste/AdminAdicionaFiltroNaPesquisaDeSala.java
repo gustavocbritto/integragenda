@@ -1,7 +1,6 @@
 package cucumber.teste;
 
 import model.Categoria;
-import model.ControleSalasBean;
 import model.Sala;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -10,6 +9,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import java.util.ArrayList;
 import java.util.List;
+
+import Controller.ControleSalasBean;
 
 
 public class AdminAdicionaFiltroNaPesquisaDeSala {

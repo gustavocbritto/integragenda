@@ -1,8 +1,6 @@
 package cucumber.teste;
 
-import model.ControleMinhasSalasBean;
 import model.Pessoa;
-import model.Usuario;
 import model.Sala;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -13,6 +11,9 @@ import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Controller.ControleMinhasSalasBean;
+import Controller.Usuario;
 
 
 public class UsuarioAcessoAsSuasSalas {

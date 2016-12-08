@@ -1,9 +1,7 @@
-package model;
+package Controller;
  
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,19 +12,27 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SlideEndEvent;
+
+import model.Categoria;
+import model.Imagem;
+import model.Sala;
+import model.Utensilio;
 import persistence.CategoriaDAO;
 import persistence.SalaDAO;
 import persistence.UtensilioDAO;
 
  
-@ManagedBean(name="controleSalasBean")
+@ManagedBean(name="controleMinhasSalasBean")
 @SessionScoped
-public class ControleSalasBean implements Serializable {
+public class ControleMinhasSalasBean implements Serializable {
      
+
+
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6998096403529389893L;
+	private static final long serialVersionUID = 5402430546353335471L;
 	private UtensilioDAO utensilioDAO = new UtensilioDAO();
 	private CategoriaDAO categoriaDAO = new CategoriaDAO();
 	private SalaDAO salaDAO = new SalaDAO();
@@ -60,61 +66,52 @@ public class ControleSalasBean implements Serializable {
     private Date dt_inicial;
     private Date dt_final;
     
-    //Define se o usuario logado pode pontuar a sala ou nao
-    private boolean disablePodePontuar = true;
-    
     @ManagedProperty(value = "#{usuario}")
     private Usuario usuario; 
     
     @PostConstruct
     public void init() {
     	
+
 		try {
+			
+			if(usuario == null)
+				throw new Exception("Usuario nao logado");
 			
 			listaItens.add("Categoria");
 			listaItens.add("Utensilio");
 			listaItens.add("Tamanho");
 			
-
+			System.out.println(usuario.getPessoa().getId());
 			selecionaSalas();
+			adicionarSalaParaSalvar();
 			
     		utensilios = utensilioDAO.getLista();
     		categorias = categoriaDAO.getLista();
-
     		
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.print(e.getMessage());
 		}
-    }
-    
-    public String dataInicialFormatada()
-    {
-    	DateFormat dtOutput = new SimpleDateFormat("dd/MM/YYYY");
-        return dtOutput.format(dt_inicial.getTime());
-    }
-    
-    public String dataFinalFormatada()
-    {
-    	DateFormat dtOutput = new SimpleDateFormat("dd/MM/YYYY");
-        return dtOutput.format(dt_final.getTime());
     }
     
     public void carregarSalas() throws Exception
     {
     	selecionaSalas();
-    }
-    public void buscaCidadeEData() throws Exception
-    {
-    	selecionaSalas();
+    	adicionarSalaParaSalvar();
     }
     
-
-    public void buscaCidade() throws Exception
+    public void buscaCidadeEData()
     {
-    	selecionaSalas();
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("selecaoSala.jsf");
+    	try{
+    		
+    		selecionaSalas();
+    		adicionarSalaParaSalvar();
+    	}catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    	}
     }
-
+    
     public void adicionarFiltro()
     {
     	try
@@ -168,6 +165,7 @@ public class ControleSalasBean implements Serializable {
     		}
 	    	
 	    	selecionaSalas();
+	    	adicionarSalaParaSalvar();
     	}catch(Exception e)
     	{
     		System.out.println(e.getMessage());
@@ -176,7 +174,11 @@ public class ControleSalasBean implements Serializable {
     
     public void selecionaSalas() throws Exception
     {
-    	salas = salaDAO.consultar();
+    	if(usuario.getPessoa().getTipo().equals("Admin"))
+    		salas = salaDAO.consultar();
+    	else
+    		salas = salaDAO.consultarPorUsuario(usuario.getPessoa().getId());
+    	
     	ArrayList<Sala> salaTemp = new ArrayList<Sala>();
     	
     	for(Sala s : salas)
@@ -267,8 +269,17 @@ public class ControleSalasBean implements Serializable {
     		salas.add(s);
     	}
     	
-
     	
+    }
+    
+    public Sala getInstanceSalaNova()
+    {
+    	Sala salaCriacao = new Sala();
+    	
+    	Imagem imagemCriacao = new Imagem("/resources/img/novasala.png");
+    	salaCriacao.getImagens().add(imagemCriacao);
+    	salaCriacao.setPessoa(usuario.getPessoa());
+    	return salaCriacao;
     }
     
     public void onSlideEnd(SlideEndEvent event) {
@@ -291,14 +302,19 @@ public class ControleSalasBean implements Serializable {
 				}
 			}
 			selecionaSalas();
+			adicionarSalaParaSalvar();
 		}catch(Exception e)
 		{
 			System.out.println(e.getMessage());
 		}
 		
     }
-    
-    
+    public void adicionarSalaParaSalvar()
+    {
+    	Sala salaCriacao = getInstanceSalaNova();
+    	salas.add(salaCriacao);
+    }
+
     public void addMessage(String summary, String detail) {
     	FacesMessage message;
     	
@@ -315,7 +331,7 @@ public class ControleSalasBean implements Serializable {
     
     public void exibirSala() throws IOException
     {
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("salaSelecionada.jsf");
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("salaSelecionadaEdit.jsf");
     }
     
 	//Setter necessario para a anotação @ManagedProperty Funcionar corretamente =S
@@ -323,22 +339,8 @@ public class ControleSalasBean implements Serializable {
 		this.usuario = usuario;
 	}
     
-	
-	
-    public boolean getDisablePodePontuar() {
-		if(usuario != null && usuario.getPessoa() != null && usuario.getPessoa().getTipo() != null)
-			if(usuario.getPessoa().getTipo().equals("Admin"))
-			{
-				disablePodePontuar = false;
-			}
-		return disablePodePontuar;
-	}
-
-	public void setDisablePodePontuar(boolean podePontuar) {
-		this.disablePodePontuar = podePontuar;
-	}
-
-	public String getCidadeSelecionada() {
+    
+    public String getCidadeSelecionada() {
 		return cidadeSelecionada;
 	}
 
@@ -366,12 +368,14 @@ public class ControleSalasBean implements Serializable {
     {
     	tamanhoInserido = 0;
     	selecionaSalas();
+    	adicionarSalaParaSalvar();
     }
     
     public void removerCategoria() throws Exception
     {
     	categoriaFiltro = null;
     	selecionaSalas();
+    	adicionarSalaParaSalvar();
     }
     public ArrayList<Utensilio> getUtensiliosFiltro() {
 		return utensiliosFiltro;
@@ -477,18 +481,4 @@ public class ControleSalasBean implements Serializable {
     public void setSalaSelecionada(Sala salaSelecionada) {
         this.salaSelecionada = salaSelecionada;
     }
-
-	public boolean verificaDisponibilidadeSala(Sala sala) throws Exception 
-	{
-		boolean retorno =  false;
-		
-    	if(dt_inicial != null && dt_final != null)
-    	{
-			if(sala.getDisponivel(dt_inicial, dt_final))
-			{
-				retorno =  true;
-			}
-    	}
-		return retorno;
-	}
 }

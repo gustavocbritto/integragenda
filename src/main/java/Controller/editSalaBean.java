@@ -1,4 +1,4 @@
-package model;
+package Controller;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,6 +15,11 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+
+import model.Categoria;
+import model.Imagem;
+import model.Sala;
+import model.Utensilio;
 import persistence.CategoriaDAO;
 import persistence.SalaDAO;
 import persistence.UtensilioDAO;

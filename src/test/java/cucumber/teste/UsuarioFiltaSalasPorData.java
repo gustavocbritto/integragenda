@@ -1,6 +1,5 @@
 package cucumber.teste;
 
-import model.ControleSalasBean;
 import model.Sala;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -12,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import Controller.ControleSalasBean;
 
 
 public class UsuarioFiltaSalasPorData {

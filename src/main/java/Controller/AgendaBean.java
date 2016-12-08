@@ -1,4 +1,4 @@
-package model;
+package Controller;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -11,6 +11,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
+
+import model.Agenda;
 
  
 @ManagedBean(name="agendaBean")

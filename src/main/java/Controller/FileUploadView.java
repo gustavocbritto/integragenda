@@ -1,4 +1,4 @@
-package model;
+package Controller;
 
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;

@@ -1,10 +1,7 @@
 package cucumber.teste;
 
-import model.ControleMinhasSalasBean;
-import model.ControleSalasBean;
 import model.Pessoa;
 import model.Sala;
-import model.Usuario;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -12,6 +9,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import java.util.ArrayList;
 import java.util.List;
+
+import Controller.ControleMinhasSalasBean;
+import Controller.ControleSalasBean;
+import Controller.Usuario;
 
 
 public class AdminEditTodasAsSalas {

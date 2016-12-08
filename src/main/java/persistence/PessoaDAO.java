@@ -1,8 +1,8 @@
 package persistence;
 
 
+import Controller.Usuario;
 import model.Pessoa;
-import model.Usuario;
 
 public class PessoaDAO extends DAO{
 
