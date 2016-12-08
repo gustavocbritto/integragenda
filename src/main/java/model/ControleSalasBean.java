@@ -80,13 +80,7 @@ public class ControleSalasBean implements Serializable {
 			
     		utensilios = utensilioDAO.getLista();
     		categorias = categoriaDAO.getLista();
-    		
-    		if(usuario.getPessoa() != null)
-    			if(usuario.getPessoa().getTipo() != null)
-		    		if(usuario.getPessoa().getTipo().equals("Admin"))
-		    		{
-		    			disablePodePontuar = false;
-		    		}
+
     		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -332,12 +326,11 @@ public class ControleSalasBean implements Serializable {
 	
 	
     public boolean getDisablePodePontuar() {
-		if(usuario.getPessoa() != null)
-			if(usuario.getPessoa().getTipo() != null)
-	    		if(usuario.getPessoa().getTipo().equals("Admin"))
-	    		{
-	    			disablePodePontuar = false;
-	    		}
+		if(usuario != null && usuario.getPessoa() != null && usuario.getPessoa().getTipo() != null)
+			if(usuario.getPessoa().getTipo().equals("Admin"))
+			{
+				disablePodePontuar = false;
+			}
 		return disablePodePontuar;
 	}
 

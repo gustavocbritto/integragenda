@@ -194,7 +194,6 @@ public class Sala implements Serializable{
 	}
 
 	public void setEstrela(int estrela) throws Exception {
-		System.out.println("idSala: "+ idSala + "Estrela: "+ estrela);
 		if(idSala > 0 )
 			salaDAO.updateEstrela(idSala, estrela);
 		this.estrela = estrela;
