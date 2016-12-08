@@ -126,7 +126,7 @@ xmlns:p="http://primefaces.org/ui">
 				   		<p:graphicImage id="imgsala221" value="#{imagem.url}" style="height: 180px; width: 300px;"/>
 				   </p:dataGrid>
 				   		<p:rating value="#{sala.estrela}" disabled="#{controleSalasBean.disablePodePontuar}">
-           					<p:ajax event="rate" />
+           					<p:ajax event="rate" update="formu" />
            				</p:rating>
 			           	<h:outputText value="#{sala.preco}" />
 			           

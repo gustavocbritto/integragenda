@@ -76,7 +76,7 @@ public class SalaDAO extends DAO {
 
 		open();
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT id, idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, idAdministrador, estrela, status, numero FROM sala");
+		rs = st.executeQuery("SELECT id, idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, idAdministrador, estrela, status, numero FROM sala order by id;");
 
 		while (rs.next()) {
 			categoria = categoriaDAO.consulta(rs
@@ -227,7 +227,7 @@ public class SalaDAO extends DAO {
 		open();
 		
 		st = con.createStatement();
-		rs = st.executeQuery("SELECT id, idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, estrela, status, numero FROM SALA WHERE idAdministrador = "+idUsuario+";");
+		rs = st.executeQuery("SELECT id, idcategoria, tamanhoMin, tamanhoMax, preco, idlocalizacao, descricao, estrela, status, numero FROM SALA WHERE idAdministrador = "+idUsuario+" order by id;");
 	
 		while (rs.next()) {
 			categoria = categoriaDAO.consulta(rs
