@@ -83,11 +83,11 @@ xmlns:p="http://primefaces.org/ui">
 
 							    <p:outputLabel for="horarioFim" value="Horario Fim:" />
         						<p:calendar id="horarioFim" value="#{editSalaBean.horarioFim}" pattern="HH:mm" timeOnly="true"  />						   
-            
+            					<p:separator />
 							    <h:outputLabel value ="Preço(R$)/dia: #{editSalaBean.sala.preco}"/>
 							    
 							    <h:outputLabel value ="Numero da Sala: #{editSalaBean.sala.numeroSala}"/>
-							    
+							    <p:separator />
 						    	<h:outputLabel for="name" value="Localização:" />
 						    
 								<p:growl id="msgLocalizacao" showDetail="true" />
@@ -103,9 +103,18 @@ xmlns:p="http://primefaces.org/ui">
 								<h:outputLabel value="Numero: #{editSalaBean.sala.localizacao.numero}"/>
 								
 								<h:outputLabel value="Complemento: #{editSalaBean.sala.localizacao.complemento}"/>	
-	 						
+	 							<p:separator />
+	 						    <h:outputLabel for="nameLocador" value="Locador:" />
+						
+							    <h:outputLabel id="nomeLocador" value="Nome: #{editSalaBean.sala.pessoa.nome} #{editSalaBean.sala.pessoa.sobrenome}"/>
+								
+								<h:outputLabel id="emailLocador" value="Email: #{editSalaBean.sala.pessoa.email}"/>
+								
+								<h:outputLabel id="telefoneLocador" value="Telefone: #{editSalaBean.sala.pessoa.telefone}"/>
+	 							<p:separator />
 							    <h:outputLabel for="name" value="Descrição:" />
     							<p:inputTextarea value="#{editSalaBean.sala.descricao}" disabled="true" rows="5" cols="30" counter="display" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" />
+    						
     						</h:panelGrid>
     						<h:panelGrid columns="2" cellpadding="4">	
     							<h:outputText id="display" />

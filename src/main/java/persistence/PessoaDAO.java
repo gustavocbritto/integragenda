@@ -20,9 +20,18 @@ public class PessoaDAO extends DAO{
 		
 		if(rs.next())
 		{
-			pessoa = new Pessoa(rs.getString("nome"), rs.getString("sobrenome"), rs.getString("email"), rs.getString("sexo"),rs.getString("senha"),rs.getString("confirmarsenha"),rs.getString("telefone"));
+			pessoa = new Pessoa();
+			
+			pessoa.setNome(rs.getString("nome"));
+			pessoa.setSobrenome(rs.getString("sobrenome"));
+			pessoa.setEmail(rs.getString("email"));
+			pessoa.setSexo(rs.getString("sexo"));
+			pessoa.setSenha(rs.getString("senha"));
+			pessoa.setConfirmarsenha(rs.getString("confirmarsenha"));
+			pessoa.setTelefone(rs.getString("telefone"));
 			pessoa.setTipo(tipoDAO.consulta(rs.getInt("tipo")));
 			pessoa.setId(idPessoa);
+			
 		}
 		
 		close();
