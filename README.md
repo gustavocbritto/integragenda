@@ -18,7 +18,8 @@ Para os usuarios que alugarem uma sala, ficará disponivel para eles uma agenda 
 <br>
 
 <b>Grupo:</b> Bruno Dell'Orto e Gustavo Britto.<br>
-
+<b>Site: </b><br>
+http://integragenda-integragenda.44fs.preview.openshiftapps.com/integragenda/
 <b>Pitch: </b><br>
 http://prezi.com/iefv_yy5qxpa/?utm_campaign=share&utm_medium=copy&rc=ex0share
 <br>
