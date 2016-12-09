@@ -191,7 +191,7 @@ public class editSalaBean implements Serializable {
         	String realPath =  context.getRealPath(caminhoBase);
         	//System.out.println(context.getContextPath());
         	byte[] arquivo = file.getContents();
-        	String caminho = realPath +"\\"+ file.getFileName();
+        	String caminho = realPath +"/"+ file.getFileName();
             FileOutputStream fos = new FileOutputStream(caminho);
             System.out.println(caminho);
             fos.write(arquivo);
