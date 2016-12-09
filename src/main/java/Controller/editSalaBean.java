@@ -187,7 +187,7 @@ public class editSalaBean implements Serializable {
         if(file != null) {
         	FacesContext aFacesContext = FacesContext.getCurrentInstance();
         	ServletContext context = (ServletContext) aFacesContext.getExternalContext().getContext(); 
-        	String caminhoBase = "/resources/img/";
+        	String caminhoBase = "//resources//img//";
         	String realPath =  context.getRealPath(caminhoBase);
         	//System.out.println(context.getContextPath());
         	byte[] arquivo = file.getContents();
