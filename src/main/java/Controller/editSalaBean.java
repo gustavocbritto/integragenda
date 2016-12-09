@@ -196,7 +196,7 @@ public class editSalaBean implements Serializable {
             System.out.println(caminho);
             fos.write(arquivo);
             fos.close();
-            Imagem imagem = new Imagem(caminhoBase+"/"+file.getFileName());
+            Imagem imagem = new Imagem(caminhoBase+"//"+file.getFileName());
             imagem.inserir();
             if(sala.getIdSala() > 0)
             {
