@@ -117,11 +117,11 @@ xmlns:p="http://primefaces.org/ui">
 			       <p:dataGrid id="imgsala222" var="imagem" value="#{sala.imagens}" columns="1">
 				   		<p:graphicImage id="imgsala2212" value="#{imagem.url}" style="height: 180px; width: 300px;"/>
 				   </p:dataGrid>
-				   		<p:rating value="#{sala.estrela}" />
+				   		<p:rating value="#{sala.estrela}" disabled="true"/>
 			           	<h:outputText value="#{sala.preco}" />
 			           
 			           	<p:commandLink id="comandoExibirSala2" title="Detalhes" actionListener="#{controleMinhasSalasBean.exibirSala}">
-		                   	<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+		                   	<h:outputText styleClass="ui-icon ui-icon-wrench" style="margin:0 auto;" />
 		                   	<f:setPropertyActionListener for="comandoExibirSala2" target="#{controleMinhasSalasBean.salaSelecionada}" value="#{sala}"/>
 		               	</p:commandLink>
 			
